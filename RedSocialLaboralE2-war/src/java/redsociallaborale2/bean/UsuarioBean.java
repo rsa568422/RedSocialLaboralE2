@@ -9,6 +9,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Usuario;
 
 /**
@@ -64,6 +66,10 @@ public class UsuarioBean implements Serializable {
         init();
         return "login.xhtml";
     }
+    
+    public String doSignOut() {
+        return "confirmacion.xhtml";
+    } 
     
     public String doVerPerfil() {
         usuarioSeleccionado = usuario;

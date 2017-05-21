@@ -25,7 +25,7 @@ public class SignInBean {
     private UsuarioFacade usuarioFacade;
     
     @Inject
-    private UsuarioBean usuario;
+    private UsuarioBean sesion;
     
     private String email;
     private String pass;
@@ -54,7 +54,7 @@ public class SignInBean {
         instagram = "";
         web = "";
         foto = "";
-        usuario.error = 0;
+        sesion.error = 0;
     }
 
     public String getEmail() {
@@ -157,13 +157,13 @@ public class SignInBean {
                 error = 16; // <------------------------------------------------ [16]
             }
         }
-        usuario.error = error;
+        sesion.error = error;
         return next;
     }
     
     public String doShowErrorMsg() {
         String str;
-        switch (usuario.error) {
+        switch (sesion.error) {
             case 1: str = "Error: introduzca email"; break;
             case 2: str = "Error: introduzca pass"; break;
             case 4: str = "Error: confirme pass"; break;

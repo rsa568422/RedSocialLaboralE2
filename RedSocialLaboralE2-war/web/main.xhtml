@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
+        <meta charset="UTF-8"/>
         <title>Pagina principal</title>
     </h:head>
     <h:body>
@@ -14,7 +15,7 @@
             <table>
                 <tr>
                     <td><h:commandButton value="Perfil" action="#{usuarioBean.doVerPerfil()}"/></td>
-                    <td><h:commandButton value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
                 </tr>
             </table>
         </h:form>

@@ -6,9 +6,11 @@
 package redsociallaborale2.bean;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import redsociallaborale2.ejb.UsuarioFacade;
 
 /**
  *
@@ -17,6 +19,9 @@ import javax.inject.Inject;
 @Named(value = "editarUsuarioBean")
 @RequestScoped
 public class EditarUsuarioBean {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
     
     @Inject
     UsuarioBean sesion;
@@ -31,7 +36,7 @@ public class EditarUsuarioBean {
     
     @PostConstruct
     void init() {
-        rePass = "";
+        rePass = sesion.usuarioSeleccionado.getPass();
         sesion.error = 0;
     }
 
@@ -44,7 +49,18 @@ public class EditarUsuarioBean {
     }
     
     public String doSave() {
-        return "";
+        String next = "verPerfil.xhtml";
+        sesion.error = sesion.usuarioSeleccionado.getEmail() == null || sesion.usuarioSeleccionado.getEmail().isEmpty() ? 1 : 0;                            // error = [1 3 5 7]
+        sesion.error = sesion.usuarioSeleccionado.getPass()== null || sesion.usuarioSeleccionado.getPass().isEmpty() ? sesion.error + 2 : sesion.error;     // error = [2 3 6 7]
+        sesion.error = sesion.usuarioSeleccionado.getNombre()== null || sesion.usuarioSeleccionado.getNombre().isEmpty() ? sesion.error + 4 : sesion.error; // error = [4 5 6 7]
+        if (sesion.error == 0) {
+            sesion.usuario = sesion.usuarioSeleccionado;
+            usuarioFacade.edit(sesion.usuario);
+        } else {
+            next = "editarPerfil.xhtml";
+        }
+        
+        return next;
     }
     
     public String doShowErrorMsg() {

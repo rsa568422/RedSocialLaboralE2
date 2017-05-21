@@ -31,7 +31,7 @@ public class EditarUsuarioBean {
     
     @PostConstruct
     void init() {
-        rePass = "";
+        rePass = sesion.usuarioSeleccionado.getPass();
         sesion.error = 0;
     }
 
@@ -44,7 +44,7 @@ public class EditarUsuarioBean {
     }
     
     public String doSave() {
-        return "";
+        return "editarPerfil.xhtml";
     }
     
     public String doShowErrorMsg() {

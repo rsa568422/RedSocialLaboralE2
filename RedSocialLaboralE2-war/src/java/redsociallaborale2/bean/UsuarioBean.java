@@ -65,12 +65,17 @@ public class UsuarioBean implements Serializable {
         return "login.xhtml";
     }
     
-    public String doGoToPerfil() {
+    public String doVerPerfil() {
         usuarioSeleccionado = usuario;
         return "verPerfil.xhtml";
     }
     
-    public String doGoToMain() {
+    public String doEditarPerfil() {
+        usuarioSeleccionado = usuario;
+        return "editarPerfil.xhtml";
+    }
+    
+    public String doMain() {
         usuarioSeleccionado = null;
         return "main.xhtml";
     }

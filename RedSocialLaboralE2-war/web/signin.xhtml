@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+    Document   : signin.xhtml
+    Author     : Roberto Sanchez
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Signin</title>
+    </h:head>
+    <h:body>
+        <h1>signin.xhtml</h1>
+        <h:form>
+            <table>
+                <tr>
+                    <td><h:outputText value="EMAIL"/></td>
+                    <td><h:inputText value="#{signInBean.email}"/></td>
+                    <td>
+                        <c:if test="#{  usuarioBean.error == 1  ||
+                                        usuarioBean.error == 3  ||
+                                        usuarioBean.error == 5  ||
+                                        usuarioBean.error == 7  ||
+                                        usuarioBean.error == 9  ||
+                                        usuarioBean.error == 11 ||
+                                        usuarioBean.error == 13 ||
+                                        usuarioBean.error == 15}">
+                            <h:outputLabel value="*"/>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="PASS"/></td>
+                    <td><h:inputText value="#{signInBean.pass}"/></td>
+                    <td>
+                        <c:if test="#{  usuarioBean.error == 2  ||
+                                        usuarioBean.error == 3  ||
+                                        usuarioBean.error == 6  ||
+                                        usuarioBean.error == 7  ||
+                                        usuarioBean.error == 10 ||
+                                        usuarioBean.error == 11 ||
+                                        usuarioBean.error == 14 ||
+                                        usuarioBean.error == 15}">
+                            <h:outputLabel value="*"/>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="PASS"/></td>
+                    <td><h:inputText value="#{signInBean.rePass}"/></td>
+                    <td>
+                        <c:if test="#{  usuarioBean.error == 4  ||
+                                        usuarioBean.error == 5  ||
+                                        usuarioBean.error == 6  ||
+                                        usuarioBean.error == 7  ||
+                                        usuarioBean.error == 12 ||
+                                        usuarioBean.error == 13 ||
+                                        usuarioBean.error == 14 ||
+                                        usuarioBean.error == 15}">
+                            <h:outputLabel value="*"/>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="NOMBRE"/></td>
+                    <td><h:inputText value="#{signInBean.nombre}"/></td>
+                    <td>
+                        <c:if test="#{  usuarioBean.error == 8  ||
+                                        usuarioBean.error == 9  ||
+                                        usuarioBean.error == 10 ||
+                                        usuarioBean.error == 11 ||
+                                        usuarioBean.error == 12 ||
+                                        usuarioBean.error == 13 ||
+                                        usuarioBean.error == 14 ||
+                                        usuarioBean.error == 15}">
+                            <h:outputLabel value="*"/>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="APELLIDOS"/></td>
+                    <td><h:inputText value="#{signInBean.apellidos}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="TWITTER"/></td>
+                    <td><h:inputText value="#{signInBean.twitter}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="INSTAGRAM"/></td>
+                    <td><h:inputText value="#{signInBean.instagram}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="WEB"/></td>
+                    <td><h:inputText value="#{signInBean.web}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="FOTO"/></td>
+                    <td><h:inputText value="#{signInBean.foto}"/></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h:outputText value="#{signInBean.doShowErrorMsg()}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton value="Enviar" action="#{signInBean.doSave()}"/>
+                        <a href="#{usuarioBean.doLogOut()}">Volver</a>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>

@@ -57,8 +57,14 @@
         <div class="col-sm-7">
             <div class="col-sm-12">
                 <div class="well">
-                    <p>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</p>
-                    <img src="Inma.png" class="img-circle" height="65" width="65" alt="Avatar"/>
+                    <p>"#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"</p>
+                    <!--<img src="Inma.png" class="img-circle" height="65" width="65" alt="Avatar"/> -->
+                    
+                </div>
+                <div class="well">
+                    <p>
+                        <button class="btn btn-primary" action="#{usuarioBean.doEditarPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.usuarioSeleccionado)}">Editar perfil</button>
+                    </p>
                 </div>
             </div>
             <!-- EMAIL -->

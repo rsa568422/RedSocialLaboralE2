@@ -95,10 +95,11 @@
                         <h:outputText value="#{editarUsuarioBean.doShowErrorMsg()}"/>
                     </td>
                 </tr>
+            </table>
+            <table>
                 <tr>
-                    <td colspan="3">
-                        <h:commandButton value="Enviar" action="#{editarUsuarioBean.doSave()}"/>
-                    </td>
+                    <td><h:commandButton value="Enviar" action="#{editarUsuarioBean.doSave()}"/></td>
+                    <td><h:commandLink value="Cancelar" action="#{usuarioBean.doVerPerfil()}"/></td>
                 </tr>
             </table>
         </h:form>

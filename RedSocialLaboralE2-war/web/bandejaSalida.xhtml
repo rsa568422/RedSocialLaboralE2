@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Bandeja de Salida</title>
+    </h:head>
+    <h:body>
+        <h1>Bandeja Salida</h1>
+        <h:dataTable value="#{mensajesBean.mensajesEnviados}" var="mensaje">
+            <h:column>
+                <f:facet name="header">
+                Mensaje:  
+                </f:facet>
+                #{mensaje.mensaje.substring(0, 20)}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Para:
+                </f:facet>
+                #{mensaje.receptor.nombre + " " + mensaje.receptor.apellidos}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha:
+                </f:facet>
+                #{mensaje.fecha.toString()}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Estado:
+                </f:facet>
+                #{mensajesBean.establecerEstado(mensaje.visto)}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    LEER...
+                </f:facet>
+                <h:commandLink action="#{mensajesBean.doLeerMensaje(mensaje)}" value="Leer"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    BORRAR...
+                </f:facet>
+                <h:commandLink action="#{mensajesBean.doBorrar(mensaje)}" value="Borrar"/>
+            </h:column>
+        </h:dataTable>
+        <br/>
+        <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Bandeja Entrada"/>
+    </h:body>
+</html>
+

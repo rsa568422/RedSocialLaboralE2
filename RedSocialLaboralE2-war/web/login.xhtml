@@ -16,12 +16,12 @@
             <table>
                 <tr>
                     <td><h:outputText value="USER"/></td>
-                    <td><h:inputText value="#{usuarioBean.email}"/></td>
+                    <td><h:inputText value="#{logInBean.email}"/></td>
                     <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 1 || usuarioBean.error == 3}"/></td>
                 </tr> 
                 <tr>
                     <td><h:outputText value="PASS"/></td>
-                    <td><h:inputSecret value="#{usuarioBean.pass}"/></td>
+                    <td><h:inputSecret value="#{logInBean.pass}"/></td>
                     <td>
                         <c:if test="#{usuarioBean.error == 2 || usuarioBean.error == 3}">
                             <h:outputLabel value="*"/>
@@ -30,13 +30,13 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <td><h:outputText value="#{usuarioBean.doShowErrorMsg()}"/></td>
+                        <h:outputText value="#{logInBean.doShowErrorMsg()}"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <h:commandButton value="Log In" action="#{usuarioBean.doLogIn()}"/>
-                        <h:commandLink value="Sign In" action="#{usuarioBean.doSignIn()}"/>
+                        <h:commandButton value="Log In" action="#{logInBean.doLogIn()}"/>
+                        <h:commandLink value="Sign In" action="#{logInBean.doSignIn()}"/>
                     </td>
                 </tr>
             </table> 

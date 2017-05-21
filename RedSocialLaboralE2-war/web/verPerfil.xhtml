@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+    </h:head>
+    <h:body>
+        <table>
+            <tr>
+                <h:form>
+                    <td><h:commandButton value="Volver" action="#{usuarioBean.doGoToMain()}"/></td>
+                    <td><h:commandButton value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                </h:form>
+            </tr>
+        </table>
+        <h1>perfil.xhtml</h1>
+        <table>
+            <tr><td>Email: </td><td>#{usuarioBean.usuarioSeleccionado.email}</td></tr>
+            <tr><td>Pass: </td><td>#{usuarioBean.usuarioSeleccionado.pass}</td></tr>
+            <tr><td>Nombre: </td><td>#{usuarioBean.usuarioSeleccionado.nombre}</td></tr>
+            <tr><td>Apellidos: </td><td>#{usuarioBean.usuarioSeleccionado.apellidos}</td></tr>
+            <tr><td>Twitter: </td><td>#{usuarioBean.usuarioSeleccionado.twitter}</td></tr>
+            <tr><td>Instagram: </td><td>#{usuarioBean.usuarioSeleccionado.instagram}</td></tr>
+            <tr><td>Web: </td><td>#{usuarioBean.usuarioSeleccionado.web}</td></tr>
+            <tr><td>Foto: </td><td>#{usuarioBean.usuarioSeleccionado.foto}</td></tr>
+        </table>
+    </h:body>
+</html>

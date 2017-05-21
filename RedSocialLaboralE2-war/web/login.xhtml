@@ -22,11 +22,7 @@
                 <tr>
                     <td><h:outputText value="PASS"/></td>
                     <td><h:inputSecret value="#{logInBean.pass}"/></td>
-                    <td>
-                        <c:if test="#{usuarioBean.error == 2 || usuarioBean.error == 3}">
-                            <h:outputLabel value="*"/>
-                        </c:if>
-                    </td>
+                    <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 2 || usuarioBean.error == 3}"/></td>
                 </tr>
                 <tr>
                     <td colspan="3">

@@ -164,9 +164,21 @@ public class SignInBean {
     public String doShowErrorMsg() {
         String str;
         switch (usuario.error) {
-            /*case 1: str = "..."; break;
-            ...
-            case 15: str = "..."; break;*/
+            case 1: str = "Error: introduzca email"; break;
+            case 2: str = "Error: introduzca pass"; break;
+            case 4: str = "Error: confirme pass"; break;
+            case 8: str = "Error: introduzca nombre"; break;
+            case 3:
+            case 5:
+            case 6:
+            case 7:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15: str = "Error: faltan campos obligatorios"; break;
             case 16: str = "Error: el pass no coincide"; break;
             case 17: str = "Error: email ya registrado"; break;
             default: str = "";

@@ -8,10 +8,7 @@ package redsociallaborale2.bean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Usuario;
 
 /**
@@ -23,6 +20,7 @@ import redsociallaborale2.jpa.Usuario;
 public class UsuarioBean implements Serializable {
     
     protected Usuario usuario;
+    protected Usuario usuarioSeleccionado;
     protected int error;
 
     /**
@@ -34,6 +32,7 @@ public class UsuarioBean implements Serializable {
     @PostConstruct
     void init() {
         usuario = new Usuario();
+        usuarioSeleccionado = null;
         error = 0;
     }
 
@@ -43,6 +42,14 @@ public class UsuarioBean implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Usuario getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
     }
 
     public int getError() {
@@ -56,5 +63,15 @@ public class UsuarioBean implements Serializable {
     public String doLogOut() {
         init();
         return "login.xhtml";
+    }
+    
+    public String doGoToPerfil() {
+        usuarioSeleccionado = usuario;
+        return "verPerfil.xhtml";
+    }
+    
+    public String doGoToMain() {
+        usuarioSeleccionado = null;
+        return "main.xhtml";
     }
 }

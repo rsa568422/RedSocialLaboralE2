@@ -17,66 +17,50 @@
                 <tr>
                     <td><h:outputText value="EMAIL"/></td>
                     <td><h:inputText value="#{signInBean.email}"/></td>
-                    <td>
-                        <c:if test="#{  usuarioBean.error == 1  ||
-                                        usuarioBean.error == 3  ||
-                                        usuarioBean.error == 5  ||
-                                        usuarioBean.error == 7  ||
-                                        usuarioBean.error == 9  ||
-                                        usuarioBean.error == 11 ||
-                                        usuarioBean.error == 13 ||
-                                        usuarioBean.error == 15}">
-                            <h:outputLabel value="*"/>
-                        </c:if>
-                    </td>
+                    <td><h:outputLabel value="*" rendered="#{   usuarioBean.error == 1  ||
+                                                                usuarioBean.error == 3  ||
+                                                                usuarioBean.error == 5  ||
+                                                                usuarioBean.error == 7  ||
+                                                                usuarioBean.error == 9  ||
+                                                                usuarioBean.error == 11 ||
+                                                                usuarioBean.error == 13 ||
+                                                                usuarioBean.error == 15}"/></td>
                 </tr>
                 <tr>
                     <td><h:outputText value="PASS"/></td>
                     <td><h:inputText value="#{signInBean.pass}"/></td>
-                    <td>
-                        <c:if test="#{  usuarioBean.error == 2  ||
-                                        usuarioBean.error == 3  ||
-                                        usuarioBean.error == 6  ||
-                                        usuarioBean.error == 7  ||
-                                        usuarioBean.error == 10 ||
-                                        usuarioBean.error == 11 ||
-                                        usuarioBean.error == 14 ||
-                                        usuarioBean.error == 15}">
-                            <h:outputLabel value="*"/>
-                        </c:if>
-                    </td>
+                    <td><h:outputLabel value="*" rendered="#{   usuarioBean.error == 2  ||
+                                                                usuarioBean.error == 3  ||
+                                                                usuarioBean.error == 6  ||
+                                                                usuarioBean.error == 7  ||
+                                                                usuarioBean.error == 10 ||
+                                                                usuarioBean.error == 11 ||
+                                                                usuarioBean.error == 14 ||
+                                                                usuarioBean.error == 15}"/></td>
                 </tr>
                 <tr>
                     <td><h:outputText value="PASS"/></td>
                     <td><h:inputText value="#{signInBean.rePass}"/></td>
-                    <td>
-                        <c:if test="#{  usuarioBean.error == 4  ||
-                                        usuarioBean.error == 5  ||
-                                        usuarioBean.error == 6  ||
-                                        usuarioBean.error == 7  ||
-                                        usuarioBean.error == 12 ||
-                                        usuarioBean.error == 13 ||
-                                        usuarioBean.error == 14 ||
-                                        usuarioBean.error == 15}">
-                            <h:outputLabel value="*"/>
-                        </c:if>
-                    </td>
+                    <td><h:outputLabel value="*" rendered="#{   usuarioBean.error == 4  ||
+                                                                usuarioBean.error == 5  ||
+                                                                usuarioBean.error == 6  ||
+                                                                usuarioBean.error == 7  ||
+                                                                usuarioBean.error == 12 ||
+                                                                usuarioBean.error == 13 ||
+                                                                usuarioBean.error == 14 ||
+                                                                usuarioBean.error == 15}"/></td>
                 </tr>
                 <tr>
                     <td><h:outputText value="NOMBRE"/></td>
                     <td><h:inputText value="#{signInBean.nombre}"/></td>
-                    <td>
-                        <c:if test="#{  usuarioBean.error == 8  ||
-                                        usuarioBean.error == 9  ||
-                                        usuarioBean.error == 10 ||
-                                        usuarioBean.error == 11 ||
-                                        usuarioBean.error == 12 ||
-                                        usuarioBean.error == 13 ||
-                                        usuarioBean.error == 14 ||
-                                        usuarioBean.error == 15}">
-                            <h:outputLabel value="*"/>
-                        </c:if>
-                    </td>
+                    <td><h:outputLabel value="*" rendered="#{   usuarioBean.error == 8  ||
+                                                                usuarioBean.error == 9  ||
+                                                                usuarioBean.error == 10 ||
+                                                                usuarioBean.error == 11 ||
+                                                                usuarioBean.error == 12 ||
+                                                                usuarioBean.error == 13 ||
+                                                                usuarioBean.error == 14 ||
+                                                                usuarioBean.error == 15}"/></td>
                 </tr>
                 <tr>
                     <td><h:outputText value="APELLIDOS"/></td>

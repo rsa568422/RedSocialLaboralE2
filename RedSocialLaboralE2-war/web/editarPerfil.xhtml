@@ -11,70 +11,74 @@
         <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
     </h:head>
     <h:body>
-        <table>
-            <tr>
-                <h:form>
-                    <td><h:commandButton value="Volver" action="#{usuarioBean.doVerPerfil()}"/></td>
-                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
-                </h:form>
-            </tr>
-        </table>
+        <div>
+            <table>
+                <tr>
+                    <h:form>
+                        <td><h:commandButton value="Volver" action="#{usuarioBean.doVerPerfil()}"/></td>
+                        <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                    </h:form>
+                </tr>
+            </table>
+        </div>
         <h1>editarPerfil.xhtml</h1>
-        <h:form>
-            <table>
-                <tr>
-                    <td><h:outputText value="EMAIL"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.email}"/></td>
-                    <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorEmail()}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="PASS"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.pass}"/></td>
-                    <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="PASS"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.rePass}"/></td>
-                    <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="NOMBRE"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.nombre}"/></td>
-                    <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorNombre()}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="APELLIDOS"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.apellidos}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="TWITTER"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.twitter}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="INSTAGRAM"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.instagram}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="WEB"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.web}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="FOTO"/></td>
-                    <td><h:inputText value="#{editarUsuarioBean.foto}"/></td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <h:outputText value="#{editarUsuarioBean.doShowErrorMsg()}"/>
-                    </td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td><h:commandButton value="Enviar" action="#{editarUsuarioBean.doSave()}"/></td>
-                    <td><h:commandLink value="Cancelar" action="#{usuarioBean.doVerPerfil()}"/></td>
-                </tr>
-            </table>
-        </h:form>
+        <div>
+            <h:form>
+                <table>
+                    <tr>
+                        <td><h:outputText value="EMAIL"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.email}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorEmail()}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="PASS"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.pass}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="PASS"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.rePass}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="NOMBRE"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.nombre}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorNombre()}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="APELLIDOS"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.apellidos}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="TWITTER"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.twitter}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="INSTAGRAM"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.instagram}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="WEB"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.web}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="FOTO"/></td>
+                        <td><h:inputText value="#{editarUsuarioBean.foto}"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <h:outputText value="#{editarUsuarioBean.doShowErrorMsg()}"/>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><h:commandButton value="Enviar" action="#{editarUsuarioBean.doSave()}"/></td>
+                        <td><h:commandLink value="Cancelar" action="#{usuarioBean.doVerPerfil()}"/></td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
     </h:body>
 </html>
 

@@ -12,15 +12,17 @@
     </h:head>
     <h:body>
         <h1>confirmacion.xhtml</h1>
-        <table>
-            <tr><td colspan="2"><h:outputText value="Aviso: su perfil va a ser eliminado, así como la información asociada a él"/></td></tr>
-            <tr>
-                <h:form>
-                    <td align="center"><h:commandButton value="Eliminar" action="#{signOutBean.doSignOut()}"/></td>
-                    <td align="center"><h:commandButton value="Cancelar" action="#{usuarioBean.doVerPerfil()}"/></td>
-                </h:form>
-            </tr>
-        </table>
+        <div>
+            <table>
+                <tr><td colspan="2"><h:outputText value="Aviso: su perfil va a ser eliminado, así como la información asociada a él"/></td></tr>
+                <tr>
+                    <h:form>
+                        <td align="center"><h:commandButton value="Eliminar" action="#{signOutBean.doSignOut()}"/></td>
+                        <td align="center"><h:commandButton value="Cancelar" action="#{usuarioBean.doVerPerfil()}"/></td>
+                    </h:form>
+                </tr>
+            </table>
+        </div>
     </h:body>
 </html>
 

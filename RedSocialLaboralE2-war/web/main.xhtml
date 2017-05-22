@@ -11,19 +11,25 @@
         <title>Pagina principal</title>
     </h:head>
     <h:body>
-        <h:form>
-            <table>
-                <tr>
-                    <td><h:commandButton value="Perfil" action="#{usuarioBean.doVerPerfil()}"/></td>
-                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
-                </tr>
-            </table>
-        </h:form>
+        <div>
+            <h:form>
+                <table>
+                    <tr>
+                        <td><h:commandButton value="Perfil" action="#{usuarioBean.doVerPerfil()}"/></td>
+                        <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
         <h1>main.xhtml</h1>
-        Logueado: #{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}
-        <h:form>
-            <td><h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}"/></td>
-            <td><h:commandButton value="Bandeja Salida" action="#{mensajesBean.goBandejaSalida()}"/></td>
-        </h:form>
+        <div>
+            <h:form>
+                <td><h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}"/></td>
+                <td><h:commandButton value="Bandeja Salida" action="#{mensajesBean.goBandejaSalida()}"/></td>
+            </h:form>
+        </div>
     </h:body>
 </html>

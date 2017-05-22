@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- 
+    Document   : verPerfil.xhtml
+    Author     : Inmaculada Sanchez y Roberto Sanchez
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+        
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>    
+          /* Set black background color, white text and some padding */
+          footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+          }
+        </style>
+        
+    </h:head>
+    <h:body>
+        <!-- NAVBAR -->
+        <h:form>
+            <nav class="navbar navbar-inverse">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                  </button>
+                  <a class="navbar-brand" href="#">Red Social Laboral</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="#{usuarioBean.doMain()}">Home</a></li>
+                    <li class="active"><a href="#{usuarioBean.doLogOut()}">Log Out</a></li>
+                    <li><a href="#">Messages</a></li>
+                  </ul>
+                  
+                    <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            </h:form>
+        <!-- FIN NAVBAR -->
+        
+        <h:form>
+        <div class="col-sm-7">
+            <div class="col-sm-12">
+                <div class="well">
+                    <p>"#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"</p>
+                    <!--<img src="Inma.png" class="img-circle" height="65" width="65" alt="Avatar"/> -->
+                    
+                </div>
+                <div class="well">
+                    <p>
+                        <button class="btn btn-primary" action="#{usuarioBean.doEditarPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.usuarioSeleccionado)}">Editar perfil</button>
+                    </p>
+                </div>
+            </div>
+            <!-- EMAIL -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="well">
+                        <p>
+                            Email 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                     <div class="well">   
+                        <p>
+                            #{usuarioBean.usuarioSeleccionado.email}
+                        </p>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- PASS -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="well">
+                        <p>
+                            Password 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                     <div class="well">   
+                        <p>
+                            #{usuarioBean.usuarioSeleccionado.pass}
+                        </p>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- NOMBRE -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="well">
+                        <p>
+                            Nombre 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                     <div class="well">   
+                        <p>
+                            #{usuarioBean.usuarioSeleccionado.nombre}
+                        </p>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- APELLIDOS -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="well">
+                        <p>
+                            Apellidos 
+                        </p>
+                    </div>
+                </div>
+              <div class="col-sm-9">
+                     <div class="well">   
+                        <p>
+                            #{usuarioBean.usuarioSeleccionado.apellidos}
+                        </p>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- TWITTER -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="well">
+                        <p>
+                            Twitter 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                     <div class="well">   
+                        <p>
+                            #{usuarioBean.usuarioSeleccionado.twitter}
+                        </p>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- INSTAGRAM -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="well">
+                        <p>
+                            Instagram 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                     <div class="well">   
+                        <p>
+                            #{usuarioBean.usuarioSeleccionado.instagram}
+                        </p>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- WEB -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="well">
+                        <p>
+                            Web 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                     <div class="well">   
+                        <p>
+                            #{usuarioBean.usuarioSeleccionado.web}
+                        </p>
+                     </div>
+                </div>
+            </div>   
+        </div>
+         </h:form> 
+        <!-- FIN COLUMNA CENTRAL -->
+    </h:body>
+</html>

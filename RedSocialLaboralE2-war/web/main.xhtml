@@ -19,10 +19,8 @@
                         <td><h:commandButton value="Perfil" action="#{usuarioBean.doVerPerfil()}"/></td>
                         <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
                     </tr>
-                    <tr>
-                        <td colspan="2"><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
-                    </tr>
                 </table>
+                <h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/>
             </h:form>
         </div>
         <h1>main.xhtml</h1>

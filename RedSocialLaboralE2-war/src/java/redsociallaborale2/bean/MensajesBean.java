@@ -5,8 +5,6 @@
  */
 package redsociallaborale2.bean;
 
-import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,7 +12,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.MensajeFacade;
-import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Mensaje;
 import redsociallaborale2.jpa.Usuario;
 

@@ -37,7 +37,7 @@
                         <f:facet name="header">
                             <h:outputLabel value="Fecha" />
                         </f:facet>
-                        #{mensaje.fecha.toString()}
+                        #{usuarioBean.formatoFecha(mensaje.fecha)}
                     </h:column>
                     <h:column>
                         <f:facet name="header">

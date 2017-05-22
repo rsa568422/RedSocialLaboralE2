@@ -8,6 +8,8 @@ package redsociallaborale2.bean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import redsociallaborale2.jpa.Usuario;
 
@@ -58,6 +60,12 @@ public class UsuarioBean implements Serializable {
     
     public void setError(int error) {
         this.error = error;
+    }
+    
+    public String formatoFecha(Date f){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String fecha = sdf.format(f);
+        return fecha;
     }
     
     public String doLogOut() {

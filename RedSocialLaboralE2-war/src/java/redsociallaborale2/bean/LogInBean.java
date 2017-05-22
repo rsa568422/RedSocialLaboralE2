@@ -60,22 +60,25 @@ public class LogInBean {
     }
     
     public String doLogIn() {
-        sesion.error = 0;
-        sesion.error = email != null && !email.isEmpty() ? sesion.error : sesion.error + 1; // <----- [1 3] Falta email
-        sesion.error = pass != null && !pass.isEmpty() ? sesion.error : sesion.error + 2; // <------- [2 3] Falta pass
-        if (sesion.error == 0) {
+        String next = "login.xhtml";
+        int error;
+        error = email != null && !email.isEmpty() ? 0 : 1; // <----- [1 3] Falta email
+        error = pass != null && !pass.isEmpty() ? error : error + 2; // <------- [2 3] Falta pass
+        if (error == 0) {
             Usuario u = usuarioFacade.findByEmail(email);
             if (u != null) {
                 if (pass.equals(u.getPass())) {
                     sesion.usuario = u;
+                    next = "main.xhtml";
                 } else {
-                    sesion.error = 5; // <--------------------------------------------- [5] No coincide pass
+                    error = 5; // <--------------------------------------------- [5] No coincide pass
                 }
             } else {
-                sesion.error = 4; // <------------------------------------------------- [4] No se encuentra mail
+                error = 4; // <------------------------------------------------- [4] No se encuentra mail
             }
         }
-        return sesion.error == 0 ? "main.xhtml" : "login.xhtml";
+        sesion.error = error;
+        return next;
     }
     
     public String doSignIn() {

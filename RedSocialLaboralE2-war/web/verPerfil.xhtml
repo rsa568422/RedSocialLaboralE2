@@ -39,5 +39,16 @@
                 </tr>
             </table>
         </div>
+        <br/>
+        <div>
+            <h:form>
+                <h:outputLabel value="Aficiones:"/>
+                <h:dataTable value="#{usuarioBean.usuarioSeleccionado.aficiones}" var="aficion">
+                    <h:column>
+                        <h:outputText value="#{aficion.aficionPK.nombre}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
     </h:body>
 </html>

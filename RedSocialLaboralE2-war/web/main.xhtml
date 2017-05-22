@@ -27,7 +27,8 @@
         </div>
         <h1>main.xhtml</h1>
         <h4>Mensajes no leídos:</h4>
-        <h:outputLabel value="Todos los mensajes han sido leídos." rendered="#{mensajesBean.mensajesNoLeidos.size()==0}"/><br/>
+        <div>
+            <h:outputLabel value="Todos los mensajes han sido leídos." rendered="#{mensajesBean.mensajesNoLeidos.size()==0}"/><br/>
         <h:form>
             <h:dataTable value="#{mensajesBean.mensajesNoLeidos}" var="mensaje" rendered="#{mensajesBean.mensajesNoLeidos.size()>0}">
             <h:column>
@@ -68,6 +69,7 @@
             </h:column>
         </h:dataTable>
         </h:form><br/>
+        </div>
         <div>
             <h:form>
                 <td><h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}"/></td>

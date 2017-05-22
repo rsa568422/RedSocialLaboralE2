@@ -6,25 +6,33 @@
         <title>Leer Mensaje</title>
     </h:head>
     <h:body>
-        <table>
+        <div>
+            <table>
             <tr>
                 <h:form>
                     <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
                 </h:form>
             </tr>
         </table>
+        </div>
         <h1>Leer mensaje:</h1>
-        <h:form>
-            De: #{mensajesBean.mensajeSeleccionado.emisor.nombre} #{mensajesBean.mensajeSeleccionado.emisor.apellidos} <br/>
-            Para: #{mensajesBean.mensajeSeleccionado.receptor.nombre} #{mensajesBean.mensajeSeleccionado.receptor.apellidos} <br/>
-            Fecha: #{mensajesBean.mensajeSeleccionado.fecha.toString()} <br/><br/>
-            Mensaje: <br/> #{mensajesBean.mensajeSeleccionado.mensaje} <br/><br/>
-            <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Volver"
-                             rendered="#{!leerMensajeBean.volSalida}"/>
+        <div>
+            <h:form>
+                <h:outputLabel value="De:"/>
+                    #{mensajesBean.mensajeSeleccionado.emisor.nombre} #{mensajesBean.mensajeSeleccionado.emisor.apellidos} <br/>
+                <h:outputLabel value="Para:"/>
+                    #{mensajesBean.mensajeSeleccionado.receptor.nombre} #{mensajesBean.mensajeSeleccionado.receptor.apellidos} <br/>
+                <h:outputLabel value="Fecha:"/>
+                    #{mensajesBean.mensajeSeleccionado.fecha.toString()} <br/><br/>
+                <h:outputLabel value="Mensaje:"/><br/> 
+                    #{mensajesBean.mensajeSeleccionado.mensaje} <br/><br/>
             
-            <h:commandButton action="#{mensajesBean.goBandejaSalida()}" value="Volver" 
+                <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Volver"
+                             rendered="#{!leerMensajeBean.volSalida}"/>
+                <h:commandButton action="#{mensajesBean.goBandejaSalida()}" value="Volver" 
                              rendered="#{!leerMensajeBean.volEntrada}"/>
-        </h:form>
+            </h:form>
+        </div>
     </h:body>
 </html>
 

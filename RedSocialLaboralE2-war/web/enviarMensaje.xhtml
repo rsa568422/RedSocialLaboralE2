@@ -15,16 +15,18 @@
             </tr>
         </table>
         <h1>Enviar mensaje:</h1>
-        <h:form>
-            Amigo:<br/> 
-            <h:selectOneMenu value="#{enviarMensajeBean.amigoSeleccionado}">
-                <f:selectItems value="#{enviarMensajeBean.amigos}" var="amigo" 
-                               itemValue="#{amigo}" itemLabel="#{amigo.nombre} #{amigo.apellidos}"/>
-            </h:selectOneMenu> <br/>
-            Mensaje: <br/>
-            <h:inputTextarea value="" /><br/><br/>
-            <h:commandButton action="#{enviarMensajeBean.doEnvioMensaje()}" value="Enviar"/><br/><br/>
-        </h:form>
+        <div>
+            <h:form>
+                <h:outputLabel value="Amigo:"/><br/> 
+                <h:selectOneMenu value="#{enviarMensajeBean.amigoSeleccionado}">
+                    <f:selectItems value="#{enviarMensajeBean.amigos}" var="amigo" 
+                                   itemValue="#{amigo}" itemLabel="#{amigo.nombre} #{amigo.apellidos}"/>
+                </h:selectOneMenu> <br/>
+                <h:outputLabel value="Mensaje:"/> <br/>
+                <h:inputTextarea value="" /><br/><br/>
+                <h:commandButton action="#{enviarMensajeBean.doEnvioMensaje()}" value="Enviar"/><br/><br/>
+            </h:form>
+        </div>
     </h:body>
 </html>
 

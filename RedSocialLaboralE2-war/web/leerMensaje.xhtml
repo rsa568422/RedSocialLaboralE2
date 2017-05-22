@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Leer Mensaje</title>
+    </h:head>
+    <h:body>
+        <h1>Leer Mensaje:</h1>
+        <h:form>
+            De: #{mensajesBean.mensajeSeleccionado.emisor.nombre} #{mensajesBean.mensajeSeleccionado.emisor.apellidos} <br/>
+            Para: #{mensajesBean.mensajeSeleccionado.receptor.nombre} #{mensajesBean.mensajeSeleccionado.receptor.apellidos} <br/>
+            Fecha: #{mensajesBean.mensajeSeleccionado.fecha.toString()} <br/><br/>
+            Mensaje: <br/> #{mensajesBean.mensajeSeleccionado.mensaje} <br/><br/>
+            <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Bandeja Entrada"/>
+            
+            <h:commandButton action="#{mensajesBean.goBandejaSalida()}" value="Bandeja Salida"/>
+        </h:form>
+    </h:body>
+</html>
+

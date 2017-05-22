@@ -27,12 +27,7 @@ import redsociallaborale2.jpa.Usuario;
 public class MensajesBean{
 
     @EJB
-    private UsuarioFacade usuarioFacade;
-
-    @EJB
-    private MensajeFacade mensajeFacade;
-    
-    
+    private MensajeFacade mensajeFacade;   
 
     @Inject
     private UsuarioBean sesion;
@@ -66,11 +61,6 @@ public class MensajesBean{
         return mensajes;
     }
     
-    public String doLeerMensaje(Mensaje m){
-        this.mensajeSeleccionado = m;
-        return "leerMensaje";
-    } 
-    
     public String doBorrar(Mensaje m){
         this.mensajeFacade.remove(m);
         this.init();
@@ -89,5 +79,9 @@ public class MensajesBean{
     
     public String goBandejaEntrada(){
         return "bandejaEntrada.xhtml";
+    }
+    
+    public Mensaje getMensajeSeleccionado(){
+        return this.mensajeSeleccionado;
     }
 }

@@ -130,8 +130,8 @@ public class SignInBean {
     
     public String doSave() {
         String next = "signin.xhtml";
-        int error = 0;
-        error = email != null && !email.isEmpty() ? error : error + 1; // <----- [ 1  3  5  7  9 11 13 15]
+        int error;
+        error = email != null && !email.isEmpty() ? 0 : 1; // <----------------- [ 1  3  5  7  9 11 13 15]
         error = pass != null && !pass.isEmpty() ? error : error + 2; // <------- [ 2  3  6  7 10 11 14 15]
         error = rePass != null && !rePass.isEmpty() ? error : error + 4; // <--- [ 4  5  6  7 12 13 14 15]
         error = nombre != null && !nombre.isEmpty() ? error : error + 8; // <--- [ 8  9 10 11 12 13 14 15]
@@ -149,7 +149,7 @@ public class SignInBean {
                     u.setWeb(web);
                     u.setFoto(foto);
                     usuarioFacade.create(u);
-                   next = "login.xhtml";
+                    next = "login.xhtml";
                 } else {
                     error = 17; // <-------------------------------------------- [17]
                 }
@@ -165,8 +165,6 @@ public class SignInBean {
         String str;
         switch (sesion.error) {
             case 1: str = "Error: introduzca email"; break;
-            case 2: str = "Error: introduzca pass"; break;
-            case 4: str = "Error: confirme pass"; break;
             case 8: str = "Error: introduzca nombre"; break;
             case 3:
             case 5:
@@ -179,10 +177,38 @@ public class SignInBean {
             case 13:
             case 14:
             case 15: str = "Error: faltan campos obligatorios"; break;
+            case 2:
+            case 4:
             case 16: str = "Error: el pass no coincide"; break;
             case 17: str = "Error: email ya registrado"; break;
             default: str = "";
         }
         return str;
+    }
+    
+    public boolean doShowErrorEmail() {
+        return  sesion.error == 1  ||
+                sesion.error == 3  ||
+                sesion.error == 5  ||
+                sesion.error == 7  ||
+                sesion.error == 9  ||
+                sesion.error == 11 ||
+                sesion.error == 13 ||
+                sesion.error == 15;
+    }
+    
+    public boolean doShowErrorPass() {
+        return sesion.error > 0 && sesion.error < 18;
+    }
+    
+    public boolean doShowErrorNombre() {
+        return  sesion.error == 8  ||
+                sesion.error == 9  ||
+                sesion.error == 10 ||
+                sesion.error == 11 ||
+                sesion.error == 12 ||
+                sesion.error == 13 ||
+                sesion.error == 14 ||
+                sesion.error == 15;
     }
 }

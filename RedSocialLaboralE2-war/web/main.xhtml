@@ -21,5 +21,8 @@
         </h:form>
         <h1>main.xhtml</h1>
         Logueado: #{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}
+        <h:form>
+            <td><h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}"/></td>
+        </h:form>
     </h:body>
 </html>

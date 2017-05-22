@@ -6,13 +6,15 @@
 package redsociallaborale2.bean;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.MensajeFacade;
+import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Mensaje;
 import redsociallaborale2.jpa.Usuario;
 
@@ -21,14 +23,19 @@ import redsociallaborale2.jpa.Usuario;
  * @author anton
  */
 @Named(value = "mensajesBean")
-@SessionScoped
-public class MensajesBean implements Serializable{
+@RequestScoped
+public class MensajesBean{
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     @EJB
     private MensajeFacade mensajeFacade;
+    
+    
 
     @Inject
-    private UsuarioBean usuario;
+    private UsuarioBean sesion;
    
     protected List<Mensaje> mensajes;
     protected Mensaje mensaje;
@@ -40,16 +47,17 @@ public class MensajesBean implements Serializable{
      * Creates a new instance of MensajesBean
      */
     public MensajesBean() {
+        
     }
     
     @PostConstruct
     void init(){
-        u = usuario.getUsuario();
-        //mensaje = new Mensaje();
+        u = sesion.usuario;       
     }
     
     public List<Mensaje> getMensajesRecibidos(){
         mensajes = mensajeFacade.findByReceptor(u);
+        //mensajes = u.getMensajesRecibidos();
         return mensajes;
     }
     
@@ -80,6 +88,6 @@ public class MensajesBean implements Serializable{
     }
     
     public String goBandejaEntrada(){
-        return "bandejaEntrada";
+        return "bandejaEntrada.xhtml";
     }
 }

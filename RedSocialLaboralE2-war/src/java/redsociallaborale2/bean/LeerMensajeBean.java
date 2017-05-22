@@ -30,6 +30,8 @@ public class LeerMensajeBean {
     @Inject
     private UsuarioBean sesion;
     
+    protected boolean volEntrada; 
+    
     /**
      * Creates a new instance of LeerMensajeBean
      */
@@ -43,6 +45,7 @@ public class LeerMensajeBean {
     public String doLeerMensaje(Mensaje m){
         mensaje.mensajeSeleccionado = m;
         this.modificarEstado();
+        this.volverEntrada();
         return "leerMensaje";
     } 
      
@@ -53,5 +56,13 @@ public class LeerMensajeBean {
         }
     }
     
+    private void volverEntrada(){
+        if(mensaje.mensajeSeleccionado.getReceptor().equals(sesion.usuario)) this.volEntrada = true;
+        else this.volEntrada = false;
+    }
+    
+    public boolean getVolEntrada(){
+        return this.volEntrada;
+    }
     
 }

@@ -12,9 +12,11 @@
             Para: #{mensajesBean.mensajeSeleccionado.receptor.nombre} #{mensajesBean.mensajeSeleccionado.receptor.apellidos} <br/>
             Fecha: #{mensajesBean.mensajeSeleccionado.fecha.toString()} <br/><br/>
             Mensaje: <br/> #{mensajesBean.mensajeSeleccionado.mensaje} <br/><br/>
-            <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Bandeja Entrada"/>
-            
-            <h:commandButton action="#{mensajesBean.goBandejaSalida()}" value="Bandeja Salida"/>
+            <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Volver"
+                             rendered="#{leerMensajeBean.volEntrada}"/>
+                        
+            <h:commandButton action="#{mensajesBean.goBandejaSalida()}" value="Volver" 
+                             rendered="#{!leerMensajeBean.volEntrada}"/>
         </h:form>
     </h:body>
 </html>

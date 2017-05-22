@@ -78,7 +78,7 @@ public class MensajesBean{
     }
     
     public String goBandejaEntrada(){
-        return "bandejaEntrada.xhtml";
+        return "bandejaEntrada";
     }
     
     public Mensaje getMensajeSeleccionado(){

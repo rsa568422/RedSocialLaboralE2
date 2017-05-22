@@ -26,7 +26,15 @@ public class EditarUsuarioBean {
     @Inject
     UsuarioBean sesion;
     
+    protected String email;
+    protected String pass;
     protected String rePass;
+    protected String nombre;
+    protected String apellidos;
+    protected String twitter;
+    protected String instagram;
+    protected String web;
+    protected String foto;
 
     /**
      * Creates a new instance of EditarUsuarioBean
@@ -36,8 +44,32 @@ public class EditarUsuarioBean {
     
     @PostConstruct
     void init() {
+        email = sesion.usuarioSeleccionado.getEmail();
+        pass = sesion.usuarioSeleccionado.getPass();
         rePass = sesion.usuarioSeleccionado.getPass();
+        nombre = sesion.usuarioSeleccionado.getNombre();
+        apellidos = sesion.usuarioSeleccionado.getApellidos();
+        twitter = sesion.usuarioSeleccionado.getTwitter();
+        instagram = sesion.usuarioSeleccionado.getInstagram();
+        web = sesion.usuarioSeleccionado.getWeb();
+        foto = sesion.usuarioSeleccionado.getFoto();
         sesion.error = 0;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getRePass() {
@@ -47,24 +79,85 @@ public class EditarUsuarioBean {
     public void setRePass(String rePass) {
         this.rePass = rePass;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
     
     public String doSave() {
         String next = "editarPerfil.xhtml";
         int error;
-        error = sesion.usuarioSeleccionado.getEmail() != null && !sesion.usuarioSeleccionado.getEmail().isEmpty() ? 0 : 1; // <----------------- [ 1  3  5  7  9 11 13 15]
-        error = sesion.usuarioSeleccionado.getPass() != null && !sesion.usuarioSeleccionado.getPass().isEmpty() ? error : error + 2; // <------- [ 2  3  6  7 10 11 14 15]
-        error = rePass != null && !rePass.isEmpty() ? error : error + 4; // <------------------------------------------------------------------- [ 4  5  6  7 12 13 14 15]
-        error = sesion.usuarioSeleccionado.getNombre() != null && !sesion.usuarioSeleccionado.getNombre().isEmpty() ? error : error + 8; // <--- [ 8  9 10 11 12 13 14 15]
+        error = email != null && !email.isEmpty() ? 0 : 1; // <----------------- [ 1  3  5  7  9 11 13 15]
+        error = pass != null && !pass.isEmpty() ? error : error + 2; // <------- [ 2  3  6  7 10 11 14 15]
+        error = rePass != null && !rePass.isEmpty() ? error : error + 4; // <--- [ 4  5  6  7 12 13 14 15]
+        error = nombre != null && !nombre.isEmpty() ? error : error + 8; // <--- [ 8  9 10 11 12 13 14 15]
         
         
         if (error == 0) {
-            if (sesion.usuarioSeleccionado.getPass().equals(rePass)) {
+            if (pass.equals(rePass)) {
+                sesion.usuarioSeleccionado.setEmail(email);
+                sesion.usuarioSeleccionado.setPass(pass);
+                sesion.usuarioSeleccionado.setNombre(nombre);
+                sesion.usuarioSeleccionado.setApellidos(apellidos);
+                sesion.usuarioSeleccionado.setTwitter(twitter);
+                sesion.usuarioSeleccionado.setInstagram(instagram);
+                sesion.usuarioSeleccionado.setWeb(web);
+                sesion.usuarioSeleccionado.setFoto(foto);
                 sesion.usuario = sesion.usuarioSeleccionado;
                 usuarioFacade.edit(sesion.usuario);
                 next = "verPerfil.xhtml";
             } else {
                 error = 16; // <------------------------------------------------ [16]
+                pass = "";
+                rePass = "";
             }
+        } else {
+            pass = "";
+            rePass = "";
         }
         sesion.error = error;
         return next;

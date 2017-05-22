@@ -20,37 +20,37 @@
             <h:dataTable value="#{mensajesBean.mensajesEnviados}" var="mensaje" rendered="#{mensajesBean.mensajesEnviados.size()>0}">
             <h:column>
                 <f:facet name="header">
-                Mensaje:  
+                    <h:outputLabel value="Mensaje" />  
                 </f:facet>
                 #{mensaje.mensaje.substring(0, 20)}
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    Para:
+                    <h:outputLabel value="Para" />
                 </f:facet>
                 #{mensaje.receptor.nombre} #{mensaje.receptor.apellidos}
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    Fecha:
+                    <h:outputLabel value="Fecha" />
                 </f:facet>
                 #{mensaje.fecha.toString()}
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    Estado:
+                    <h:outputLabel value="Estado" />
                 </f:facet>
                 #{mensajesBean.establecerEstado(mensaje.visto)}
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    LEER...
+                    <h:outputLabel value="Leer..." />
                 </f:facet>
                 <h:commandLink action="#{leerMensajeBean.doLeerMensaje(mensaje)}" value="Leer"/>
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    BORRAR...
+                    <h:outputLabel value="Borrar..." />
                 </f:facet>
                 <h:commandLink action="#{mensajesBean.doBorrar(mensaje)}" value="Borrar"/>
             </h:column>

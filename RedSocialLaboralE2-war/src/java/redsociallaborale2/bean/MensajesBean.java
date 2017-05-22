@@ -52,12 +52,16 @@ public class MensajesBean{
     
     public List<Mensaje> getMensajesRecibidos(){
         mensajes = mensajeFacade.findByReceptor(u);
-        //mensajes = u.getMensajesRecibidos();
         return mensajes;
     }
     
     public List<Mensaje> getMensajesEnviados(){
         mensajes = mensajeFacade.findByEmisor(u);
+        return mensajes;
+    }
+    
+    public List<Mensaje> getMensajesNoLeidos(){
+        mensajes = mensajeFacade.findByVistoAndReceptor('F', u);
         return mensajes;
     }
     

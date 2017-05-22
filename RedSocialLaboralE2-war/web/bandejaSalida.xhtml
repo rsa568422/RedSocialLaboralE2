@@ -7,9 +7,17 @@
         <title>Bandeja de Salida</title>
     </h:head>
     <h:body>
+        <table>
+            <tr>
+                <h:form>
+                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                </h:form>
+            </tr>
+        </table>
         <h1>Bandeja Salida</h1>
+        <h:outputLabel value="No tienes mensajes en la bandeja de salida." rendered="#{mensajesBean.mensajesEnviados.size()==0}"/><br/>
         <h:form>
-            <h:dataTable value="#{mensajesBean.mensajesEnviados}" var="mensaje">
+            <h:dataTable value="#{mensajesBean.mensajesEnviados}" var="mensaje" rendered="#{mensajesBean.mensajesEnviados.size()>0}">
             <h:column>
                 <f:facet name="header">
                 Mensaje:  
@@ -50,6 +58,7 @@
         <br/>
         <h:commandButton action="#{usuarioBean.doMain()}" value="Inicio"/>
         <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Bandeja Entrada"/>
+        <h:commandButton action="#{enviarMensajeBean.goEnviarMensaje()}" value="Enviar Mensaje"/>
         </h:form>
     </h:body>
 </html>

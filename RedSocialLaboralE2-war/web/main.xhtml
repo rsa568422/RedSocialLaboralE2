@@ -5,7 +5,8 @@
     Author     : Roberto Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta charset="UTF-8"/>
         <title>Pagina principal</title>
@@ -25,6 +26,48 @@
             </h:form>
         </div>
         <h1>main.xhtml</h1>
+        <h4>Mensajes no leídos:</h4>
+        <h:outputLabel value="Todos los mensajes han sido leídos." rendered="#{mensajesBean.mensajesNoLeidos.size()==0}"/><br/>
+        <h:form>
+            <h:dataTable value="#{mensajesBean.mensajesNoLeidos}" var="mensaje" rendered="#{mensajesBean.mensajesNoLeidos.size()>0}">
+            <h:column>
+                <f:facet name="header">
+                Mensaje:  
+                </f:facet>
+                #{mensaje.mensaje.substring(0, 20)}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    De:
+                </f:facet>
+                #{mensaje.emisor.nombre} #{mensaje.emisor.apellidos}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha:
+                </f:facet>
+                #{mensaje.fecha.toString()}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Estado:
+                </f:facet>
+                #{mensajesBean.establecerEstado(mensaje.visto)}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    LEER...
+                </f:facet>
+                <h:commandLink action="#{leerMensajeBean.doLeerMensaje(mensaje)}" value="Leer"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    BORRAR...
+                </f:facet>
+                <h:commandLink action="#{mensajesBean.doBorrar(mensaje)}" value="Borrar"/>
+            </h:column>
+        </h:dataTable>
+        </h:form><br/>
         <div>
             <h:form>
                 <td><h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}"/></td>

@@ -33,7 +33,7 @@
                 <f:facet name="header">
                 <h:outputLabel value="Mensaje" />  
                 </f:facet>
-                #{mensaje.mensaje.substring(0, 20)}
+                #{mensajesBean.longitudMensaje(mensaje.mensaje)}
             </h:column>
             <h:column>
                 <f:facet name="header">

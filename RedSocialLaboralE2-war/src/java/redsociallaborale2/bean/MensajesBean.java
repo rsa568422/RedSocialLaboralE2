@@ -77,6 +77,12 @@ public class MensajesBean{
         return cadena;
     }
     
+    public String longitudMensaje(String m){
+        String cadena = m;
+        if(m.length()>20) cadena = m.substring(0, 18) + "...";
+        return cadena;
+    }
+    
     public String goBandejaSalida(){
         return "bandejaSalida";
     }

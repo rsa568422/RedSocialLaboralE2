@@ -79,8 +79,19 @@ public class EditarAficionBean {
                     sesion.error = 2;
                 }
             } else if (!((Aficion) sesion.seleccionado).getAficionPK().getNombre().equals(nombre)) {
-                // meto una ya existente con nombre antiguo y nombre nuevo distintos
-                sesion.error = 3;
+                Aficion existente = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
+                if (existente == null) {
+                    aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), ((Aficion) sesion.seleccionado).getAficionPK().getNombre());
+                    sesion.usuario.getAficiones().remove(aficion);
+                    aficionFacade.remove(aficion);
+                    aficion = new Aficion(nombre, sesion.usuario.getId());
+                    sesion.usuario.getAficiones().add(aficion);
+                    aficionFacade.create(aficion);
+                    usuarioFacade.edit(sesion.usuario);
+                } else {
+                    // meto una ya existente con nombre antiguo y nombre nuevo distintos, pero nuevo ya existente
+                    sesion.error = 3;
+                }
             }
         }
         return sesion.error == 0 ? sesion.doVerPerfil() : "editarAficion.xhtml";

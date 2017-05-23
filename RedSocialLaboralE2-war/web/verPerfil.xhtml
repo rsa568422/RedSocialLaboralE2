@@ -5,7 +5,8 @@
     Author     : Roberto Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta charset="UTF-8"/>
         <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
@@ -24,29 +25,41 @@
         </div>
         <h1>verPerfil.xhtml</h1>
         <div>
-            <table>
-                <tr><td><h:outputLabel value="Email:"/></td><td><h:outputLabel value="#{usuarioBean.usuarioSeleccionado.email}"/></td></tr>
-                <tr><td><h:outputLabel value="Nombre:"/></td><td><h:outputLabel value="#{usuarioBean.usuarioSeleccionado.nombre}"/></td></tr>
-                <tr><td><h:outputLabel value="Apellidos:"/></td><td><h:outputLabel value="#{usuarioBean.usuarioSeleccionado.apellidos}"/></td></tr>
-                <tr><td><h:outputLabel value="Twitter:"/></td><td><h:outputLabel value="#{usuarioBean.usuarioSeleccionado.twitter}"/></td></tr>
-                <tr><td><h:outputLabel value="Instagram:"/></td><td><h:outputLabel value="#{usuarioBean.usuarioSeleccionado.instagram}"/></td></tr>
-                <tr><td><h:outputLabel value="Web:"/></td><td><h:outputLabel value="#{usuarioBean.usuarioSeleccionado.web}"/></td></tr>
-                <tr><td><h:outputLabel value="Foto:"/></td><td><h:outputLabel value="#{usuarioBean.usuarioSeleccionado.foto}"/></td></tr>
+            <table border="1">
+                <tr><td colspan="2" align="center"><b><h:outputText value="Información del usuario:"/></b></td></tr>
+                <tr><td><h:outputLabel value="Email:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.email}"/></td></tr>
+                <tr><td><h:outputLabel value="Nombre:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.nombre}"/></td></tr>
+                <tr><td><h:outputLabel value="Apellidos:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.apellidos}"/></td></tr>
+                <tr><td><h:outputLabel value="Twitter:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.twitter}"/></td></tr>
+                <tr><td><h:outputLabel value="Instagram:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.instagram}"/></td></tr>
+                <tr><td><h:outputLabel value="Web:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.web}"/></td></tr>
+                <tr><td><h:outputLabel value="Foto:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.foto}"/></td></tr>
                 <tr>
                     <h:form>
-                        <td colspan="2"><h:commandButton value="Editar" action="#{usuarioBean.doEditarPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.usuarioSeleccionado)}"/></td>
+                        <td colspan="2"><h:commandButton value="Editar" action="#{usuarioBean.doEditarPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.seleccionado)}"/></td>
                     </h:form>
                 </tr>
             </table>
         </div>
-        <br/>
+        <br/><hr/><br/>
         <div>
             <h:form>
-                <h:outputLabel value="Aficiones:"/>
-                <h:dataTable value="#{usuarioBean.usuarioSeleccionado.aficiones}" var="aficion">
+                <h:dataTable value="#{usuarioBean.seleccionado.aficiones}" var="aficion" border="1">
+                    <f:facet name="header">
+                        <h:outputText value="Aficiones:"/>
+                    </f:facet>
                     <h:column>
                         <h:outputText value="#{aficion.aficionPK.nombre}"/>
                     </h:column>
+                    <h:column>
+                        <h:commandLink value="Editar" action="#{aficionBean.doEditar(aficion)}"/>
+                    </h:column>
+                    <h:column>
+                        <h:commandLink value="Eliminar" action="#{aficionBean.doEliminar(aficion)}"/>
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:commandButton value="Nueva" action="#{usuarioBean.doVerPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.seleccionado)}"/>
+                    </f:facet>
                 </h:dataTable>
             </h:form>
         </div>

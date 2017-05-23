@@ -22,7 +22,7 @@ import redsociallaborale2.jpa.Usuario;
 public class UsuarioBean implements Serializable {
     
     protected Usuario usuario;
-    protected Usuario usuarioSeleccionado;
+    protected Object seleccionado;
     protected int error;
 
     /**
@@ -34,7 +34,7 @@ public class UsuarioBean implements Serializable {
     @PostConstruct
     void init() {
         usuario = new Usuario();
-        usuarioSeleccionado = null;
+        seleccionado = null;
         error = 0;
     }
 
@@ -46,12 +46,12 @@ public class UsuarioBean implements Serializable {
         this.usuario = usuario;
     }
 
-    public Usuario getUsuarioSeleccionado() {
-        return usuarioSeleccionado;
+    public Object getSeleccionado() {
+        return seleccionado;
     }
 
-    public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
-        this.usuarioSeleccionado = usuarioSeleccionado;
+    public void setSeleccionado(Object seleccionado) {
+        this.seleccionado = seleccionado;
     }
 
     public int getError() {
@@ -78,17 +78,17 @@ public class UsuarioBean implements Serializable {
     } 
     
     public String doVerPerfil() {
-        usuarioSeleccionado = usuario;
+        seleccionado = usuario;
         return "verPerfil.xhtml";
     }
     
     public String doEditarPerfil() {
-        usuarioSeleccionado = usuario;
+        seleccionado = usuario;
         return "editarPerfil.xhtml";
     }
     
     public String doMain() {
-        usuarioSeleccionado = null;
+        seleccionado = null;
         return "main.xhtml";
     }
 }

@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.UsuarioFacade;
+import redsociallaborale2.jpa.Usuario;
 
 /**
  *
@@ -44,15 +45,15 @@ public class EditarUsuarioBean {
     
     @PostConstruct
     void init() {
-        email = sesion.usuarioSeleccionado.getEmail();
-        pass = sesion.usuarioSeleccionado.getPass();
-        rePass = sesion.usuarioSeleccionado.getPass();
-        nombre = sesion.usuarioSeleccionado.getNombre();
-        apellidos = sesion.usuarioSeleccionado.getApellidos();
-        twitter = sesion.usuarioSeleccionado.getTwitter();
-        instagram = sesion.usuarioSeleccionado.getInstagram();
-        web = sesion.usuarioSeleccionado.getWeb();
-        foto = sesion.usuarioSeleccionado.getFoto();
+        email = ((Usuario) sesion.seleccionado).getEmail();
+        pass = ((Usuario) sesion.seleccionado).getPass();
+        rePass = ((Usuario) sesion.seleccionado).getPass();
+        nombre = ((Usuario) sesion.seleccionado).getNombre();
+        apellidos = ((Usuario) sesion.seleccionado).getApellidos();
+        twitter = ((Usuario) sesion.seleccionado).getTwitter();
+        instagram = ((Usuario) sesion.seleccionado).getInstagram();
+        web = ((Usuario) sesion.seleccionado).getWeb();
+        foto = ((Usuario) sesion.seleccionado).getFoto();
         sesion.error = 0;
     }
 
@@ -139,15 +140,15 @@ public class EditarUsuarioBean {
         
         if (error == 0) {
             if (pass.equals(rePass)) {
-                sesion.usuarioSeleccionado.setEmail(email);
-                sesion.usuarioSeleccionado.setPass(pass);
-                sesion.usuarioSeleccionado.setNombre(nombre);
-                sesion.usuarioSeleccionado.setApellidos(apellidos);
-                sesion.usuarioSeleccionado.setTwitter(twitter);
-                sesion.usuarioSeleccionado.setInstagram(instagram);
-                sesion.usuarioSeleccionado.setWeb(web);
-                sesion.usuarioSeleccionado.setFoto(foto);
-                sesion.usuario = sesion.usuarioSeleccionado;
+                ((Usuario) sesion.seleccionado).setEmail(email);
+                ((Usuario) sesion.seleccionado).setPass(pass);
+                ((Usuario) sesion.seleccionado).setNombre(nombre);
+                ((Usuario) sesion.seleccionado).setApellidos(apellidos);
+                ((Usuario) sesion.seleccionado).setTwitter(twitter);
+                ((Usuario) sesion.seleccionado).setInstagram(instagram);
+                ((Usuario) sesion.seleccionado).setWeb(web);
+                ((Usuario) sesion.seleccionado).setFoto(foto);
+                sesion.usuario = (Usuario) sesion.seleccionado;
                 usuarioFacade.edit(sesion.usuario);
                 next = "verPerfil.xhtml";
             } else {

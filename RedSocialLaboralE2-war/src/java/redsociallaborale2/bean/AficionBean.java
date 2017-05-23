@@ -5,8 +5,12 @@
  */
 package redsociallaborale2.bean;
 
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import redsociallaborale2.ejb.AficionFacade;
+import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Aficion;
 
 /**
@@ -17,17 +21,43 @@ import redsociallaborale2.jpa.Aficion;
 @RequestScoped
 public class AficionBean {
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
+
+    @EJB
+    private AficionFacade aficionFacade;
+    
+    @Inject
+    protected UsuarioBean sesion;
+
     /**
      * Creates a new instance of AficionBean
      */
     public AficionBean() {
     }
+
+    public UsuarioBean getSesion() {
+        return sesion;
+    }
+
+    public void setSesion(UsuarioBean sesion) {
+        this.sesion = sesion;
+    }
+    
+    public String doInsertar() {
+        sesion.seleccionado = null;
+        return "editarAficion.xhtml";
+    }
     
     public String doEditar(Aficion aficion) {
-        return "verPerfil.xhtml";
+        sesion.seleccionado = aficion;
+        return "editarAficion.xhtml";
     }
     
     public String doEliminar(Aficion aficion) {
-        return "verPerfil.xhtml";
+        aficionFacade.remove(aficion);
+        sesion.usuario.getAficiones().remove(aficion);
+        usuarioFacade.edit(sesion.usuario);
+        return sesion.doVerPerfil();
     }
 }

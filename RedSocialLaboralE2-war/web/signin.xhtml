@@ -14,45 +14,46 @@
         <h1>signin.xhtml</h1>
         <div>
             <h:form>
-                <table>
+                <table border="0">
+                    <tr><td colspan="2"><b><h:outputText value="Información del usuario"/></b></td></tr>
                     <tr>
-                        <td><h:outputText value="EMAIL"/></td>
+                        <td><h:outputLabel value="Email"/></td>
                         <td><h:inputText value="#{signInBean.email}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorEmail()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="PASS"/></td>
+                        <td><h:outputText value="Pass"/></td>
                         <td><h:inputSecret value="#{signInBean.pass}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="PASS"/></td>
+                        <td><h:outputText value="Pass"/></td>
                         <td><h:inputSecret value="#{signInBean.rePass}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="NOMBRE"/></td>
+                        <td><h:outputLabel value="Nombre"/></td>
                         <td><h:inputText value="#{signInBean.nombre}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorNombre()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="APELLIDOS"/></td>
+                        <td><h:outputLabel value="Apellidos"/></td>
                         <td><h:inputText value="#{signInBean.apellidos}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="TWITTER"/></td>
+                        <td><h:outputLabel value="Twitter"/></td>
                         <td><h:inputText value="#{signInBean.twitter}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="INSTAGRAM"/></td>
+                        <td><h:outputLabel value="Instagram"/></td>
                         <td><h:inputText value="#{signInBean.instagram}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="WEB"/></td>
+                        <td><h:outputLabel value="Web"/></td>
                         <td><h:inputText value="#{signInBean.web}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="FOTO"/></td>
+                        <td><h:outputLabel value="Foto"/></td>
                         <td><h:inputText value="#{signInBean.foto}"/></td>
                     </tr>
                     <tr>
@@ -60,11 +61,11 @@
                             <h:outputText value="#{signInBean.doShowErrorMsg()}"/>
                         </td>
                     </tr>
+                </table>
+                <table>
                     <tr>
-                        <td colspan="3">
-                            <h:commandButton value="Enviar" action="#{signInBean.doSave()}"/>
-                            <h:commandLink value="Volver" action="#{usuarioBean.doLogOut()}"/>
-                        </td>
+                        <td><h:commandButton value="Enviar" action="#{signInBean.doSave()}"/></td>
+                        <td><h:commandLink value="Cancelar" action="#{usuarioBean.doLogOut()}"/></td>
                     </tr>
                 </table>
             </h:form>

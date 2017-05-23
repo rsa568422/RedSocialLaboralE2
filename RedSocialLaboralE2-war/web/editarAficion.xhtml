@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>Editando afición</title>
+    </h:head>
+    <h:body>
+        <h1>editarAficion.xhtml</h1>
+        <div>
+            <h:form>
+                <table border="0">
+                    <tr><td colspan="2"><b><h:outputText value="Editando afición"/></b></td></tr>
+                    <tr>
+                        <td><h:outputLabel value="Nombre actual" rendered="#{!editarAficionBean.nueva}"/></td>
+                        <td><h:outputLabel value="#{usuarioBean.seleccionado.aficionPK.nombre}" rendered="#{!editarAficionBean.nueva}"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Nuevo nombre" rendered="#{!editarAficionBean.nueva}"/>
+                            <h:outputLabel value="Nombre" rendered="#{editarAficionBean.nueva}"/>
+                        </td>
+                        <td><h:inputText value="#{editarAficionBean.nombre}"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h:outputLabel value="#{editarAficionBean.doShowErrorMsg()}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h:commandButton value="Enviar" action="#{editarAficionBean.doSave()}"/>
+                            <h:commandLink value="Cancelar" action="#{usuarioBean.doVerPerfil()}"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
+    </h:body>
+</html>

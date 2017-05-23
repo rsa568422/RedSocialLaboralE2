@@ -26,14 +26,14 @@
         <h1>verPerfil.xhtml</h1>
         <div>
             <table border="1">
-                <tr><td colspan="2" align="center"><b><h:outputText value="Información del usuario:"/></b></td></tr>
-                <tr><td><h:outputLabel value="Email:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.email}"/></td></tr>
-                <tr><td><h:outputLabel value="Nombre:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.nombre}"/></td></tr>
-                <tr><td><h:outputLabel value="Apellidos:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.apellidos}"/></td></tr>
-                <tr><td><h:outputLabel value="Twitter:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.twitter}"/></td></tr>
-                <tr><td><h:outputLabel value="Instagram:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.instagram}"/></td></tr>
-                <tr><td><h:outputLabel value="Web:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.web}"/></td></tr>
-                <tr><td><h:outputLabel value="Foto:"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.foto}"/></td></tr>
+                <tr><td colspan="2" align="center"><b><h:outputText value="Información del usuario"/></b></td></tr>
+                <tr><td><h:outputLabel value="Email"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.email}"/></td></tr>
+                <tr><td><h:outputLabel value="Nombre"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.nombre}"/></td></tr>
+                <tr><td><h:outputLabel value="Apellidos"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.apellidos}"/></td></tr>
+                <tr><td><h:outputLabel value="Twitter"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.twitter}"/></td></tr>
+                <tr><td><h:outputLabel value="Instagram"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.instagram}"/></td></tr>
+                <tr><td><h:outputLabel value="Web"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.web}"/></td></tr>
+                <tr><td><h:outputLabel value="Foto"/></td><td><h:outputLabel value="#{usuarioBean.seleccionado.foto}"/></td></tr>
                 <tr>
                     <h:form>
                         <td colspan="2"><h:commandButton value="Editar" action="#{usuarioBean.doEditarPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.seleccionado)}"/></td>
@@ -41,12 +41,12 @@
                 </tr>
             </table>
         </div>
-        <br/><hr/><br/>
+        <br/>
         <div>
             <h:form>
                 <h:dataTable value="#{usuarioBean.seleccionado.aficiones}" var="aficion" border="1">
                     <f:facet name="header">
-                        <h:outputText value="Aficiones:"/>
+                        <h:outputText value="Aficiones"/>
                     </f:facet>
                     <h:column>
                         <h:outputText value="#{aficion.aficionPK.nombre}"/>
@@ -58,10 +58,18 @@
                         <h:commandLink value="Eliminar" action="#{aficionBean.doEliminar(aficion)}"/>
                     </h:column>
                     <f:facet name="footer">
-                        <h:commandButton value="Nueva" action="#{usuarioBean.doVerPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.seleccionado)}"/>
+                        <h:commandButton value="Nueva" action="#{aficionBean.doInsertar()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.seleccionado)}"/>
                     </f:facet>
                 </h:dataTable>
             </h:form>
+        </div>
+        <br/>
+        <div>
+            <!-- bloque con los estudios -->
+        </div>
+        <br/>
+        <div>
+            <!-- bloque con la experiencia -->
         </div>
     </h:body>
 </html>

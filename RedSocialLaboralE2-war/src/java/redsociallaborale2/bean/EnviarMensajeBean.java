@@ -5,6 +5,7 @@
  */
 package redsociallaborale2.bean;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -25,6 +26,9 @@ import redsociallaborale2.jpa.Usuario;
 public class EnviarMensajeBean {
 
     @EJB
+    private UsuarioFacade usuarioFacade;
+
+    @EJB
     private MensajeFacade mensajeFacade;
     
     @Inject
@@ -43,7 +47,6 @@ public class EnviarMensajeBean {
     
     @PostConstruct
     void init(){
-        this.mensaje = new Mensaje();
         this.amigos = sesion.usuario.getAmigos();
     }
     
@@ -54,8 +57,16 @@ public class EnviarMensajeBean {
     }
     
     public String doEnvioMensaje(){
+        this.mensaje = new Mensaje();
         this.mensaje.setMensaje(contenidoSeleccionado);
         this.mensaje.setReceptor(amigoSeleccionado);
+        this.mensaje.setEmisor(this.sesion.usuario);
+        this.mensaje.setVisto('F');
+        this.mensaje.setFecha(new Date());
+        this.mensajeFacade.create(this.mensaje);
+        
+        this.sesion.usuario.getMensajesEmitidos().add(this.mensaje);
+        this.usuarioFacade.edit(this.sesion.usuario);
         
         return "bandejaSalida";
     }

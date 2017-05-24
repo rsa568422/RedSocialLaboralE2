@@ -89,7 +89,6 @@ public class EditarAficionBean {
                     aficionFacade.create(aficion);
                     usuarioFacade.edit(sesion.usuario);
                 } else {
-                    // meto una ya existente con nombre antiguo y nombre nuevo distintos, pero nuevo ya existente
                     sesion.error = 3;
                 }
             }
@@ -101,8 +100,8 @@ public class EditarAficionBean {
         String str;
         switch (sesion.error) {
             case 1: str = "Error: introduzca nombre para la afición"; break;
-            case 2: str = "Error: ya existe una afición con ese nombre"; break;
-            case 3: str = "Error: escenario de error 3"; break;
+            case 2: 
+            case 3: str = "Error: ya existe una afición con ese nombre"; break;
             default: str = "";
         }
         return str;

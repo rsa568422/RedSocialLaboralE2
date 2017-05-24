@@ -12,6 +12,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.MensajeFacade;
+import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Mensaje;
 import redsociallaborale2.jpa.Usuario;
 
@@ -24,8 +25,11 @@ import redsociallaborale2.jpa.Usuario;
 public class MensajesBean{
 
     @EJB
-    private MensajeFacade mensajeFacade;   
+    private UsuarioFacade usuarioFacade;
 
+    @EJB
+    private MensajeFacade mensajeFacade;   
+    
     @Inject
     private UsuarioBean sesion;
    
@@ -48,13 +52,13 @@ public class MensajesBean{
     }
     
     public List<Mensaje> getMensajesRecibidos(){
-        mensajes = mensajeFacade.findByReceptor(u);
+        mensajes = u.getMensajesRecibidos();
         return mensajes;
     }
     
     public List<Mensaje> getMensajesEnviados(){
-        mensajes = mensajeFacade.findByEmisor(u);
-        return mensajes;
+        mensajes = u.getMensajesEmitidos();
+        return mensajes; 
     }
     
     public List<Mensaje> getMensajesNoLeidos(){
@@ -64,6 +68,12 @@ public class MensajesBean{
     
     public String doBorrar(Mensaje m){
         this.mensajeFacade.remove(m);
+        if(m.getReceptor().equals(sesion.usuario)){
+            this.sesion.usuario.getMensajesRecibidos().remove(m.getId());
+        }else{
+            this.sesion.usuario.getMensajesEmitidos().remove(m.getId());
+        }
+        this.usuarioFacade.edit(sesion.usuario);
         this.init();
         return "bandejaEntrada";
     }

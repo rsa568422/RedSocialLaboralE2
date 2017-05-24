@@ -18,43 +18,43 @@
                     <tr><td colspan="2"><b><h:outputText value="Información del usuario"/></b></td></tr>
                     <tr>
                         <td><h:outputLabel value="Email"/></td>
-                        <td><h:inputText value="#{signInBean.email}"/></td>
+                        <td><h:inputText value="#{signInBean.email}" maxlength="50"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorEmail()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputText value="Pass"/></td>
-                        <td><h:inputSecret value="#{signInBean.pass}"/></td>
+                        <td><h:inputSecret value="#{signInBean.pass}" maxlength="20"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputText value="Pass"/></td>
-                        <td><h:inputSecret value="#{signInBean.rePass}"/></td>
+                        <td><h:inputSecret value="#{signInBean.rePass}" maxlength="20"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Nombre"/></td>
-                        <td><h:inputText value="#{signInBean.nombre}"/></td>
+                        <td><h:inputText value="#{signInBean.nombre}" maxlength="50"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorNombre()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Apellidos"/></td>
-                        <td><h:inputText value="#{signInBean.apellidos}"/></td>
+                        <td><h:inputText value="#{signInBean.apellidos}" maxlength="50"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Twitter"/></td>
-                        <td><h:inputText value="#{signInBean.twitter}"/></td>
+                        <td><h:inputText value="#{signInBean.twitter}" maxlength="50"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Instagram"/></td>
-                        <td><h:inputText value="#{signInBean.instagram}"/></td>
+                        <td><h:inputText value="#{signInBean.instagram}" maxlength="50"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Web"/></td>
-                        <td><h:inputText value="#{signInBean.web}"/></td>
+                        <td><h:inputText value="#{signInBean.web}" maxlength="50"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Foto"/></td>
-                        <td><h:inputText value="#{signInBean.foto}"/></td>
+                        <td><h:inputText value="#{signInBean.foto}" maxlength="100"/></td>
                     </tr>
                     <tr>
                         <td colspan="3">

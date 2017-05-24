@@ -17,12 +17,12 @@
                 <table>
                     <tr>
                         <td><h:outputText value="USER"/></td>
-                        <td><h:inputText value="#{logInBean.email}"/></td>
+                        <td><h:inputText value="#{logInBean.email}" maxlength="50"/></td>
                         <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 1 || usuarioBean.error == 3}"/></td>
                     </tr> 
                     <tr>
                         <td><h:outputText value="PASS"/></td>
-                        <td><h:inputSecret value="#{logInBean.pass}"/></td>
+                        <td><h:inputSecret value="#{logInBean.pass}" maxlength="20"/></td>
                         <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 2 || usuarioBean.error == 3}"/></td>
                     </tr>
                     <tr>

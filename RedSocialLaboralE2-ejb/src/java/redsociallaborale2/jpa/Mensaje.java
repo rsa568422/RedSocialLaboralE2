@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mensaje.findByFecha", query = "SELECT m FROM Mensaje m WHERE m.fecha = :fecha"),
     @NamedQuery(name = "Mensaje.findByVisto", query = "SELECT m FROM Mensaje m WHERE m.visto = :visto"),
     // CONSULTAS PERSONALIZADAS
-    // author: Antonio Joaquín Luque
+    // author: Antonio Joaquin Luque
     @NamedQuery(name = "Mensaje.findByVistoAndReceptor", query = "SELECT m FROM Mensaje m WHERE m.visto = :visto AND m.receptor = :receptor"),
     @NamedQuery(name = "Mensaje.findByEmisor", query = "SELECT m FROM Mensaje m WHERE m.emisor = :emisor"),
     @NamedQuery(name = "Mensaje.findByReceptor", query = "SELECT m FROM Mensaje m WHERE m.receptor = :receptor")})

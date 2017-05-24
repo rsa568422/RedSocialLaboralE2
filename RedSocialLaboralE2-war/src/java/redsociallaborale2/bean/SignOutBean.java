@@ -13,7 +13,7 @@ import redsociallaborale2.ejb.UsuarioFacade;
 
 /**
  *
- * @author Roberto
+ * @author Roberto Sanchez
  */
 @Named(value = "signOutBean")
 @RequestScoped

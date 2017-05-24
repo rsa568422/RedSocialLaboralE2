@@ -15,7 +15,7 @@ import redsociallaborale2.jpa.Aficion;
 
 /**
  *
- * @author Roberto
+ * @author Roberto Sanchez
  */
 @Named(value = "aficionBean")
 @RequestScoped

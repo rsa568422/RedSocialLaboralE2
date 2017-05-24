@@ -15,7 +15,7 @@ import redsociallaborale2.jpa.Usuario;
 
 /**
  *
- * @author Roberto
+ * @author Roberto Sanchez
  */
 @Named(value = "logInBean")
 @RequestScoped

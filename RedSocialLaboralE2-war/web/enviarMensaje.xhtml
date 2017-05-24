@@ -27,7 +27,7 @@
                                    itemValue="#{amigo}" itemLabel="#{amigo.nombre} #{amigo.apellidos}"/>
                 </h:selectOneMenu> <br/>
                 <h:outputLabel value="Mensaje:"/> <br/>
-                <h:inputTextarea value="" /><br/><br/>
+                <h:inputTextarea value="#{enviarMensajeBean.contenidoSeleccionado}" cols="50" rows="5" /><br/><br/>
                 <h:commandButton action="#{enviarMensajeBean.doEnvioMensaje()}" value="Enviar"/><br/><br/>
             </h:form>
         </div>

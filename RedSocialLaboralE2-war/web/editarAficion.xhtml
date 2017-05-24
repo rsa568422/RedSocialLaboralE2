@@ -5,7 +5,8 @@
     Author     : Roberto Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <meta charset="UTF-8"/>
         <title>Editando afición</title>
@@ -35,7 +36,7 @@
                             <h:outputLabel value="Nuevo nombre" rendered="#{!editarAficionBean.nueva}"/>
                             <h:outputLabel value="Nombre" rendered="#{editarAficionBean.nueva}"/>
                         </td>
-                        <td><h:inputText value="#{editarAficionBean.nombre}" maxlength="50"/></td>
+                        <td><h:inputText value="#{editarAficionBean.nombre}" maxlength="50" p:placeholder="Introduzca nombre de la afición"/></td>
                     </tr>
                     <tr>
                         <td colspan="2">

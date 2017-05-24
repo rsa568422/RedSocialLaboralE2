@@ -5,7 +5,8 @@
     Author     : Roberto Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <meta charset="UTF-8"/>
         <title>Log In</title>
@@ -17,12 +18,12 @@
                 <table>
                     <tr>
                         <td><h:outputText value="USER"/></td>
-                        <td><h:inputText value="#{logInBean.email}" maxlength="50"/></td>
+                        <td><h:inputText value="#{logInBean.email}" maxlength="50" p:placeholder="Introduzca email"/></td>
                         <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 1 || usuarioBean.error == 3}"/></td>
                     </tr> 
                     <tr>
                         <td><h:outputText value="PASS"/></td>
-                        <td><h:inputSecret value="#{logInBean.pass}" maxlength="20"/></td>
+                        <td><h:inputSecret value="#{logInBean.pass}" maxlength="20" p:placeholder="Introduzca pass"/></td>
                         <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 2 || usuarioBean.error == 3}"/></td>
                     </tr>
                     <tr>

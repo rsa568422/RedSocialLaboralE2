@@ -31,8 +31,9 @@ public class EditarAficionBean {
     @Inject
     UsuarioBean sesion;
     
-    String nombre;
-    boolean nueva;
+    private String nombre;
+    private boolean nueva;
+    private final String paginaError = "error.xhtml";
 
     /**
      * Creates a new instance of EditarAficionBean
@@ -64,45 +65,55 @@ public class EditarAficionBean {
     }
     
     public String doSave() {
-        sesion.error = nombre != null && !nombre.isEmpty() ? 0 : 1;
-        if (sesion.error == 0) {
-            Aficion aficion;
-            if (nueva) {
-                aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
-                if (aficion == null) {
-                    aficion = new Aficion(nombre, sesion.usuario.getId());
-                    aficion.setUsuario(sesion.usuario);
-                    aficionFacade.create(aficion);
-                    sesion.usuario.getAficiones().add(aficion);
-                    usuarioFacade.edit(sesion.usuario);
-                } else {
-                    sesion.error = 2;
+        if (sesion != null) {
+            if (sesion.usuario != null) {
+                sesion.error = nombre != null && !nombre.isEmpty() ? 0 : 1;
+                if (sesion.error == 0) {
+                    Aficion aficion;
+                    if (nueva) {
+                        aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
+                        if (aficion == null) {
+                            aficion = new Aficion(nombre, sesion.usuario.getId());
+                            aficion.setUsuario(sesion.usuario);
+                            aficionFacade.create(aficion);
+                            sesion.usuario.getAficiones().add(aficion);
+                            usuarioFacade.edit(sesion.usuario);
+                        } else {
+                            sesion.error = 2;
+                        }
+                    } else if (!((Aficion) sesion.seleccionado).getAficionPK().getNombre().equals(nombre)) {
+                        Aficion existente = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
+                        if (existente == null) {
+                            aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), ((Aficion) sesion.seleccionado).getAficionPK().getNombre());
+                            sesion.usuario.getAficiones().remove(aficion);
+                            aficionFacade.remove(aficion);
+                            aficion = new Aficion(nombre, sesion.usuario.getId());
+                            sesion.usuario.getAficiones().add(aficion);
+                            aficionFacade.create(aficion);
+                            usuarioFacade.edit(sesion.usuario);
+                        } else {
+                            sesion.error = 3;
+                        }
+                    }
                 }
-            } else if (!((Aficion) sesion.seleccionado).getAficionPK().getNombre().equals(nombre)) {
-                Aficion existente = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
-                if (existente == null) {
-                    aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), ((Aficion) sesion.seleccionado).getAficionPK().getNombre());
-                    sesion.usuario.getAficiones().remove(aficion);
-                    aficionFacade.remove(aficion);
-                    aficion = new Aficion(nombre, sesion.usuario.getId());
-                    sesion.usuario.getAficiones().add(aficion);
-                    aficionFacade.create(aficion);
-                    usuarioFacade.edit(sesion.usuario);
-                } else {
-                    sesion.error = 3;
-                }
+            } else {
+                sesion.error = 223; // No hay usuario en al sesion
             }
         }
-        return sesion.error == 0 ? sesion.doVerPerfil() : "editarAficion.xhtml";
+        return sesion == null || sesion.error == 223 ? paginaError : sesion.error == 0 ? sesion.doVerPerfil() : "editarAficion.xhtml";
     }
     
     public String doShowErrorMsg() {
         String str;
-        switch (sesion.error) {
-            case 1: str = "Error: introduzca nombre para la afición"; break;
-            case 2: 
-            case 3: str = "Error: ya existe una afición con ese nombre"; break;
-            default: str = "";
+        if (sesion != null) {
+            switch (sesion.error) {
+                case 1: str = "Error: introduzca nombre para la afición"; break;
+                case 2: 
+                case 3: str = "Error: ya existe una afición con ese nombre"; break;
+                default: str = "";
+            }
+        } else {
+            str = "";
         }
         return str;
     }

@@ -29,6 +29,8 @@ public class AficionBean {
     
     @Inject
     protected UsuarioBean sesion;
+    
+    private final String paginaError = "error.xhtml";
 
     /**
      * Creates a new instance of AficionBean
@@ -45,19 +47,51 @@ public class AficionBean {
     }
     
     public String doInsertar() {
-        sesion.seleccionado = null;
-        return "editarAficion.xhtml";
+        if (sesion != null) {
+            sesion.error = 0;
+            if (sesion.usuario != null) {
+                sesion.seleccionado = null;
+            } else {
+                sesion.error = 211; // No hay usuario en al sesion
+            }
+        }
+        return sesion != null && sesion.error == 0 ? "editarAficion.xhtml" : paginaError;
     }
     
     public String doEditar(Aficion aficion) {
-        sesion.seleccionado = aficion;
-        return "editarAficion.xhtml";
+        sesion.error = 0;
+        if (sesion.usuario != null) {
+            if (aficion != null) {
+                sesion.seleccionado = aficion;
+            } else {
+                sesion.error = 222; // La aficion no existe
+            }
+        } else {
+            sesion.error = 221; // No hay usuario en al sesion
+        }
+        return sesion.error == 0 ? "editarAficion.xhtml" : paginaError;
     }
     
     public String doEliminar(Aficion aficion) {
-        aficionFacade.remove(aficion);
-        sesion.usuario.getAficiones().remove(aficion);
-        usuarioFacade.edit(sesion.usuario);
-        return sesion.doVerPerfil();
+        if (sesion != null) {
+            sesion.error = 0;
+            if (sesion.usuario != null) {
+                if (aficion != null) {
+                    if (aficionFacade.find(aficion.getAficionPK()) != null) {
+                        aficionFacade.remove(aficion);
+                        sesion.usuario.getAficiones().remove(aficion);
+                        usuarioFacade.edit(sesion.usuario);
+                    } else {
+                        sesion.error = 233; // La aficion no existe
+                    }
+
+                } else {
+                    sesion.error = 232; // No se pasa aficion
+                }
+            } else {
+                sesion.error = 231; // No hay usuario en al sesion
+            }
+        }
+        return sesion != null && sesion.error == 0 ? sesion.doVerPerfil() : paginaError;
     }
 }

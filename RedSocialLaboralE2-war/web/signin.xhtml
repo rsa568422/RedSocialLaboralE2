@@ -5,7 +5,8 @@
     Author     : Roberto Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <meta charset="UTF-8"/>
         <title>Sign In</title>
@@ -18,43 +19,43 @@
                     <tr><td colspan="2"><b><h:outputText value="Información del usuario"/></b></td></tr>
                     <tr>
                         <td><h:outputLabel value="Email"/></td>
-                        <td><h:inputText value="#{signInBean.email}" maxlength="50"/></td>
+                        <td><h:inputText value="#{signInBean.email}" maxlength="50" p:placeholder="Introduzca email"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorEmail()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputText value="Pass"/></td>
-                        <td><h:inputSecret value="#{signInBean.pass}" maxlength="20"/></td>
+                        <td><h:inputSecret value="#{signInBean.pass}" maxlength="20" p:placeholder="Introduzca pass"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputText value="Pass"/></td>
-                        <td><h:inputSecret value="#{signInBean.rePass}" maxlength="20"/></td>
+                        <td><h:inputSecret value="#{signInBean.rePass}" maxlength="20" p:placeholder="Confirme pass"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Nombre"/></td>
-                        <td><h:inputText value="#{signInBean.nombre}" maxlength="50"/></td>
+                        <td><h:inputText value="#{signInBean.nombre}" maxlength="50" p:placeholder="Introduzca nombre"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorNombre()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Apellidos"/></td>
-                        <td><h:inputText value="#{signInBean.apellidos}" maxlength="50"/></td>
+                        <td><h:inputText value="#{signInBean.apellidos}" maxlength="50" p:placeholder="Introduzca apellidos"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Twitter"/></td>
-                        <td><h:inputText value="#{signInBean.twitter}" maxlength="50"/></td>
+                        <td><h:inputText value="#{signInBean.twitter}" maxlength="50" p:placeholder="Introduzca identificador de Twitter"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Instagram"/></td>
-                        <td><h:inputText value="#{signInBean.instagram}" maxlength="50"/></td>
+                        <td><h:inputText value="#{signInBean.instagram}" maxlength="50" p:placeholder="Introduzca identificador de Instagram"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Web"/></td>
-                        <td><h:inputText value="#{signInBean.web}" maxlength="50"/></td>
+                        <td><h:inputText value="#{signInBean.web}" maxlength="50" p:placeholder="Introduzca URL de su web personal"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Foto"/></td>
-                        <td><h:inputText value="#{signInBean.foto}" maxlength="100"/></td>
+                        <td><h:inputText value="#{signInBean.foto}" maxlength="100" p:placeholder="Introduzca ruta de su foto"/></td>
                     </tr>
                     <tr>
                         <td colspan="3">

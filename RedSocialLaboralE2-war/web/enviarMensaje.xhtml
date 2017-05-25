@@ -11,13 +11,32 @@
         <title>Enviar Mensaje</title>
     </h:head>
     <h:body>
-        <table>
-            <tr>
-                <h:form>
-                    <td><h:commandButton value="Volver" action="#{mensajesBean.goBandejaSalida()}"/></td>
-                </h:form>
-            </tr>
-        </table>
+        <div>
+            <h:form>
+                <table>
+                    <tr>
+                        <td>
+                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
+                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                            </h:commandLink>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td><h:commandButton value="Volver" action="#{mensajesBean.goBandejaSalida()}"/></td>
+                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
         <h1>Enviar mensaje:</h1>
         <div> 
             <h:form>

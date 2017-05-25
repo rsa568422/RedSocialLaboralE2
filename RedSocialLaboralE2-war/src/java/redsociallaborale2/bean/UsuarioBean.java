@@ -97,7 +97,9 @@ public class UsuarioBean implements Serializable {
         if (this.usuario != null) {
             if (usuario != null) {
                 if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
-                    boolean existe = true; // comprobar que exista ese fichero
+                    // comprobar que el nombre contiene algo del tipo nombre.png
+                    // comprobar que ese fichero existe
+                    boolean existe = true;
                     if (existe) {
                         str = usuario.getFoto();
                     }

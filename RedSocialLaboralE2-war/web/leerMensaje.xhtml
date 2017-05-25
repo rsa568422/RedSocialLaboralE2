@@ -11,13 +11,30 @@
     </h:head>
     <h:body>
         <div>
-            <table>
-            <tr>
-                <h:form>
-                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
-                </h:form>
-            </tr>
-        </table>
+            <h:form>
+                <table>
+                    <tr>
+                        <td>
+                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
+                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                            </h:commandLink>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td><h:commandButton value="Home" action="#{usuarioBean.doMain()}"/></td>
+                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
         </div>
         <h1>Leer mensaje:</h1>
         <div>

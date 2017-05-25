@@ -17,7 +17,9 @@
                 <table>
                     <tr>
                         <td>
-                            <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
+                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                            </h:commandLink>
                         </td>
                         <td>
                             <table>
@@ -36,7 +38,6 @@
                 </table>
             </h:form>
         </div>
-        <div>
         <h1>editarAficion.xhtml</h1>
         <div>
             <h:form>

@@ -53,7 +53,7 @@ public class EnviarMensajeBean {
     }
     
     public String goEnviarMensaje(){
-        this.amigoSeleccionado = null;
+        this.amigoSeleccionado = new Usuario();
         this.idAmigo = this.amigoSeleccionado.getId();
         this.contenidoSeleccionado = "";
         return "enviarMensaje";

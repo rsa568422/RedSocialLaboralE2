@@ -65,11 +65,14 @@
         </div>
         <br/>
         <div>
-            <!-- bloque con los estudios -->
-        </div>
-        <br/>
-        <div>
-            <!-- bloque con la experiencia -->
+            <h:form>
+                <table>
+                    <tr>
+                        <td><h:commandButton value="Ver Estudios" action="#{estudiosBean.goListaEstudios()}"/></td>
+                        <td><h:commandButton value="Experiencia profesional" action="#{experienciaBean.goListaExperiencias()}"/></td>      
+                    </tr>
+                </table>
+            </h:form>
         </div>
     </h:body>
 </html>

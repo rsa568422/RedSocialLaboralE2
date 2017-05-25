@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+    Document   : main.xhtml
+    Author     : Roberto Sanchez e Inma Sanchez
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+        
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>    
+          /* Set black background color, white text and some padding */
+          footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+          }
+        </style>
+    </h:head>
+    <h:body>
+        
+        <!-- NAVBAR -->
+        <h:form>
+            <nav class="navbar navbar-inverse">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                  </button>
+                  <a class="navbar-brand" href="#">Red Social Laboral</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav">
+                    <li><h:link value="Home" outcome="#{usuarioBean.doMain()}"></h:link></li>
+                    <li><h:link value="Contactos" outcome="#{contactoBean.goContactos()}"></h:link></li>
+                    <li><h:link value="Log Out" outcome="#{usuarioBean.doLogOut()}"></h:link></li>
+                    <li><h:link value="Sing Out" outcome="#{usuarioBean.doSignOut()}"></h:link></li>
+                    <li><a href="#">Mensajes</a></li>
+                  </ul>
+                  
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><h:link outcome="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> My Account</h:link></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            
+        <!-- FIN NAVBAR -->
+        
+        
+        <div class="col-sm-7">
+            <div class="col-sm-12">
+                <div class="well">
+                    <title>Usuario logueado: #{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+                </div>
+            </div> 
+         
+            <div class="row">
+                <div class="well">
+                    <h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
+                </div>
+                <!-- BUSQUEDAS -->
+                <div class="well">
+                    <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
+                    <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca nombre..." ></h:inputText></p>
+                        <h:selectManyCheckbox id="seleccionado" value="#{buscarUsuarioBean.selecc}">
+                            <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
+                            <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
+                            <f:selectItems itemLabel="email" value="3"></f:selectItems>
+                            <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
+                            <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
+                            <f:selectItems itemLabel="web" value="6"></f:selectItems>
+                        </h:selectManyCheckbox>
+                    <p><h:commandButton value="Buscar"></h:commandButton></p>
+                </div>
+                <!-- FIN BUSQUEDAS -->
+            </div>
+            </h:form>
+            </div>
+            
+        
+            
+            
+    </h:body>
+</html>

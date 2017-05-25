@@ -5,6 +5,7 @@
  */
 package redsociallaborale2.bean;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -38,6 +39,7 @@ public class EnviarMensajeBean {
     private Mensaje mensaje;
     private String contenidoSeleccionado;
     private Usuario amigoSeleccionado;
+    private BigInteger idAmigo;
     
     /**
      * Creates a new instance of EnviarMensajeBean
@@ -52,11 +54,13 @@ public class EnviarMensajeBean {
     
     public String goEnviarMensaje(){
         this.amigoSeleccionado = null;
+        this.idAmigo = this.amigoSeleccionado.getId();
         this.contenidoSeleccionado = "";
         return "enviarMensaje";
     }
     
     public String doEnvioMensaje(){
+        this.amigoSeleccionado = this.usuarioFacade.find(this.idAmigo);
         this.mensaje = new Mensaje();
         this.mensaje.setMensaje(contenidoSeleccionado);
         this.mensaje.setReceptor(amigoSeleccionado);
@@ -81,6 +85,22 @@ public class EnviarMensajeBean {
     
     public Usuario getAmigoSeleccionado(){
         return this.amigoSeleccionado;
+    }
+
+    public BigInteger getIdAmigo() {
+        return idAmigo;
+    }
+
+    public void setContenidoSeleccionado(String contenidoSeleccionado) {
+        this.contenidoSeleccionado = contenidoSeleccionado;
+    }
+
+    public void setAmigoSeleccionado(Usuario amigoSeleccionado) {
+        this.amigoSeleccionado = amigoSeleccionado;
+    }
+
+    public void setIdAmigo(BigInteger idAmigo) {
+        this.idAmigo = idAmigo;
     }
     
 }

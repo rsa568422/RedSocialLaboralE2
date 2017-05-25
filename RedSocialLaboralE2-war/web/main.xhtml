@@ -23,6 +23,18 @@
                 <h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/>
             </h:form>
         </div>
+        <div>
+            <table>
+                <tr>
+                    <td><h:form>
+                            <h:commandButton value="Ver Estudios" action="#{estudiosBean.goListaEstudios()}"/>
+                         </h:form> </td>
+                    <td><h:form>
+                            <h:commandButton value="Experiencia profesional" action="#{experienciaBean.goListaExperiencias()}"/>
+                        </h:form> </td>      
+                </tr>
+            </table>
+        </div>
         <h1>main.xhtml</h1>
         <h4>Mensajes no leídos:</h4>
         <div>

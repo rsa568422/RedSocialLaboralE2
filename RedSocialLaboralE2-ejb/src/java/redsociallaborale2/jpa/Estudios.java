@@ -150,5 +150,9 @@ public class Estudios implements Serializable {
     public String toString() {
         return "redsociallaborale2.jpa.Estudios[ id=" + id + " ]";
     }
+
+    public void setfechainicio(Date fechainicio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

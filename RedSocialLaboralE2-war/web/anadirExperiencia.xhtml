@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+    Document   : anadirExperiencia.xhtml
+    Author     : Roberto Benitez
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Añade Experiencia</title>
+    </h:head>
+    <h:body>
+        <table>
+            <tr>
+                <h:form>
+                    <td><h:commandButton value="Volver" action="#{experienciaBean.goListaExperiencias()}"/></td>
+                </h:form>
+            </tr>
+        </table>
+        <h1>Añade experiencia:</h1>
+        <div> 
+            <h:form>
+                <table>
+                     <tr>
+                         <td><h:outputLabel value="Fecha inicio:"/></td>
+                         <td><h:inputText value="#{crearExperienciaBean.fechainicio}" /></td>
+                         <td><h:outputText value="Formato fecha: {yyyy-MM-dd}"/></td>
+                     </tr>
+                    <tr>
+                         <td><h:outputLabel value="Fecha fin:"/></td>
+                         <td><h:inputText value="#{crearExperienciaBean.fechafin}" /></td>
+                         <td><h:outputText value="Formato fecha: {yyyy-MM-dd}"/></td>
+                         <td><h:outputLabel value="*" rendered="#{crearExperienciaBean.doShowErrorFechas()}"/></td>
+                     </tr>
+                    <tr>
+                         <td><h:outputLabel value="Empresa"/></td>
+                         <td><h:inputText value="#{crearExperienciaBean.empresa}" /></td>
+                         <td><h:outputLabel value="*" rendered="#{crearExperienciaBean.doShowErrorCampos()}"/></td>
+                     </tr>
+                    <tr>
+                         <td><h:outputLabel value="Puesto"/></td>
+                         <td><h:inputText value="#{crearExperienciaBean.puesto}" /></td>
+                     </tr>
+                    <tr>
+                         <td><h:outputLabel value="Web"/></td>
+                         <td><h:inputText value="#{crearExperienciaBean.webempresa}" /></td>
+                     </tr>
+                    <tr>
+                        <td colspan="4">
+                            <h:outputText value="#{crearExperienciaBean.doShowErrorMsg()}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:commandButton action="#{crearExperienciaBean.doCrear()}" value="Añadir"/></td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
+    </h:body>
+</html>

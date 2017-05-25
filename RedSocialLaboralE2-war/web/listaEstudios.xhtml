@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- 
+    Document   : listaEstudios.xhtml
+    Author     : Roberto Benitez
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Lista de estudios</title>
+    </h:head>
+    <h:body>
+        <div>
+            <table>
+                <tr>
+                    <h:form>
+                        <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                    </h:form>
+                </tr>
+            </table>
+        </div>
+        <h1>Lista de estudios:</h1>
+        <div>
+            <h:outputLabel value="No tienes estudios registrados." rendered="#{estudiosBean.estudiosLista.size()==0}"/><br/>
+            <h:form>
+                <h:dataTable value="#{estudiosBean.estudiosLista}" var="estudio" rendered="#{estudiosBean.estudiosLista.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Inicio"/>  
+                        </f:facet>
+                        #{estudio.fechaInicio}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Fin"/>  
+                        </f:facet>
+                        #{estudio.fechaFin}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Descripcion"/>  
+                        </f:facet>
+                        #{estudio.descripcion}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Lugar"/>  
+                        </f:facet>
+                        #{estudio.ubicacion}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Editar" />
+                        </f:facet>
+                        <h:commandLink action="#{estudiosBean.doEditarEstudio(estudio)}" value="Editar"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Borrar" />
+                        </f:facet>
+                        <h:commandLink action="#{estudiosBean.doBorrar(estudio)}" value="Borrar"/>
+                    </h:column>
+                </h:dataTable>
+                <br/>
+                <h:commandButton action="#{usuarioBean.doMain()}" value="Inicio"/>
+                <h:commandButton action="#{estudiosBean.goAnadirEstudio()}" value="Añadir Estudio"/>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

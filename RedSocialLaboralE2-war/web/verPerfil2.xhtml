@@ -7,9 +7,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
-        
         <meta charset="utf-8"/>
+         <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,6 +22,10 @@
             padding: 15px;
           }
         </style>
+        
+        
+        
+       
         
     </h:head>
     <h:body>
@@ -39,10 +43,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav">
-                    <li><h:link value="Home" outcome="#{usuarioBean.doMain()}"></h:link></li>
-                    <li><h:link value="Contactos" outcome="#{contactoBean.goContactos()}"></h:link></li>
-                    <li><h:link value="Log Out" outcome="#{usuarioBean.doLogOut()}"></h:link></li>
-                    <li><h:link value="Sing Out" outcome="#{usuarioBean.doSignOut()}"></h:link></li>
+                    <li><h:link value="Home" outcome="usuarioBean.doMain()}"></h:link></li>
+                    <li><h:link value="Contactos" outcome="#contactoBean.goContactos()}"></h:link></li>
+                    <li><h:link value="Log Out" outcome="#usuarioBean.doLogOut()}"></h:link></li>
+                    <li><h:link value="Sing Out" outcome="#usuarioBean.doSignOut()}"></h:link></li>
                     <li><a href="#">Mensajes</a></li>
                   </ul>
                   
@@ -64,9 +68,9 @@
                     
                 </div>
                 <div class="well">
-                    <button type="button" class="btn btn-primary btn-lg btn-block">Editar perfil</button>
+                    <!--<button type="button" class="btn btn-primary btn-lg btn-block">Editar perfil</button>-->
                     
-                      <!--  <button class="btn btn-primary" action="#usuarioBean.doEditarPerfil()}" rendered="#usuarioBean.usuario.equals(usuarioBean.usuarioSeleccionado)}">Editar perfil</button> -->
+                      <button class="btn btn-primary" action="#usuarioBean.doEditarPerfil()}" rendered="#usuarioBean.usuario.equals(usuarioBean.usuarioSeleccionado)}">Editar perfil</button> 
                     
                 </div>
             </div>
@@ -82,10 +86,10 @@
                 <div class="col-sm-9">
                      <div class="well">   
                       <!--  <p>
-                            #{usuarioBean.usuarioSeleccionado.email}
+                           
                         </p> -->
                       <p>
-                      <h:outputText value="#{usuarioBean.usuarioSeleccionado.email}"></h:outputText></p>
+                      <h:outputText value="#{usuarioBean.seleccionado.email}"></h:outputText></p>
                      </div>
                 </div>
             </div>
@@ -102,7 +106,7 @@
                 <div class="col-sm-9">
                      <div class="well">   
                         <p>
-                            #{usuarioBean.usuarioSeleccionado.pass}
+                            #{usuarioBean.seleccionado.pass}
                         </p>
                      </div>
                 </div>
@@ -120,7 +124,7 @@
                 <div class="col-sm-9">
                      <div class="well">   
                         <p>
-                            #{usuarioBean.usuarioSeleccionado.nombre}
+                            #{usuarioBean.seleccionado.nombre}
                         </p>
                      </div>
                 </div>
@@ -138,8 +142,7 @@
               <div class="col-sm-9">
                      <div class="well">   
                         <p>
-                           **** #{usuarioBean.usuarioSeleccionado.apellidos} ****
-                           Vacio = #{usuarioBean.usuarioSeleccionado}
+                           #{usuarioBean.seleccionado.apellidos}
                         </p>
                      </div>
                 </div>
@@ -157,7 +160,7 @@
                 <div class="col-sm-9">
                      <div class="well">   
                         <p>
-                            #{usuarioBean.usuarioSeleccionado.twitter}
+                            #{usuarioBean.seleccionado.twitter}
                         </p>
                      </div>
                 </div>
@@ -175,7 +178,7 @@
                 <div class="col-sm-9">
                      <div class="well">   
                         <p>
-                            #{usuarioBean.usuarioSeleccionado.instagram}
+                            #{usuarioBean.seleccionado.instagram}
                         </p>
                      </div>
                 </div>
@@ -193,7 +196,7 @@
                 <div class="col-sm-9">
                      <div class="well">   
                         <p>
-                            #{usuarioBean.usuarioSeleccionado.web}
+                            #{usuarioBean.seleccionado.web}
                         </p>
                      </div>
                 </div>

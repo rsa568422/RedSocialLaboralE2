@@ -16,11 +16,24 @@
             <h:form>
                 <table>
                     <tr>
-                        <td><h:commandButton value="Perfil" action="#{usuarioBean.doVerPerfil()}"/></td>
-                        <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                        <td>
+                            <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td><h:commandButton value="Perfil" action="#{usuarioBean.doVerPerfil()}"/></td>
+                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
                 </table>
-                <h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/>
             </h:form>
         </div>
         <h1>main.xhtml</h1>

@@ -91,4 +91,24 @@ public class UsuarioBean implements Serializable {
         seleccionado = null;
         return "main.xhtml";
     }
+    
+    public String doShowFoto(Usuario usuario) {
+        String str = "default.png";
+        if (this.usuario != null) {
+            if (usuario != null) {
+                if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
+                    boolean existe = true; // comprobar que exista ese fichero
+                    if (existe) {
+                        str = usuario.getFoto();
+                    }
+                }
+            }
+            else {
+                // no se nos pasa usuario como parametro
+            }
+        } else {
+            // no hay usuario logueado
+        }
+        return str;
+    }
 }

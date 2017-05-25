@@ -5,13 +5,11 @@
  */
 package redsociallaborale2.bean;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.SolicitudFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
@@ -22,8 +20,8 @@ import redsociallaborale2.jpa.Usuario;
  * @author Inma
  */
 @Named(value = "contactoBean")
-@SessionScoped
-public class ContactoBean implements Serializable{
+@RequestScoped
+public class ContactoBean {
 
     @EJB
     private UsuarioFacade usuarioFacade;
@@ -44,13 +42,6 @@ public class ContactoBean implements Serializable{
     public ContactoBean() {
     }
     
-    @PostConstruct
-    void init()
-    {
-        usu = sesion.usuario;       
-    }
-    
-    
     public String goContactos ()
     {
         return "contactos.xhtml?faces-redirect=true";
@@ -59,7 +50,7 @@ public class ContactoBean implements Serializable{
     public List<Usuario> muestraAmigos()
     {
         //Buscamos la lista de amigos
-        listaAmigos = (List<Usuario>) usu.getAmigos();
+        listaAmigos = (List<Usuario>) sesion.usuario.getAmigos();
 
         return listaAmigos;
     }

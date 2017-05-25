@@ -22,7 +22,7 @@
         <div> 
             <h:form>
                 <h:outputLabel value="Amigo:"/><br/> 
-                <h:selectOneMenu value="#{enviarMensajeBean.amigoSeleccionado.id}">
+                <h:selectOneMenu value="#{enviarMensajeBean.idAmigo}">
                     <f:selectItems value="#{enviarMensajeBean.amigos}" var="amigo" 
                                    itemValue="#{amigo.id}" itemLabel="#{amigo.nombre} #{amigo.apellidos}"/>
                 </h:selectOneMenu> <br/>

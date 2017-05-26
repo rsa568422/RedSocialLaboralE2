@@ -96,7 +96,7 @@ public class UsuarioBean implements Serializable {
         return "main.xhtml";
     }
     
-    private int errorNombreFichero(String fichero) {
+    protected static int errorNombreFichero(String fichero) {
         int err = 0;
         if (fichero != null && !fichero.isEmpty()) {
             if (!fichero.startsWith(".")) {

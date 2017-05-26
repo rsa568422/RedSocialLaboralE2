@@ -5,9 +5,13 @@
  */
 package redsociallaborale2.bean;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.AficionFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
@@ -73,7 +77,14 @@ public class AficionBean {
     }
     
     public String doEliminar(Aficion aficion) {
-        if (sesion != null) {
+        if (sesion == null) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect(paginaError);
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //return null;
+        } else {
             sesion.error = 0;
             if (sesion.usuario != null) {
                 if (aficion != null) {

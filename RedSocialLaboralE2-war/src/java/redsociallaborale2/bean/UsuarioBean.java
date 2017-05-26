@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import redsociallaborale2.jpa.Usuario;
 
 /**
@@ -116,15 +117,15 @@ public class UsuarioBean implements Serializable {
                             extensionOk |= extension.equals(".gif");
                             extensionOk |= extension.equals(".bmp");
                             if (extensionOk) {
-                                File prueba = new File("./");
-                                List<String> nombres = new ArrayList<>();
-                                for (File f : prueba.listFiles()) {
-                                    String n = f.getName();
-                                    nombres.add(n);
-                                }
-                                nombres.isEmpty();
-                                if (!true) {
-                                    // no existe ese fichero
+                                String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath(fichero);
+                                if (path != null) {
+                                    File prueba = new File(path);
+                                    if (!prueba.exists()) {
+                                        // no se puede abrir ese fichero
+                                        err = 8;
+                                    }
+                                } else {
+                                    // no se encuentra ese fichero
                                     err = 7;
                                 }
                             } else {

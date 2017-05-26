@@ -5,10 +5,14 @@
  */
 package redsociallaborale2.bean;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Usuario;
@@ -45,16 +49,24 @@ public class SignInBean {
     
     @PostConstruct
     void init() {
-        email = "";
-        pass = "";
-        rePass = "";
-        nombre = "";
-        apellidos = "";
-        twitter = "";
-        instagram = "";
-        web = "";
-        foto = "";
-        sesion.error = 0;
+        if (sesion != null && sesion.usuario != null) {
+            email = "";
+            pass = "";
+            rePass = "";
+            nombre = "";
+            apellidos = "";
+            twitter = "";
+            instagram = "";
+            web = "";
+            foto = "";
+            sesion.error = 0;
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public String getEmail() {

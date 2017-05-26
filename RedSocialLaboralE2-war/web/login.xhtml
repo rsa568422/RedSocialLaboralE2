@@ -19,12 +19,12 @@
                     <tr>
                         <td><h:outputText value="USER"/></td>
                         <td><h:inputText value="#{logInBean.email}" maxlength="50" p:placeholder="Introduzca email"/></td>
-                        <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 1 || usuarioBean.error == 3}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{usuarioBean.error != 0}"/></td>
                     </tr> 
                     <tr>
                         <td><h:outputText value="PASS"/></td>
                         <td><h:inputSecret value="#{logInBean.pass}" maxlength="20" p:placeholder="Introduzca pass"/></td>
-                        <td><h:outputLabel value="*" rendered="#{usuarioBean.error == 2 || usuarioBean.error == 3}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{usuarioBean.error != 0}"/></td>
                     </tr>
                     <tr>
                         <td colspan="3">

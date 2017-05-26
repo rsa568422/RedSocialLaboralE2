@@ -49,64 +49,43 @@ public class AficionBean {
     }
     
     public String doInsertar() {
-        boolean error = true;
-        if (sesion != null) {
-            if (sesion.usuario != null) {
-                sesion.seleccionado = null;
-                error = false;
-            }
-        }
-        if (error) {
+        if (sesion != null && sesion.usuario != null) {
+            sesion.seleccionado = null;
+        } else {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return !error ? "editarAficion.xhtml" : "error.xhtml";
+        return "editarAficion.xhtml";
     }
     
     public String doEditar(Aficion aficion) {
-        boolean error = true;
-        if (sesion != null) {
-            if (sesion.usuario != null) {
-                if (aficion != null) {
-                    sesion.seleccionado = aficion;
-                    error = false;
-                }
-            }
-        }
-        if (error) {
+        if (sesion != null && sesion.usuario != null && aficion != null) {
+            sesion.seleccionado = aficion;
+        } else {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return !error ? "editarAficion.xhtml" : "error.xhtml";
+        return "editarAficion.xhtml";
     }
     
     public String doEliminar(Aficion aficion) {
-        boolean error = true;
-        if (sesion != null) {
-            if (sesion.usuario != null) {
-                if (aficion != null) {
-                    if (aficionFacade.find(aficion.getAficionPK()) != null) {
-                        aficionFacade.remove(aficion);
-                        sesion.usuario.getAficiones().remove(aficion);
-                        usuarioFacade.edit(sesion.usuario);
-                        error = false;
-                    }
-                }
-            }
-        }
-        if (error) {
+        if (sesion != null && sesion.usuario != null && aficion != null && aficionFacade.find(aficion.getAficionPK()) != null) {
+            aficionFacade.remove(aficion);
+            sesion.usuario.getAficiones().remove(aficion);
+            usuarioFacade.edit(sesion.usuario);
+        } else {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return !error ? sesion.doVerPerfil() : null;
+        return sesion.doVerPerfil();
     }
 }

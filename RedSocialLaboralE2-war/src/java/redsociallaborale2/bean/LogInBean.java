@@ -5,10 +5,14 @@
  */
 package redsociallaborale2.bean;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Usuario;
@@ -38,9 +42,17 @@ public class LogInBean {
     
     @PostConstruct
     void init() {
-        email = "";
-        pass = "";
-        sesion.error = 0;
+        if (sesion != null) {
+            email = "";
+            pass = "";
+            sesion.error = 0;
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public String getEmail() {
@@ -61,40 +73,52 @@ public class LogInBean {
     
     public String doLogIn() {
         String next = "login.xhtml";
-        int error;
-        error = email != null && !email.isEmpty() ? 0 : 1; // <----- [1 3] Falta email
-        error = pass != null && !pass.isEmpty() ? error : error + 2; // <------- [2 3] Falta pass
-        if (error == 0) {
-            Usuario u = usuarioFacade.findByEmail(email);
-            if (u != null) {
-                if (pass.equals(u.getPass())) {
+        if (sesion != null && sesion.usuario != null) {
+            sesion.error = email != null && !email.isEmpty() && pass != null && !pass.isEmpty() ? 0 : 1;
+            if (sesion.error == 0) {
+                Usuario u = usuarioFacade.findByEmail(email);
+                if (u != null && u.getPass().equals(pass)) {
                     sesion.usuario = u;
                     next = "main.xhtml";
                 } else {
-                    error = 5; // <--------------------------------------------- [5] No coincide pass
+                    sesion.error = 1;
                 }
-            } else {
-                error = 4; // <------------------------------------------------- [4] No se encuentra mail
+            }
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        sesion.error = error;
         return next;
     }
     
     public String doSignIn() {
-        sesion.init();
+        if (sesion != null && sesion.usuario != null) {
+            sesion.init();
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return "signin.xhtml";
     }
     
     public String doShowErrorMsg() {
-        String str;
-        switch (sesion.error) {
-            /*case 1: str = "Error: introduzca email"; break;
-            case 2: str = "Error: introduzca pass"; break;
-            case 3: str = "Error: introduzca email y pass"; break;*/
-            case 4: // No separo los dos casos por seguridad
-            case 5: str = "Error: email o pass incorrectos"; break;
-            default: str = "";
+        String str = "";
+        if (sesion != null) {
+            if (sesion.error != 0) {
+                str = "Error: email o pass incorrectos";
+            }
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return str;
     }

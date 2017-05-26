@@ -5,10 +5,14 @@
  */
 package redsociallaborale2.bean;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Usuario;
@@ -45,16 +49,25 @@ public class EditarUsuarioBean {
     
     @PostConstruct
     void init() {
-        email = ((Usuario) sesion.seleccionado).getEmail();
-        pass = ((Usuario) sesion.seleccionado).getPass();
-        rePass = ((Usuario) sesion.seleccionado).getPass();
-        nombre = ((Usuario) sesion.seleccionado).getNombre();
-        apellidos = ((Usuario) sesion.seleccionado).getApellidos();
-        twitter = ((Usuario) sesion.seleccionado).getTwitter();
-        instagram = ((Usuario) sesion.seleccionado).getInstagram();
-        web = ((Usuario) sesion.seleccionado).getWeb();
-        foto = ((Usuario) sesion.seleccionado).getFoto();
-        sesion.error = 0;
+        if (sesion != null && sesion.usuario != null && sesion.seleccionado != null && sesion.seleccionado instanceof Usuario) {
+            Usuario u = (Usuario) sesion.seleccionado;
+            email = u.getEmail();
+            pass = u.getPass();
+            rePass = u.getPass();
+            nombre = u.getNombre();
+            apellidos = u.getApellidos();
+            twitter = u.getTwitter();
+            instagram = u.getInstagram();
+            web = u.getWeb();
+            foto = u.getFoto();
+            sesion.error = 0;
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public String getEmail() {
@@ -131,60 +144,129 @@ public class EditarUsuarioBean {
     
     public String doSave() {
         String next = "editarPerfil.xhtml";
-        int error;
-        error = email != null && !email.isEmpty() ? 0 : 1; // <----------------- [ 1  3  5  7  9 11 13 15]
-        error = pass != null && !pass.isEmpty() ? error : error + 2; // <------- [ 2  3  6  7 10 11 14 15]
-        error = rePass != null && !rePass.isEmpty() ? error : error + 4; // <--- [ 4  5  6  7 12 13 14 15]
-        error = nombre != null && !nombre.isEmpty() ? error : error + 8; // <--- [ 8  9 10 11 12 13 14 15]
-        //error = UsuarioBean.errorNombreFichero(foto);
-        // comprobar que es un fichero del tipo nombre.png
-        if (error == 0) {
-            if (pass.equals(rePass)) {
-                ((Usuario) sesion.seleccionado).setEmail(email);
-                ((Usuario) sesion.seleccionado).setPass(pass);
-                ((Usuario) sesion.seleccionado).setNombre(nombre);
-                ((Usuario) sesion.seleccionado).setApellidos(apellidos);
-                ((Usuario) sesion.seleccionado).setTwitter(twitter);
-                ((Usuario) sesion.seleccionado).setInstagram(instagram);
-                ((Usuario) sesion.seleccionado).setWeb(web);
-                ((Usuario) sesion.seleccionado).setFoto(foto);
-                sesion.usuario = (Usuario) sesion.seleccionado;
+        if (sesion != null && sesion.usuario != null && sesion.seleccionado != null && sesion.seleccionado instanceof Usuario && sesion.usuario.equals(sesion.seleccionado)) {
+            sesion.error = errorDatosUsuario();
+            if (errorValido(sesion.error)) {
+                Usuario u = (Usuario) sesion.seleccionado;
+                u.setEmail(email);
+                u.setPass(pass);
+                u.setNombre(nombre);
+                u.setApellidos(apellidos);
+                u.setTwitter(twitter);
+                u.setInstagram(instagram);
+                u.setWeb(web);
+                u.setFoto(foto);
+                sesion.usuario = u;
                 usuarioFacade.edit(sesion.usuario);
                 next = "verPerfil.xhtml";
             } else {
-                error = 16; // <------------------------------------------------ [16]
                 pass = "";
                 rePass = "";
             }
         } else {
-            pass = "";
-            rePass = "";
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        sesion.error = error;
         return next;
+    }
+    
+    private static int[] errorToList(int error) {
+        int[] res = new int[7];
+        int aux;
+        for (int i = 7; i > 0; i++) {
+            aux = error / 10;
+            res[i] = (error % ((aux) * 10)) - 1;
+            error = aux;
+        }
+        res[0] = error - 1;
+        return res;
+    }
+    
+    private static boolean errorValido(int error) {
+        boolean test = false;
+        int aux;
+        int errorEmail = 0;
+        int errorFoto;
+        int errorTwitter;
+        int errorNombre = 0;
+        int errorPass = 0;
+        int errorRePass = 0;
+        int errorDiferentes = 0;
+        for (int a = 0; a < 2; a++) {
+            errorFoto = a;
+            for (int b = 0; b < 2; b++) {
+                errorTwitter = b;
+                aux = errorEmail + 1;
+                aux *= 10;
+                aux += errorFoto + 1;
+                aux *= 10;
+                aux += errorTwitter + 1;
+                aux *= 10;
+                aux += errorNombre + 1;
+                aux *= 10;
+                aux += errorPass + 1;
+                aux *= 10;
+                aux += errorRePass + 1;
+                aux *= 10;
+                aux += errorDiferentes + 1;
+                test |= error == aux;
+            }
+        }    
+        return true;
+    }
+    
+    private int errorDatosUsuario() {
+        int errorEmail = UsuarioBean.errorEmail(email);
+        int errorPass = pass != null && !pass.isEmpty() ? 0 : 1;
+        int errorRePass = rePass != null && !rePass.isEmpty() ? 0 : 1;
+        int errorDiferentes = errorPass == 0 && errorRePass == 0 && pass.equals(rePass) ? 0 : 1;
+        int errorNombre = nombre != null && !nombre.isEmpty() ? 0 : 1;
+        int errorTwitter = UsuarioBean.errorTwitter(twitter);
+        int errorFoto = UsuarioBean.errorNombreFichero(foto);
+        int error = errorEmail + 1;
+        error *= 10;
+        error += errorFoto + 1;
+        error *= 10;
+        error += errorTwitter + 1;
+        error *= 10;
+        error += errorNombre + 1;
+        error *= 10;
+        error += errorPass + 1;
+        error *= 10;
+        error += errorRePass + 1;
+        error *= 10;
+        error += errorDiferentes + 1;
+        return error;
     }
     
     public String doShowErrorMsg() {
         String str;
-        switch (sesion.error) {
-            case 1: str = "Error: introduzca email"; break;
-            case 8: str = "Error: introduzca nombre"; break;
-            case 3:
-            case 5:
-            case 6:
-            case 7:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15: str = "Error: faltan campos obligatorios"; break;
-            case 2:
-            case 4:
-            case 16: str = "Error: el pass no coincide"; break;
-            case 17: str = "Error: email ya registrado"; break;
-            default: str = "";
+        if (sesion != null) {
+            switch (sesion.error) {
+                case 1: str = "Error: introduzca email"; break;
+                case 8: str = "Error: introduzca nombre"; break;
+                case 3:
+                case 5:
+                case 6:
+                case 7:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15: str = "Error: faltan campos obligatorios"; break;
+                case 2:
+                case 4:
+                case 16: str = "Error: el pass no coincide"; break;
+                case 17: str = "Error: email ya registrado"; break;
+                default: str = "";
+            }
+        } else {
+            str = "";
         }
         return str;
     }

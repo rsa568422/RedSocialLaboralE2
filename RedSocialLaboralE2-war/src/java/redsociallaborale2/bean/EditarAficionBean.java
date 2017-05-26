@@ -5,10 +5,14 @@
  */
 package redsociallaborale2.bean;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.AficionFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
@@ -43,9 +47,17 @@ public class EditarAficionBean {
     
     @PostConstruct
     void init() {
-        sesion.error = 0;
-        nueva = sesion.seleccionado == null;
-        nombre = nueva ? "" : ((Aficion) sesion.seleccionado).getAficionPK().getNombre();
+        if (sesion != null && sesion.usuario != null && (sesion.seleccionado == null || sesion.seleccionado instanceof Aficion)) {
+            nueva = sesion.seleccionado == null;
+            nombre = nueva ? "" : ((Aficion) sesion.seleccionado).getAficionPK().getNombre();
+            sesion.error = 0;
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public String getNombre() {

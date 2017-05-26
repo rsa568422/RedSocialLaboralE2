@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import redsociallaborale2.jpa.Usuario;
@@ -65,7 +67,8 @@ public class UsuarioBean implements Serializable {
         this.error = error;
     }
     
-    public String formatoFecha(Date f){
+    // Author: Antonio Joaquin Luque
+    public static String formatoFecha(Date f){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String fecha = sdf.format(f);
         return fecha;
@@ -77,23 +80,23 @@ public class UsuarioBean implements Serializable {
     }
     
     public String doSignOut() {
-        return "confirmacion.xhtml";
+        return usuario != null ? "confirmacion.xhtml" : "error.xhtml";
     } 
     
     public String doVerPerfil() {
         seleccionado = usuario;
-        return "verPerfil.xhtml";
+        return usuario != null ? "verPerfil.xhtml" : "error.xhtml";
     }
     
     public String doEditarPerfil() {
         seleccionado = usuario;
-        return "editarPerfil.xhtml";
+        return usuario != null ? "editarPerfil.xhtml" : "error.xhtml";
     }
     
     public String doMain() {
         seleccionado = null;
-        return "main.xhtml";
-    }
+        return usuario != null ? "main.xhtml" : "error.xhtml";
+}
     
     protected static int errorNombreFichero(String fichero) {
         int err = 0;
@@ -153,18 +156,18 @@ public class UsuarioBean implements Serializable {
         return err;
     }
     
-    public static String errorToString(int error) {
+    public static String errorFotoToString(int error) {
         String str;
         switch (error) {
             //error == 1 --> el campo foto del formulario esta vacio, pero no es un campo requerido
             //case 1: str = ""; break;
-            case 2: str = "Error: formato incorrecto (comienza por \".\")"; break;
-            case 3: str = "Error: formato incorrecto (contiene \"..\")"; break;
-            case 4: str = "Error: formato incorrecto (falta nombre \".extension\")"; break;
-            case 5: str = "Error: formato incorrecto (falta extension \"nombre.\")"; break;
-            case 6: str = "Error: extension no reconocida (compatibles: png, jpg, gif, bmp)"; break;
-            case 7: str = "Error: no se encuentra el fichero"; break;
-            case 8: str = "Error: no se puede acceder al fichero"; break;
+            case 2: str = "Error: foto comienza por \".\""; break;
+            case 3: str = "Error: foto contiene \"..\""; break;
+            case 4: str = "Error: foto sin nombre (\".extension\")"; break;
+            case 5: str = "Error: foto sin extensión (\"nombre.\")"; break;
+            case 6: str = "Error: foto con extensión no reconocida (compatibles: png, jpg, gif, bmp)"; break;
+            case 7: str = "Error: no se encuentra el fichero con la foto"; break;
+            case 8: str = "Error: no se puede acceder al fichero con la foto"; break;
             default: str = "";
         }
         return str;
@@ -177,6 +180,169 @@ public class UsuarioBean implements Serializable {
             if (errorNombreFichero(fichero) == 0) {
                 str = fichero;
             }
+        }
+        return str;
+    }
+    
+    protected static int errorEmail(String email) {
+        int err = 0;
+        if (email != null && !email.isEmpty()) {
+            String str = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~0123456789";
+            if (!str.contains(String.valueOf(email.charAt(0)))) {
+                if (email.contains("@")) {
+                    if (!email.contains("@@")) {
+                        StringTokenizer tokens = new StringTokenizer(email, "@");
+                        if (tokens.hasMoreTokens()) {
+                            String usr = tokens.nextToken();
+                            if (usr != null && !usr.isEmpty()) {
+                                if (tokens.hasMoreTokens()) {
+                                    String dom = tokens.nextToken();
+                                    if (dom != null && !dom.isEmpty()) {
+                                        str = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+                                        Pattern filtro/* = Pattern.compile(str)*/;
+                                        Matcher test/* = filtro.matcher(usr)*/;
+                                        if (true/*!test.find()*/) {
+                                            /*str = " !#$%&'()*+,-/:;<=>?@[]^_`{|}~";
+                                            filtro = Pattern.compile(str);
+                                            test = filtro.matcher(dom);*/
+                                            if (true/*!test.find()*/) {
+                                                if (dom.startsWith(".")) {
+                                                    if (!dom.contains("..")) {
+                                                        tokens = new StringTokenizer(email, ".");
+                                                        str = tokens.nextToken();
+                                                        if (str != null && !str.isEmpty() && tokens.hasMoreTokens()) {
+                                                            while (tokens.hasMoreTokens()) {
+                                                                str = tokens.nextToken();
+                                                            }
+                                                            if (str != null && !str.isEmpty()) {
+                                                                boolean valido = false;
+                                                                valido |= str.equals("com");
+                                                                valido |= str.equals("es");
+                                                                valido |= str.equals("ue");
+                                                                valido |= str.equals("de");
+                                                                valido |= str.equals("fr");
+                                                                valido |= str.equals("it");
+                                                                //...
+                                                                if (!valido) {
+                                                                    // el ultimo campo del dominio no compatible
+                                                                    err = 13;
+                                                                }
+                                                            } else {
+                                                                // el ultimo campo del dominio vacio
+                                                                err = 12;
+                                                            }
+                                                        } else {
+                                                            // el primer campo del dominio vacio o unico elemento
+                                                            err = 11;
+                                                        }
+                                                    } else {
+                                                        // el campo dominio del email contiene ".."
+                                                        err = 10;
+                                                    }
+                                                } else {
+                                                    // el campo dominio del email comienza por "."
+                                                    err = 9;
+                                                }
+                                            } else {
+                                                // el campo dominio del email tiene caracter especial
+                                                err = 8;
+                                            }
+                                        } else {
+                                            // el campo usuario del email tiene caracter especial
+                                            err = 7;
+                                        }
+                                    } else {
+                                        // no hay campo dominio para el email
+                                        err = 6;
+                                    }
+                                } else {
+                                    // no hay campo dominio para el email
+                                    err = 6;
+                                }
+                            } else {
+                                // no hay campo usuario para el email
+                                err = 5;
+                            }
+                        } else {
+                            // no hay campo usuario para el email
+                            err = 5;
+                        }
+                    } else {
+                        // email no contiene "@@"
+                        err = 4;
+                    }
+                } else {
+                    // email no contiene "@"
+                    err = 3;
+                }
+            } else {
+                // email comienza por caracter especial
+                err = 2;
+            }
+        } else {
+            // email vacio
+            err = 1;
+        }
+        return err;
+    }
+    
+    public static String errorEmailToString(int error) {
+        String str;
+        switch (error) {
+            case 1: str = "Error: email vacío"; break;
+            case 2: str = "Error: email comienza por carácter especial"; break;
+            case 3: str = "Error: email no contiene \"@\""; break;
+            case 4: str = "Error: email contiene \"@@\""; break;
+            case 5: str = "Error: email sin usuario (\".dominio\")"; break;
+            case 6: str = "Error: email sin dominio (\"usuario.\")"; break;
+            case 7: str = "Error: email con carácter especial en el usuario"; break;
+            case 8: str = "Error: email con carácter especial en el dominio"; break;
+            case 9: str = "Error: campo dominio del email comienza por \".\""; break;
+            case 10: str = "Error: campo dominio del email contiene \"..\""; break;
+            case 11: str = "Error: primer campo del dominio vacío o como único elemento"; break;
+            case 12: str = "Error: ultimo campo del dominio vacío"; break;
+            case 13: str = "Error: extensión del dominio no reconocida (compatibles: .com, .es, .ue, .de, .fr, .it)"; break;
+            default: str = "";
+        }
+        return str;
+    }
+    
+    protected static int errorTwitter(String twiter) {
+        int err = 0;
+        if (twiter != null && !twiter.isEmpty()) {
+            if (twiter.startsWith("@")) {
+                if (twiter.length() > 1) {
+                    String t = twiter.substring(1);
+                    String str = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+                    Pattern filtro /*= Pattern.compile(str)*/;
+                    Matcher test /*= filtro.matcher(t)*/;
+                    if (false /*test.find()*/) {
+                        // twiter contiene caracteres especiales
+                        err = 4;
+                    }
+                } else {
+                    // twiter solo contiene @
+                    err = 3;
+                }
+            } else {
+                // twiter no comienza por @
+                err = 2;
+            }
+        } else {
+            // twiter vacio
+            err = 1;
+        }
+        return err;
+    }
+    
+    public static String errorTwitterToString(int error) {
+        String str;
+        switch (error) {
+            case 1: str = "Error: twiter vacío"; break;
+            case 2: str = "Error: twiter no comienza por \"@\""; break;
+            case 3: str = "Error: twiter sólo contiene \"@\""; break;
+            case 4: str = "Error: twiter contiene carácteres especiales"; break;
+            default: str = "";
         }
         return str;
     }

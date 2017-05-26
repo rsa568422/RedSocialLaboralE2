@@ -136,6 +136,7 @@ public class EditarUsuarioBean {
         error = pass != null && !pass.isEmpty() ? error : error + 2; // <------- [ 2  3  6  7 10 11 14 15]
         error = rePass != null && !rePass.isEmpty() ? error : error + 4; // <--- [ 4  5  6  7 12 13 14 15]
         error = nombre != null && !nombre.isEmpty() ? error : error + 8; // <--- [ 8  9 10 11 12 13 14 15]
+        //error = UsuarioBean.errorNombreFichero(foto);
         // comprobar que es un fichero del tipo nombre.png
         if (error == 0) {
             if (pass.equals(rePass)) {

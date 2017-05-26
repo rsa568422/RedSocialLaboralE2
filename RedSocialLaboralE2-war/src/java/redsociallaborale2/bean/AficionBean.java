@@ -34,8 +34,6 @@ public class AficionBean {
     @Inject
     protected UsuarioBean sesion;
     
-    private final String paginaError = "error.xhtml";
-
     /**
      * Creates a new instance of AficionBean
      */
@@ -51,58 +49,64 @@ public class AficionBean {
     }
     
     public String doInsertar() {
+        boolean error = true;
         if (sesion != null) {
-            sesion.error = 0;
             if (sesion.usuario != null) {
                 sesion.seleccionado = null;
-            } else {
-                sesion.error = 211; // No hay usuario en al sesion
+                error = false;
             }
         }
-        return sesion != null && sesion.error == 0 ? "editarAficion.xhtml" : paginaError;
-    }
-    
-    public String doEditar(Aficion aficion) {
-        sesion.error = 0;
-        if (sesion.usuario != null) {
-            if (aficion != null) {
-                sesion.seleccionado = aficion;
-            } else {
-                sesion.error = 222; // La aficion no existe
-            }
-        } else {
-            sesion.error = 221; // No hay usuario en al sesion
-        }
-        return sesion.error == 0 ? "editarAficion.xhtml" : paginaError;
-    }
-    
-    public String doEliminar(Aficion aficion) {
-        if (sesion == null) {
+        if (error) {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect(paginaError);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //return null;
-        } else {
-            sesion.error = 0;
+        }
+        return !error ? "editarAficion.xhtml" : "error.xhtml";
+    }
+    
+    public String doEditar(Aficion aficion) {
+        boolean error = true;
+        if (sesion != null) {
+            if (sesion.usuario != null) {
+                if (aficion != null) {
+                    sesion.seleccionado = aficion;
+                    error = false;
+                }
+            }
+        }
+        if (error) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return !error ? "editarAficion.xhtml" : "error.xhtml";
+    }
+    
+    public String doEliminar(Aficion aficion) {
+        boolean error = true;
+        if (sesion != null) {
             if (sesion.usuario != null) {
                 if (aficion != null) {
                     if (aficionFacade.find(aficion.getAficionPK()) != null) {
                         aficionFacade.remove(aficion);
                         sesion.usuario.getAficiones().remove(aficion);
                         usuarioFacade.edit(sesion.usuario);
-                    } else {
-                        sesion.error = 233; // La aficion no existe
+                        error = false;
                     }
-
-                } else {
-                    sesion.error = 232; // No se pasa aficion
                 }
-            } else {
-                sesion.error = 231; // No hay usuario en al sesion
             }
         }
-        return sesion != null && sesion.error == 0 ? sesion.doVerPerfil() : paginaError;
+        if (error) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return !error ? sesion.doVerPerfil() : null;
     }
 }

@@ -153,7 +153,24 @@ public class UsuarioBean implements Serializable {
         return err;
     }
     
-    public String doShowFoto(Usuario usuario) {
+    public static String errorToString(int error) {
+        String str;
+        switch (error) {
+            //error == 1 --> el campo foto del formulario esta vacio, pero no es un campo requerido
+            //case 1: str = ""; break;
+            case 2: str = "Error: formato incorrecto (comienza por \".\")"; break;
+            case 3: str = "Error: formato incorrecto (contiene \"..\")"; break;
+            case 4: str = "Error: formato incorrecto (falta nombre \".extension\")"; break;
+            case 5: str = "Error: formato incorrecto (falta extension \"nombre.\")"; break;
+            case 6: str = "Error: extension no reconocida (compatibles: png, jpg, gif, bmp)"; break;
+            case 7: str = "Error: no se encuentra el fichero"; break;
+            case 8: str = "Error: no se puede acceder al fichero"; break;
+            default: str = "";
+        }
+        return str;
+    }
+    
+    public static String doShowFoto(Usuario usuario) {
         String str = "default.png";
         if (usuario != null) {
             String fichero = usuario.getFoto();

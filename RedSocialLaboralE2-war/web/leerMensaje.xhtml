@@ -44,7 +44,7 @@
                 <h:outputLabel value="Para:"/>
                     #{mensajesBean.mensajeSeleccionado.receptor.nombre} #{mensajesBean.mensajeSeleccionado.receptor.apellidos} <br/>
                 <h:outputLabel value="Fecha:"/>
-                    #{usuarioBean.formatoFecha(mensaje.fecha)} <br/><br/>
+                    #{usuarioBean.formatoFecha(mensajesBean.mensajeSeleccionado.fecha)} <br/><br/>
                 <h:outputLabel value="Mensaje:"/><br/> 
                     #{mensajesBean.mensajeSeleccionado.mensaje} <br/><br/>
             

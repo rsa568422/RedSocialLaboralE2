@@ -13,7 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Usuario;
 
 /**
@@ -23,6 +25,9 @@ import redsociallaborale2.jpa.Usuario;
 @Named(value = "usuarioBean")
 @SessionScoped
 public class UsuarioBean implements Serializable {
+    
+    @EJB
+    private UsuarioFacade usuarioFacade;
     
     protected Usuario usuario;
     protected Object seleccionado;
@@ -182,7 +187,7 @@ public class UsuarioBean implements Serializable {
         return str;
     }
     
-    protected static int errorEmail(String email) {
+    protected int errorEmail(String email) {
         int err = 0;
         if (email != null && !email.isEmpty()) {
             String str = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~0123456789";
@@ -227,7 +232,13 @@ public class UsuarioBean implements Serializable {
                                                                 valido |= str.equals("fr");
                                                                 valido |= str.equals("it");
                                                                 //...
-                                                                if (!valido) {
+                                                                if (valido) {
+                                                                    Usuario u = usuarioFacade.findByEmail(email);
+                                                                    if (u != null) {
+                                                                        // email ya registrado
+                                                                        err = 14;
+                                                                    }
+                                                                } else {
                                                                     // el ultimo campo del dominio no compatible
                                                                     err = 13;
                                                                 }
@@ -306,6 +317,7 @@ public class UsuarioBean implements Serializable {
             case 11: str = "Error: primer campo del dominio vacío o como único elemento"; break;
             case 12: str = "Error: ultimo campo del dominio vacío"; break;
             case 13: str = "Error: extensión del dominio no reconocida (compatibles: .com, .es, .ue, .de, .fr, .it)"; break;
+            case 14: str = "Error: email ya registrado"; break;
             default: str = "";
         }
         return str;
@@ -345,7 +357,8 @@ public class UsuarioBean implements Serializable {
     public static String errorTwitterToString(int error) {
         String str;
         switch (error) {
-            case 1: str = "Error: twiter vacío"; break;
+            //error == 1 --> el campo twiter del formulario esta vacio, pero no es un campo requerido
+            //case 1: str = ""; break;
             case 2: str = "Error: twiter no comienza por \"@\""; break;
             case 3: str = "Error: twiter sólo contiene \"@\""; break;
             case 4: str = "Error: twiter contiene carácteres especiales"; break;

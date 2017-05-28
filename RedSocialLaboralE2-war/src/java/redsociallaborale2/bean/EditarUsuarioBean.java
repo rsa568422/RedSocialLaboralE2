@@ -6,6 +6,8 @@
 package redsociallaborale2.bean;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -60,7 +62,7 @@ public class EditarUsuarioBean {
             instagram = u.getInstagram();
             web = u.getWeb();
             foto = u.getFoto();
-            sesion.error = 0;
+            sesion.error = errorDatosUsuario();
         } else {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
@@ -176,7 +178,7 @@ public class EditarUsuarioBean {
     private static int[] errorToList(int error) {
         int[] res = new int[7];
         int aux;
-        for (int i = 7; i > 0; i++) {
+        for (int i = 6; i > 0; i--) {
             aux = error / 10;
             res[i] = (error % ((aux) * 10)) - 1;
             error = aux;
@@ -188,7 +190,7 @@ public class EditarUsuarioBean {
     private static boolean errorValido(int error) {
         boolean test = false;
         int aux;
-        int errorEmail = 0;
+        int errorEmail;
         int errorFoto;
         int errorTwitter;
         int errorNombre = 0;
@@ -199,27 +201,30 @@ public class EditarUsuarioBean {
             errorFoto = a;
             for (int b = 0; b < 2; b++) {
                 errorTwitter = b;
-                aux = errorEmail + 1;
-                aux *= 10;
-                aux += errorFoto + 1;
-                aux *= 10;
-                aux += errorTwitter + 1;
-                aux *= 10;
-                aux += errorNombre + 1;
-                aux *= 10;
-                aux += errorPass + 1;
-                aux *= 10;
-                aux += errorRePass + 1;
-                aux *= 10;
-                aux += errorDiferentes + 1;
-                test |= error == aux;
+                for(int c = 0; c < 15; c += 14) {
+                    errorEmail = c;
+                    aux = errorEmail + 1;
+                    aux *= 10;
+                    aux += errorFoto + 1;
+                    aux *= 10;
+                    aux += errorTwitter + 1;
+                    aux *= 10;
+                    aux += errorNombre + 1;
+                    aux *= 10;
+                    aux += errorPass + 1;
+                    aux *= 10;
+                    aux += errorRePass + 1;
+                    aux *= 10;
+                    aux += errorDiferentes + 1;
+                    test |= error == aux;
+                }
             }
         }    
         return test;
     }
     
     private int errorDatosUsuario() {
-        int errorEmail = UsuarioBean.errorEmail(email);
+        int errorEmail = sesion.errorEmail(email);
         int errorPass = pass != null && !pass.isEmpty() ? 0 : 1;
         int errorRePass = rePass != null && !rePass.isEmpty() ? 0 : 1;
         int errorDiferentes = errorPass == 0 && errorRePass == 0 && pass.equals(rePass) ? 0 : 1;
@@ -242,58 +247,53 @@ public class EditarUsuarioBean {
         return error;
     }
     
-    public String doShowErrorMsg() {
-        String str;
-        if (sesion != null) {
-            switch (sesion.error) {
-                case 1: str = "Error: introduzca email"; break;
-                case 8: str = "Error: introduzca nombre"; break;
-                case 3:
-                case 5:
-                case 6:
-                case 7:
-                case 9:
-                case 10:
-                case 11:
-                case 12:
-                case 13:
-                case 14:
-                case 15: str = "Error: faltan campos obligatorios"; break;
-                case 2:
-                case 4:
-                case 16: str = "Error: el pass no coincide"; break;
-                case 17: str = "Error: email ya registrado"; break;
-                default: str = "";
+    public List<String> doShowErrorMsg() {
+        List<String> str = new ArrayList<>();
+        if (sesion != null && sesion.usuario != null) {
+            int[] errores = errorToList(sesion.error);
+            if (errores[0] != 0 && errores[0] != 14) {
+                str.add(UsuarioBean.errorEmailToString(errores[0]));
             }
-        } else {
-            str = "";
+            if (errores[1] > 1) {
+                str.add(UsuarioBean.errorFotoToString(errores[1]));
+            }
+            if (errores[2] > 1) {
+                str.add(UsuarioBean.errorTwitterToString(errores[2]));
+            }
+            if (errores[3] != 0) {
+                str.add("Error: introduzca nombre");
+            }
+            if (errores[4] != 0 && errores[5] != 0) {
+                str.add("Error: introduzca pass");
+            } else if (errores[6] != 0) {
+                str.add("Error: el pass no coincide");
+            }
         }
         return str;
     }
     
     public boolean doShowErrorEmail() {
-        return  sesion.error == 1  ||
-                sesion.error == 3  ||
-                sesion.error == 5  ||
-                sesion.error == 7  ||
-                sesion.error == 9  ||
-                sesion.error == 11 ||
-                sesion.error == 13 ||
-                sesion.error == 15;
+        int[] errores = errorToList(sesion.error);
+        return errores[0] != 0 && errores[0] != 14;
     }
     
-    public boolean doShowErrorPass() {
-        return sesion.error > 0 && sesion.error < 18;
+    public boolean doShowErrorFoto() {
+        int[] errores = errorToList(sesion.error);
+        return errores[1] > 1;
+    }
+    
+    public boolean doShowErrorTwitter() {
+        int[] errores = errorToList(sesion.error);
+        return errores[2] > 1;
     }
     
     public boolean doShowErrorNombre() {
-        return  sesion.error == 8  ||
-                sesion.error == 9  ||
-                sesion.error == 10 ||
-                sesion.error == 11 ||
-                sesion.error == 12 ||
-                sesion.error == 13 ||
-                sesion.error == 14 ||
-                sesion.error == 15;
+        int[] errores = errorToList(sesion.error);
+        return errores[3] != 0;
+    }
+    
+    public boolean doShowErrorPass() {
+        int[] errores = errorToList(sesion.error);
+        return errores[4] != 0 && errores[5] != 0 && errores[6] != 0;
     }
 }

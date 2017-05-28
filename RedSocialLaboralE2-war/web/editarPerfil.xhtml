@@ -70,6 +70,7 @@
                     <tr>
                         <td><h:outputLabel value="Twitter"/></td>
                         <td><h:inputText value="#{editarUsuarioBean.twitter}" maxlength="50" p:placeholder="Introduzca identificador de Twitter"/></td>
+                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorTwitter()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Instagram"/></td>
@@ -85,10 +86,15 @@
                             <img src="#{usuarioBean.doShowFoto(usuarioBean.seleccionado)}" class="img-circle" height="65" width="65" alt="Avatar"/><br/>
                             <h:inputText value="#{editarUsuarioBean.foto}" maxlength="100" p:placeholder="Introduzca ruta de su foto"/>
                         </td>
+                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorFoto()}"/></td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <h:outputText value="#{editarUsuarioBean.doShowErrorMsg()}"/>
+                            <h:dataTable value="#{editarUsuarioBean.doShowErrorMsg()}" var="mensaje">
+                                <h:column>
+                                    <h:outputText value="#{mensaje}"/>
+                                </h:column>
+                            </h:dataTable>
                         </td>
                     </tr>
                 </table>

@@ -44,6 +44,7 @@
                     <tr>
                         <td><h:outputLabel value="Twitter"/></td>
                         <td><h:inputText value="#{signInBean.twitter}" maxlength="50" p:placeholder="Introduzca identificador de Twitter"/></td>
+                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorTwitter()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Instagram"/></td>
@@ -56,10 +57,15 @@
                     <tr>
                         <td><h:outputLabel value="Foto"/></td>
                         <td><h:inputText value="#{signInBean.foto}" maxlength="100" p:placeholder="Introduzca ruta de su foto"/></td>
+                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorFoto()}"/></td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <h:outputText value="#{signInBean.doShowErrorMsg()}"/>
+                            <h:dataTable value="#{signInBean.doShowErrorMsg()}" var="mensaje">
+                                <h:column>
+                                    <h:outputText value="#{mensaje}"/>
+                                </h:column>
+                            </h:dataTable>
                         </td>
                     </tr>
                 </table>

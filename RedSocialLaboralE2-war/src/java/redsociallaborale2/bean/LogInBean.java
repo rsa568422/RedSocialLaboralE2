@@ -97,6 +97,7 @@ public class LogInBean {
     public String doSignIn() {
         if (sesion != null && sesion.usuario != null) {
             sesion.init();
+            sesion.seleccionado = Boolean.TRUE;
         } else {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");

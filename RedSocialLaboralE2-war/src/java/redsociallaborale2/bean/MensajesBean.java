@@ -69,9 +69,9 @@ public class MensajesBean{
     public String doBorrar(Mensaje m){
         this.mensajeFacade.remove(m);
         if(m.getReceptor().equals(sesion.usuario)){
-            this.sesion.usuario.getMensajesRecibidos().remove(m.getId());
+            this.sesion.usuario.getMensajesRecibidos().remove(m);
         }else{
-            this.sesion.usuario.getMensajesEmitidos().remove(m.getId());
+            this.sesion.usuario.getMensajesEmitidos().remove(m);
         }
         this.usuarioFacade.edit(sesion.usuario);
         this.init();

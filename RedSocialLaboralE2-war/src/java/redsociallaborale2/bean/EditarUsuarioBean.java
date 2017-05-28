@@ -215,7 +215,7 @@ public class EditarUsuarioBean {
                 test |= error == aux;
             }
         }    
-        return true;
+        return test;
     }
     
     private int errorDatosUsuario() {

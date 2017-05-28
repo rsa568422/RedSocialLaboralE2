@@ -12,8 +12,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import redsociallaborale2.jpa.Usuario;
@@ -198,17 +196,23 @@ public class UsuarioBean implements Serializable {
                                 if (tokens.hasMoreTokens()) {
                                     String dom = tokens.nextToken();
                                     if (dom != null && !dom.isEmpty()) {
-                                        str = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
-                                        Pattern filtro/* = Pattern.compile(str)*/;
-                                        Matcher test/* = filtro.matcher(usr)*/;
-                                        if (true/*!test.find()*/) {
-                                            /*str = " !#$%&'()*+,-/:;<=>?@[]^_`{|}~";
-                                            filtro = Pattern.compile(str);
-                                            test = filtro.matcher(dom);*/
-                                            if (true/*!test.find()*/) {
-                                                if (dom.startsWith(".")) {
+                                        boolean especiales = false;
+                                        str = " !#$%&'()*+,/:;<=>?@[]^`{|}~";
+                                        for (int i = 0; i < str.length(); i++) {
+                                            char[] aux = {str.charAt(i)};
+                                            especiales |= usr.contains(new String(aux));
+                                        }
+                                        if (!especiales) {
+                                            especiales = false;
+                                            str = " !#$%&'()*+,-/:;<=>?@[]^_`{|}~";
+                                            for (int i = 0; i < str.length(); i++) {
+                                                char[] aux = {str.charAt(i)};
+                                                especiales |= dom.contains(new String(aux));
+                                            }
+                                            if (!especiales) {
+                                                if (!dom.startsWith(".")) {
                                                     if (!dom.contains("..")) {
-                                                        tokens = new StringTokenizer(email, ".");
+                                                        tokens = new StringTokenizer(dom, ".");
                                                         str = tokens.nextToken();
                                                         if (str != null && !str.isEmpty() && tokens.hasMoreTokens()) {
                                                             while (tokens.hasMoreTokens()) {
@@ -312,11 +316,14 @@ public class UsuarioBean implements Serializable {
         if (twiter != null && !twiter.isEmpty()) {
             if (twiter.startsWith("@")) {
                 if (twiter.length() > 1) {
+                    boolean especiales = false;
                     String t = twiter.substring(1);
                     String str = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
-                    Pattern filtro /*= Pattern.compile(str)*/;
-                    Matcher test /*= filtro.matcher(t)*/;
-                    if (false /*test.find()*/) {
+                    for (int i = 0; i < str.length(); i++) {
+                        char[] aux = {str.charAt(i)};
+                        especiales |= t.contains(new String(aux));
+                    }
+                    if (especiales) {
                         // twiter contiene caracteres especiales
                         err = 4;
                     }

@@ -17,7 +17,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.UsuarioFacade;
-import redsociallaborale2.jpa.Usuario;
 
 /**
  *

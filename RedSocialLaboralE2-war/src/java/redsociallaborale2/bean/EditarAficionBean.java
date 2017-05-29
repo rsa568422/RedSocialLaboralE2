@@ -77,42 +77,44 @@ public class EditarAficionBean {
     }
     
     public String doSave() {
-        if (sesion != null) {
-            if (sesion.usuario != null) {
-                sesion.error = nombre != null && !nombre.isEmpty() ? 0 : 1;
-                if (sesion.error == 0) {
-                    Aficion aficion;
-                    if (nueva) {
-                        aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
-                        if (aficion == null) {
-                            aficion = new Aficion(nombre, sesion.usuario.getId());
-                            aficion.setUsuario(sesion.usuario);
-                            aficionFacade.create(aficion);
-                            sesion.usuario.getAficiones().add(aficion);
-                            usuarioFacade.edit(sesion.usuario);
-                        } else {
-                            sesion.error = 2;
-                        }
-                    } else if (!((Aficion) sesion.seleccionado).getAficionPK().getNombre().equals(nombre)) {
-                        Aficion existente = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
-                        if (existente == null) {
-                            aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), ((Aficion) sesion.seleccionado).getAficionPK().getNombre());
-                            sesion.usuario.getAficiones().remove(aficion);
-                            aficionFacade.remove(aficion);
-                            aficion = new Aficion(nombre, sesion.usuario.getId());
-                            sesion.usuario.getAficiones().add(aficion);
-                            aficionFacade.create(aficion);
-                            usuarioFacade.edit(sesion.usuario);
-                        } else {
-                            sesion.error = 3;
-                        }
+        if (sesion != null && sesion.usuario != null) {
+            sesion.error = nombre != null && !nombre.isEmpty() ? 0 : 1;
+            if (sesion.error == 0) {
+                Aficion aficion;
+                if (nueva) {
+                    aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
+                    if (aficion == null) {
+                        aficion = new Aficion(nombre, sesion.usuario.getId());
+                        aficion.setUsuario(sesion.usuario);
+                        aficionFacade.create(aficion);
+                        sesion.usuario.getAficiones().add(aficion);
+                        usuarioFacade.edit(sesion.usuario);
+                    } else {
+                        sesion.error = 2;
+                    }
+                } else if (sesion.seleccionado instanceof Aficion && !((Aficion) sesion.seleccionado).getAficionPK().getNombre().equals(nombre)) {
+                    Aficion existente = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), nombre);
+                    if (existente == null) {
+                        aficion = aficionFacade.findByIdUsuarioAndNombreAficion(sesion.usuario.getId(), ((Aficion) sesion.seleccionado).getAficionPK().getNombre());
+                        sesion.usuario.getAficiones().remove(aficion);
+                        aficionFacade.remove(aficion);
+                        aficion = new Aficion(nombre, sesion.usuario.getId());
+                        sesion.usuario.getAficiones().add(aficion);
+                        aficionFacade.create(aficion);
+                        usuarioFacade.edit(sesion.usuario);
+                    } else {
+                        sesion.error = 3;
                     }
                 }
-            } else {
-                sesion.error = 223; // No hay usuario en al sesion
+            }
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(AficionBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return sesion == null || sesion.error == 223 ? paginaError : sesion.error == 0 ? sesion.doVerPerfil() : null;
+        return sesion.error == 0 ? sesion.doVerPerfil() : null;
     }
     
     public String doShowErrorMsg() {

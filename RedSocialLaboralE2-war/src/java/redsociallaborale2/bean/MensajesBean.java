@@ -67,15 +67,18 @@ public class MensajesBean{
     }
     
     public String doBorrar(Mensaje m){
+        String ir = "bandejaEntrada";
         this.mensajeFacade.remove(m);
         if(m.getReceptor().equals(sesion.usuario)){
             this.sesion.usuario.getMensajesRecibidos().remove(m);
+            
         }else{
             this.sesion.usuario.getMensajesEmitidos().remove(m);
+            ir = "bandejaSalida";
         }
         this.usuarioFacade.edit(sesion.usuario);
         this.init();
-        return "bandejaEntrada";
+        return ir;
     }
     
     public String establecerEstado(char i){

@@ -72,6 +72,9 @@ public class EnviarMensajeBean {
         this.sesion.usuario.getMensajesEmitidos().add(this.mensaje);
         this.usuarioFacade.edit(this.sesion.usuario);
         
+        this.amigoSeleccionado.getMensajesRecibidos().add(this.mensaje);
+        this.usuarioFacade.edit(amigoSeleccionado);
+        
         return "bandejaSalida";
     }
     

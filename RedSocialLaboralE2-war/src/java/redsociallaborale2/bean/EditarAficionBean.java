@@ -112,7 +112,7 @@ public class EditarAficionBean {
                 sesion.error = 223; // No hay usuario en al sesion
             }
         }
-        return sesion == null || sesion.error == 223 ? paginaError : sesion.error == 0 ? sesion.doVerPerfil() : "editarAficion.xhtml";
+        return sesion == null || sesion.error == 223 ? paginaError : sesion.error == 0 ? sesion.doVerPerfil() : null;
     }
     
     public String doShowErrorMsg() {

@@ -72,7 +72,7 @@ public class LogInBean {
     }
     
     public String doLogIn() {
-        String next = "login.xhtml";
+        String next = null;
         if (sesion != null && sesion.usuario != null) {
             sesion.error = email != null && !email.isEmpty() && pass != null && !pass.isEmpty() ? 0 : 1;
             if (sesion.error == 0) {

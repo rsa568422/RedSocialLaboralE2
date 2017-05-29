@@ -146,7 +146,7 @@ public class SignInBean {
     }
     
     public String doSave() {
-        String next = "signin.xhtml";
+        String next = null;
         sesion.seleccionado = null;
         if (sesion != null && sesion.usuario != null) {
             sesion.error = errorDatosUsuario();

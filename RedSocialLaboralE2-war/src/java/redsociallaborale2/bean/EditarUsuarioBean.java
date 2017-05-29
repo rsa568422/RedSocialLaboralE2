@@ -145,7 +145,7 @@ public class EditarUsuarioBean {
     }
     
     public String doSave() {
-        String next = "editarPerfil.xhtml";
+        String next = null;
         if (sesion != null && sesion.usuario != null && sesion.seleccionado != null && sesion.seleccionado instanceof Usuario && sesion.usuario.equals(sesion.seleccionado)) {
             sesion.error = errorDatosUsuario();
             if (errorValido(sesion.error)) {

@@ -88,17 +88,17 @@ public class UsuarioBean implements Serializable {
     
     public String doVerPerfil() {
         seleccionado = usuario;
-        return usuario != null ? "verPerfil.xhtml" : "error.xhtml";
+        return usuario != null ? "verPerfil2.xhtml" : "error.xhtml";
     }
     
     public String doEditarPerfil() {
         seleccionado = usuario;
-        return usuario != null ? "editarPerfil.xhtml" : "error.xhtml";
+        return usuario != null ? "editarPerfil2.xhtml" : "error.xhtml";
     }
     
     public String doMain() {
         seleccionado = null;
-        return usuario != null ? "main.xhtml" : "error.xhtml";
+        return usuario != null ? "main2.xhtml" : "error.xhtml";
 }
     
     protected static int errorNombreFichero(String fichero) {

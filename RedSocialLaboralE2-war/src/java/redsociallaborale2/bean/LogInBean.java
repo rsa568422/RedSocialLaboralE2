@@ -79,7 +79,7 @@ public class LogInBean {
                 Usuario u = usuarioFacade.findByEmail(email);
                 if (u != null && u.getPass().equals(pass)) {
                     sesion.usuario = u;
-                    next = "main.xhtml";
+                    next = sesion.doMain();
                 } else {
                     sesion.error = 1;
                 }

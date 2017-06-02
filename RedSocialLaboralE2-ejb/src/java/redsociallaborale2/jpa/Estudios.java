@@ -43,7 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Estudios.findByDescripcion", query = "SELECT e FROM Estudios e WHERE e.descripcion = :descripcion"),
     // CONSULTAS PERSONALIZADAS
     // author: Roberto Sanchez
-    @NamedQuery(name = "Estudios.findByIdUsuario", query = "SELECT e FROM Estudios e WHERE e.usuario.id = :id")})
+    @NamedQuery(name = "Estudios.findByIdUsuario", query = "SELECT e FROM Estudios e WHERE e.usuario.id = :id"),
+    // author: Roberto Benitez
+    @NamedQuery(name = "Estudios.findByFechasYUsuario", query = "SELECT e FROM Estudios e WHERE ((e.fechaInicio = :fechainicio AND e.usuario.id = :usuario) AND e.fechaFin = :fechafin)")})
 public class Estudios implements Serializable {
 
     private static final long serialVersionUID = 1L;

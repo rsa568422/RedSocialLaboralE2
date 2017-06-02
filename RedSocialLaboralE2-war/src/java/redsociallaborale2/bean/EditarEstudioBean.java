@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package redsociallaborale2.bean;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +13,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.EstudiosFacade;
+import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Estudios;
+import redsociallaborale2.jpa.Usuario;
 
 /**
  *
@@ -28,26 +29,34 @@ public class EditarEstudioBean {
 
     @EJB
     private EstudiosFacade estudiosFacade;
+    
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     @Inject
     private EstudiosBean estudio;
 
-    protected Date fechainicio;
-    protected Date fechafin;
+    @Inject
+    private UsuarioBean sesion;
+
+    
+    private Usuario us;
+    protected String fechainicio;
+    protected String fechafin;
     protected String descripcion;
     protected String ubicacion;
 
     /**
      * Creates a new instance of MensajesBean
      */
-    
     public EditarEstudioBean() {
     }
 
     @PostConstruct
     void init() {
-       /*descripcion = estudio..estudioSeleccionado.getDescripcion();
-       ubicacion = estudio.estudioSeleccionado.getUbicacion();*/
+        descripcion=estudio.estudioSeleccionado.getDescripcion();
+        ubicacion=estudio.estudioSeleccionado.getUbicacion();
+        us = sesion.usuario;
     }
 
     public EstudiosBean getEstudio() {
@@ -58,19 +67,19 @@ public class EditarEstudioBean {
         this.estudio = estudio;
     }
 
-    public Date getFechainicio() {
+    public String getFechainicio() {
         return fechainicio;
     }
 
-    public void setFechainicio(Date fechainicio) {
+    public void setFechainicio(String fechainicio) {
         this.fechainicio = fechainicio;
     }
 
-    public Date getFechafin() {
+    public String getFechafin() {
         return fechafin;
     }
 
-    public void setFechafin(Date fechafin) {
+    public void setFechafin(String fechafin) {
         this.fechafin = fechafin;
     }
 
@@ -97,21 +106,49 @@ public class EditarEstudioBean {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-    
-    public String doSave() {
+/*
+   public String doSave() {
         String next = "editarEstudio";
         int error = 0;
         
+        Estudios estudioViejo;
+        Estudios estudioNuevo;
+        
+        String fechaStrIni;
+        String fechaStrFin;
         
         if (error == 0) {
-            estudio.estudioSeleccionado.setDescripcion(descripcion);
-            estudio.estudioSeleccionado.setUbicacion(ubicacion);
+            estudioViejo = estudiosFacade.findByIdUsuarioAndIdEstudio(sesion.usuario.getId(), estudio.estudioSeleccionado.getId());
+            fechaStrIni = estudioViejo.getFechaInicio().toString();
+            fechaStrFin = estudioViejo.getFechaFin().toString();
+            sesion.usuario.getEstudios().remove(estudioViejo);
+            estudiosFacade.remove(estudioViejo);
+
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechainicioD = null;
+            Date fechafinD = null;
+            try {
+
+                fechainicioD = formatoDelTexto.parse(fechaStrIni);
+                fechafinD = formatoDelTexto.parse(fechaStrFin);
+
+            } catch (ParseException ex) {
+            }
+
+            estudioNuevo = new Estudios();
+
+            estudioNuevo.setFechaInicio(fechainicioD);
+            estudioNuevo.setFechaFin(fechafinD);
+            estudioNuevo.setDescripcion(descripcion);
+            estudioNuevo.setUbicacion(ubicacion);
+            estudioNuevo.setUsuario(sesion.usuario);
+            sesion.usuario.getEstudios().add(estudioNuevo);
+            estudiosFacade.create(estudioNuevo);
+            usuarioFacade.edit(sesion.usuario);
             
-            estudio.estudio = estudio.estudioSeleccionado;
-               
-            estudiosFacade.edit(estudio.estudio);
+            estudiosFacade.edit(estudio.estudioSeleccionado);
             next = "listaEstudios";
-        } 
-        return next ;
-    }
+        }
+        return next;
+    }*/
 }

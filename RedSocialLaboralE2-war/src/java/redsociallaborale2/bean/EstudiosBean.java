@@ -45,15 +45,7 @@ public class EstudiosBean{
     void init(){
         u = sesion.usuario;
         estudio = new Estudios();
-        estudioSeleccionado=null;
-    }
-
-    public EstudiosFacade getEstudiosFacade() {
-        return estudiosFacade;
-    }
-
-    public void setEstudiosFacade(EstudiosFacade estudiosFacade) {
-        this.estudiosFacade = estudiosFacade;
+        estudioSeleccionado=new Estudios();
     }
 
     public UsuarioBean getSesion() {
@@ -100,12 +92,10 @@ public class EstudiosBean{
     }
     
     public String goListaEstudios(){
-        init();
         return "listaEstudios";
     }
     
     public String goAnadirEstudio(){
-        sesion.init();
         return "anadirEstudio";
     }
     
@@ -114,7 +104,11 @@ public class EstudiosBean{
     }
     
     public String doEditarEstudio(Estudios e){
-        estudioSeleccionado = e;
+        Estudios hola;
+        hola = estudiosFacade.find(e.getId());
+        estudioSeleccionado = hola;
         return "editarEstudio";
     }
+    
+     
 }

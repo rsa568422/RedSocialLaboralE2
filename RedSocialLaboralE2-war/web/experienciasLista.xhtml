@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div>
+            <h:form>
+                <table>
+                    <tr>
+                        <td>
+                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
+                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                            </h:commandLink>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td><h:commandButton value="Home" action="#{usuarioBean.doMain()}"/></td>
+                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Lista Estudios"/></h1>
+                <h:dataTable value="#{experienciasCrudBean.experienciaLista}" var="experiencia">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="FechaInicio"/>
+                        </f:facet>
+                        <h:outputText value="#{experiencia.fechaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="FechaFin"/>
+                        </f:facet>
+                        <h:outputText value="#{experiencia.fechaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Empresa"/>
+                        </f:facet>
+                        <h:outputText value="#{experiencia.empresa}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Puesto"/>
+                        </f:facet>
+                        <h:outputText value="#{experiencia.puesto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Web"/>
+                        </f:facet>
+                        <h:outputText value="#{experiencia.webempresa}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            EDITAR
+                        </f:facet>
+                        <h:commandLink action="#{experienciasCrudBean.doEditar(experiencia)}"  value="Editar" />
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">
+                            BORRAR
+                        </f:facet>
+                        <h:commandButton action="#{experienciasCrudBean.doBorrar(experiencia)}"  value="BORRAR" />
+                    </h:column>
+                </h:dataTable>
+                <h:commandButton action="#{experienciasCrudBean.doNuevo()}" value="Añadir Experiencia"/>
+            </h:form>
+        </f:view>
+
+    </body>
+</html>

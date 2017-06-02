@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import redsociallaborale2.ejb.EstudiosFacade;
 import redsociallaborale2.jpa.Estudios;
+import redsociallaborale2.jpa.Usuario;
 
 /**
  *
@@ -31,7 +32,8 @@ public class CrearEstudioBean {
     private UsuarioBean sesion;
 
     private Estudios estudio;
-
+    
+    private Usuario us;
     private String fechainicio;
     private String fechafin;
     private String descripcion;
@@ -48,6 +50,7 @@ public class CrearEstudioBean {
         descripcion = "";
         ubicacion = "";
         sesion.error = 0;
+        us = sesion.usuario;
     }
 
     public String doCrear() {
@@ -75,7 +78,7 @@ public class CrearEstudioBean {
                 e.setFechaFin(fechafinD);
                 e.setDescripcion(descripcion);
                 e.setUbicacion(ubicacion);
-                e.setUsuario(sesion.usuario);
+                e.setUsuario(us);
                 estudiosFacade.create(e);
                 next = "listaEstudios";
              } else {
@@ -139,14 +142,6 @@ public class CrearEstudioBean {
 
     public void setFechafin(String fechafin) {
         this.fechafin = fechafin;
-    }
-
-    public EstudiosFacade getEstudiosFacade() {
-        return estudiosFacade;
-    }
-
-    public void setEstudiosFacade(EstudiosFacade estudiosFacade) {
-        this.estudiosFacade = estudiosFacade;
     }
 
     public UsuarioBean getSesion() {

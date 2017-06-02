@@ -67,7 +67,7 @@ public class CrearExperienciaBean {
             if (fechasCorrectas(fechainicio,fechafin)){
                 Experiencia e = new Experiencia();
                 SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
-                 Date fechainicioD = null;
+                Date fechainicioD = null;
                 Date fechafinD = null;
                 try {
                     
@@ -82,6 +82,7 @@ public class CrearExperienciaBean {
                 e.setEmpresa(empresa);
                 e.setPuesto(puesto);
                 e.setWebempresa(webempresa);
+                e.setUsuario(sesion.usuario);
                 experienciaFacade.create(e);
                 next = "listaExperiencias";
              } else {
@@ -154,14 +155,6 @@ public class CrearExperienciaBean {
 
     public void setSesion(UsuarioBean sesion) {
         this.sesion = sesion;
-    }
-
-    public ExperienciaFacade getExperienciaFacade() {
-        return experienciaFacade;
-    }
-
-    public void setExperienciaFacade(ExperienciaFacade experienciaFacade) {
-        this.experienciaFacade = experienciaFacade;
     }
 
     public Experiencia getExperiencia() {

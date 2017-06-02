@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div>
+            <h:form>
+                <table>
+                    <tr>
+                        <td>
+                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
+                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                            </h:commandLink>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td><h:commandButton value="Home" action="#{usuarioBean.doMain()}"/></td>
+                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <table>
+                    <tr>
+                        <td><h:outputLabel value="FechaInicio:" for="fechaInicio" /></td>
+                        <td><h:inputText id="fechaInicio" value="#{estudiosCrudBean.estudioSeleccionado.fechaInicio}" title="FechaInicio" >
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:inputText></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="FechaFin:" for="fechaFin" /></td>
+                        <td><h:inputText id="fechaFin" value="#{estudiosCrudBean.estudioSeleccionado.fechaFin}" title="FechaFin" >
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:inputText></td>
+                        <td><h:outputLabel value="*" rendered="#{estudiosCrudBean.doShowErrorFechas()}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="Descripcion:" for="descripcion" /></td>
+                        <td><h:inputText id="descripcion" value="#{estudiosCrudBean.estudioSeleccionado.descripcion}" title="Descripcion" /></td>
+                        <td><h:outputLabel value="*" rendered="#{estudiosCrudBean.doShowErrorCampos()}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="Ubicacion:" for="ubicacion" /></td>
+                        <td><h:inputText id="ubicacion" value="#{estudiosCrudBean.estudioSeleccionado.ubicacion}" title="Ubicacion" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><h:commandButton action="#{estudiosCrudBean.doGuardar()}" value="Guardar"/></td>
+                        <td><h:commandLink value="Cancelar" action="#{estudiosCrudBean.goListaEstudios()}"/></td>
+                        <td><h:outputText value="#{estudiosCrudBean.doShowErrorMsg()}"/></td>
+                    </tr>
+                </table>
+            </h:form>
+        </f:view>
+    </body>
+</html>

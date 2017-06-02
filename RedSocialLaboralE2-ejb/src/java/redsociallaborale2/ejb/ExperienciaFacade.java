@@ -6,11 +6,13 @@
 package redsociallaborale2.ejb;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import redsociallaborale2.jpa.Estudios;
 import redsociallaborale2.jpa.Experiencia;
 
 /**
@@ -37,5 +39,17 @@ public class ExperienciaFacade extends AbstractFacade<Experiencia> {
         Query q = em.createNamedQuery("Experiencia.findByIdUsuario");
         q.setParameter("id", id);
         return q.getResultList();
+    }
+    
+    // author: Roberto Benítez  
+    
+    public Experiencia findByFechasYUsuario(Date fechainicio, Date fechafin, BigInteger usuario) {
+        
+        Query q = em.createNamedQuery("Experiencia.findByFechasYUsuario");
+        q.setParameter("fechainicio", fechainicio);
+        q.setParameter("fechafin", fechafin);
+        q.setParameter("usuario", usuario);
+        List<Experiencia> list = q.getResultList();
+        return list == null || list.size() < 1 ? null : list.get(0);
     }
 }

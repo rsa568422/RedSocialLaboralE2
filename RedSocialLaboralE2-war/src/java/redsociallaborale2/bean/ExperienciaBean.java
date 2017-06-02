@@ -60,7 +60,6 @@ public class ExperienciaBean{
     }
     
     public String goListaExperiencias(){
-        init();
         return "listaExperiencias";
     }
     
@@ -71,14 +70,6 @@ public class ExperienciaBean{
     public String doEditarExperiencia(Experiencia e){
         experienciaSeleccionada = e;
         return "editarExperiencia";
-    }
-
-    public ExperienciaFacade getExperienciaFacade() {
-        return experienciaFacade;
-    }
-
-    public void setExperienciaFacade(ExperienciaFacade experienciaFacade) {
-        this.experienciaFacade = experienciaFacade;
     }
 
     public UsuarioBean getSesion() {

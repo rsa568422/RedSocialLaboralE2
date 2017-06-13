@@ -45,37 +45,37 @@ and open the template in the editor.
                 <table>
                     <tr>
                         <td><h:outputLabel value="FechaInicio:" for="fechaInicio" /></td>
-                        <td><h:inputText id="fechaInicio" value="#{experienciasCrudBean.experienciaSeleccionada.fechaInicio}" title="FechaInicio" >
+                        <td><h:inputText id="fechaInicio" value="#{experienciasCrudModificarBean.experienciaSeleccionada.fechaInicio}" title="FechaInicio" >
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:inputText></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="FechaFin:" for="fechaFin" /></td>
-                        <td><h:inputText id="fechaFin" value="#{experienciasCrudBean.experienciaSeleccionada.fechaFin}" title="FechaFin" >
+                        <td><h:inputText id="fechaFin" value="#{experienciasCrudModificarBean.experienciaSeleccionada.fechaFin}" title="FechaFin" >
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:inputText></td>
-                        <td><h:outputLabel value="*" rendered="#{experienciasCrudBean.doShowErrorFechas()}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{experienciasCrudModificarBean.doShowErrorFechas()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Empresa" for="empresa" /></td>
-                        <td><h:inputText id="empresa" value="#{experienciasCrudBean.experienciaSeleccionada.empresa}" title="Empresa" /></td>
-                        <td><h:outputLabel value="*" rendered="#{estudiosCrudBean.doShowErrorCampos()}"/></td>
+                        <td><h:inputText id="empresa" value="#{experienciasCrudModificarBean.experienciaSeleccionada.empresa}" title="Empresa" /></td>
+                        <td><h:outputLabel value="*" rendered="#{experienciasCrudModificarBean.doShowErrorCampos()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Puesto" for="puesto" /></td>
-                        <td><h:inputText id="puesto" value="#{experienciasCrudBean.experienciaSeleccionada.puesto}" title="Puesto" /></td>
+                        <td><h:inputText id="puesto" value="#{experienciasCrudModificarBean.experienciaSeleccionada.puesto}" title="Puesto" /></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Webempresa" for="webempresa" /></td>
-                        <td><h:inputText id="webempresa" value="#{experienciasCrudBean.experienciaSeleccionada.webempresa}" title="Webempresa" /></td>
+                        <td><h:inputText id="webempresa" value="#{experienciasCrudModificarBean.experienciaSeleccionada.webempresa}" title="Webempresa" /></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td><h:commandButton action="#{experienciasCrudBean.doGuardar()}" value="Guardar"/></td>
+                        <td><h:commandButton action="#{experienciasCrudModificarBean.doGuardar()}" value="Guardar"/></td>
                         <td><h:commandLink value="Cancelar" action="#{experienciasCrudBean.goListaExperiencias()}"/></td>
-                        <td><h:outputText value="#{experienciasCrudBean.doShowErrorMsg()}"/></td>
+                        <td><h:outputText value="#{experienciasCrudModificarBean.doShowErrorMsg()}"/></td>
                     </tr>
                 </table>
             </h:form>

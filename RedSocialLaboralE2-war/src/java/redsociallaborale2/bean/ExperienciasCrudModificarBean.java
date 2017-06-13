@@ -9,24 +9,25 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import redsociallaborale2.ejb.EstudiosFacade;
 import redsociallaborale2.ejb.ExperienciaFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
+import redsociallaborale2.jpa.Estudios;
 import redsociallaborale2.jpa.Experiencia;
 
 /**
  *
  * @author Roberto Benitez
  */
-@Named(value = "experienciasCrudBean")
+@Named(value = "experienciasCrudModificarBean")
 @RequestScoped
-public class ExperienciasCrudBean {
-
+public class ExperienciasCrudModificarBean {
+    
     @EJB
     private ExperienciaFacade experienciafacade;
     
@@ -34,28 +35,24 @@ public class ExperienciasCrudBean {
     private UsuarioFacade usuariofacade;
 
     @Inject
-    private UsuarioBean sesion;
-
-    private List<Experiencia> experienciaLista;
+    UsuarioBean sesion;
+    
     private Experiencia experienciaSeleccionada;
-
+    
+    
     /**
-     * Creates a new instance of EstudiosCrudBean
+     * Creates a new instance of ExperienciasCrudModificarBean
      */
-    public ExperienciasCrudBean() {
+    public ExperienciasCrudModificarBean() {
     }
-
+    
     @PostConstruct
-    public void init() {
-        experienciaLista = experienciafacade.findByIdUsuario(sesion.usuario.getId());
-    }
-
-    public List<Experiencia> getExperienciaLista() {
-        return experienciaLista;
-    }
-
-    public void setExperienciaLista(List<Experiencia> experienciaLista) {
-        this.experienciaLista = experienciaLista;
+    public void init(){
+        if (sesion.seleccionado == null){ // Crear
+            experienciaSeleccionada = new Experiencia();
+        } else { // Editar
+            experienciaSeleccionada = (Experiencia) sesion.seleccionado;
+        }
     }
 
     public Experiencia getExperienciaSeleccionada() {
@@ -66,21 +63,6 @@ public class ExperienciasCrudBean {
         this.experienciaSeleccionada = experienciaSeleccionada;
     }
     
-    public String goListaExperiencias(){
-        return "experienciasLista";
-    }
-
-    public String doBorrar(Experiencia experiencia) {
-        experienciafacade.remove(experiencia);
-        init();
-        return "experienciasLista";
-    }
-
-    public String doEditar(Experiencia e) {
-        sesion.seleccionado = e;
-        return "experiencia";
-    }
-
     public String doGuardar() {
         String next = "experiencia";
         int error=0;
@@ -100,12 +82,8 @@ public class ExperienciasCrudBean {
             Date fechainicio = experienciaSeleccionada.getFechaInicio();
             Date fechafin = experienciaSeleccionada.getFechaFin();
             
-            BigInteger usuario = sesion.usuario.getId();
-            
-            Experiencia e = experienciafacade.findByFechasYUsuario(fechainicio, fechafin, usuario);
-            
-            // Crear estudio
-            if (e == null) {
+            // Crear experiencia
+            if (sesion.seleccionado == null) {
                 if (fechasCorrectas(fechainicio, fechafin)) {
                     experienciaSeleccionada.setUsuario(sesion.usuario);
                     experienciafacade.create(experienciaSeleccionada);
@@ -116,17 +94,11 @@ public class ExperienciasCrudBean {
                 }
 
             } 
-            //Editar estudio
+            //Editar experiencia
             else {
                 if (fechasCorrectas(fechainicio, fechafin)) {
-                    experienciaSeleccionada.setId(e.getId());
-                    experienciaSeleccionada.setUsuario(sesion.usuario);
                     experienciafacade.edit(experienciaSeleccionada);
-                    
-                    sesion.usuario.getExperiencia().remove(e);
-                    sesion.usuario.getExperiencia().add(experienciaSeleccionada);
                     usuariofacade.edit(sesion.usuario);
-                    
                     init();
                     next="experienciasLista";
                 } else {

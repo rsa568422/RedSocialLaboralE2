@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import redsociallaborale2.ejb.UsuarioFacade;
+import redsociallaborale2.jpa.Estudios;
 import redsociallaborale2.jpa.Usuario;
 
 /**
@@ -32,6 +33,7 @@ public class UsuarioBean implements Serializable {
     protected Usuario usuario;
     protected Object seleccionado;
     protected int error;
+    
 
     /**
      * Creates a new instance of UsuarioBean

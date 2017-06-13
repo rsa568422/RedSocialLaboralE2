@@ -45,32 +45,32 @@ and open the template in the editor.
                 <table>
                     <tr>
                         <td><h:outputLabel value="FechaInicio:" for="fechaInicio" /></td>
-                        <td><h:inputText id="fechaInicio" value="#{estudiosCrudBean.estudioSeleccionado.fechaInicio}" title="FechaInicio" >
+                        <td><h:inputText id="fechaInicio" value="#{estudiosCrudModificarBean.estudioSeleccionado.fechaInicio}" title="FechaInicio" >
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:inputText></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="FechaFin:" for="fechaFin" /></td>
-                        <td><h:inputText id="fechaFin" value="#{estudiosCrudBean.estudioSeleccionado.fechaFin}" title="FechaFin" >
+                        <td><h:inputText id="fechaFin" value="#{estudiosCrudModificarBean.estudioSeleccionado.fechaFin}" title="FechaFin" >
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:inputText></td>
-                        <td><h:outputLabel value="*" rendered="#{estudiosCrudBean.doShowErrorFechas()}"/></td>
+                        <td><h:outputLabel value="*" rendered="#{estudiosCrudModificarBean.doShowErrorFechas()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Descripcion:" for="descripcion" /></td>
-                        <td><h:inputText id="descripcion" value="#{estudiosCrudBean.estudioSeleccionado.descripcion}" title="Descripcion" /></td>
-                        <td><h:outputLabel value="*" rendered="#{estudiosCrudBean.doShowErrorCampos()}"/></td>
+                        <td><h:inputText id="descripcion" value="#{estudiosCrudModificarBean.estudioSeleccionado.descripcion}" title="Descripcion" /></td>
+                        <td><h:outputLabel value="*" rendered="#{estudiosCrudModificarBean.doShowErrorCampos()}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="Ubicacion:" for="ubicacion" /></td>
-                        <td><h:inputText id="ubicacion" value="#{estudiosCrudBean.estudioSeleccionado.ubicacion}" title="Ubicacion" /></td>
+                        <td><h:inputText id="ubicacion" value="#{estudiosCrudModificarBean.estudioSeleccionado.ubicacion}" title="Ubicacion" /></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td><h:commandButton action="#{estudiosCrudBean.doGuardar()}" value="Guardar"/></td>
+                        <td><h:commandButton action="#{estudiosCrudModificarBean.doGuardar()}" value="Guardar"/></td>
                         <td><h:commandLink value="Cancelar" action="#{estudiosCrudBean.goListaEstudios()}"/></td>
-                        <td><h:outputText value="#{estudiosCrudBean.doShowErrorMsg()}"/></td>
+                        <td><h:outputText value="#{estudiosCrudModificarBean.doShowErrorMsg()}"/></td>
                     </tr>
                 </table>
             </h:form>

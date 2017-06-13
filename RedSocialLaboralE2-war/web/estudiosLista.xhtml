@@ -8,10 +8,10 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
+    <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+    </h:head>
     <body>
         <div>
             <h:form>
@@ -40,7 +40,7 @@ and open the template in the editor.
             </h:form>
         </div>
         <f:view>
-            <h:form>
+            <h:form id="formajax">
                 <h1><h:outputText value="Lista Estudios"/></h1>
                 <h:dataTable value="#{estudiosCrudBean.estudiosLista}" var="estudio">
                     <h:column>
@@ -81,10 +81,12 @@ and open the template in the editor.
                         <f:facet name="header">
                             BORRAR
                         </f:facet>
-                        <h:commandButton action="#{estudiosCrudBean.doBorrar(estudio)}"  value="BORRAR" />
+                        <h:commandButton action="#{estudiosCrudBean.doBorrar(estudio)}"  value="BORRAR" >
+                            <f:ajax execute="@form" render="formajax"/>
+                        </h:commandButton>
                     </h:column>
                 </h:dataTable>
-                <h:commandButton action="#{estudiosCrudBean.doNuevo()}" value="Añadir Estudio"/>
+                <h:commandButton action="#{estudiosCrudModificarBean.doNuevo()}" value="Añadir Estudio"/>
             </h:form>
         </f:view>
 

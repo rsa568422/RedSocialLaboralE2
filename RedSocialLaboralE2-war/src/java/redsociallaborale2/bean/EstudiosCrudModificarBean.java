@@ -5,130 +5,101 @@
  */
 package redsociallaborale2.bean;
 
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import redsociallaborale2.ejb.ExperienciaFacade;
+import redsociallaborale2.ejb.EstudiosFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
-import redsociallaborale2.jpa.Experiencia;
+import redsociallaborale2.jpa.Estudios;
 
 /**
  *
  * @author Roberto Benitez
  */
-@Named(value = "experienciasCrudBean")
+@Named(value = "estudiosCrudModificarBean")
 @RequestScoped
-public class ExperienciasCrudBean {
-
+public class EstudiosCrudModificarBean {
+    
     @EJB
-    private ExperienciaFacade experienciafacade;
+    private EstudiosFacade estudiosfacade;
     
     @EJB
     private UsuarioFacade usuariofacade;
 
     @Inject
-    private UsuarioBean sesion;
-
-    private List<Experiencia> experienciaLista;
-    private Experiencia experienciaSeleccionada;
-
+    UsuarioBean sesion;
+    
+    private Estudios estudioSeleccionado;
     /**
-     * Creates a new instance of EstudiosCrudBean
+     * Creates a new instance of EstudiosCrudModificarBean
      */
-    public ExperienciasCrudBean() {
-    }
-
-    @PostConstruct
-    public void init() {
-        experienciaLista = experienciafacade.findByIdUsuario(sesion.usuario.getId());
-    }
-
-    public List<Experiencia> getExperienciaLista() {
-        return experienciaLista;
-    }
-
-    public void setExperienciaLista(List<Experiencia> experienciaLista) {
-        this.experienciaLista = experienciaLista;
-    }
-
-    public Experiencia getExperienciaSeleccionada() {
-        return experienciaSeleccionada;
-    }
-
-    public void setExperienciaSeleccionada(Experiencia experienciaSeleccionada) {
-        this.experienciaSeleccionada = experienciaSeleccionada;
+    public EstudiosCrudModificarBean() {
     }
     
-    public String goListaExperiencias(){
-        return "experienciasLista";
+    @PostConstruct
+    public void init(){
+        if (sesion.seleccionado == null){ // Crear
+            estudioSeleccionado = new Estudios();
+        } else { // Editar
+            estudioSeleccionado = (Estudios) sesion.seleccionado;
+        }
+        
     }
 
-    public String doBorrar(Experiencia experiencia) {
-        experienciafacade.remove(experiencia);
-        init();
-        return "experienciasLista";
+    public Estudios getEstudioSeleccionado() {
+        return estudioSeleccionado;
     }
 
-    public String doEditar(Experiencia e) {
-        sesion.seleccionado = e;
-        return "experiencia";
+    public void setEstudioSeleccionado(Estudios estudioSeleccionado) {
+        this.estudioSeleccionado = estudioSeleccionado;
     }
-
+    
     public String doGuardar() {
-        String next = "experiencia";
+        String next = "estudio";
         int error=0;
-        if (experienciaSeleccionada.getFechaInicio() == null){
+        if (estudioSeleccionado.getFechaInicio() == null){
             error = 1;
         } 
         
-        if (experienciaSeleccionada.getFechaFin() == null){
+        if (estudioSeleccionado.getFechaFin() == null){
             error = error + 2;
         } 
         
-        if (experienciaSeleccionada.getEmpresa() == null || experienciaSeleccionada.getEmpresa().isEmpty()){
+        if (estudioSeleccionado.getDescripcion() == null || estudioSeleccionado.getDescripcion().isEmpty()){
             error = error +4;
         }
         
+        
         if (error == 0) {
-            Date fechainicio = experienciaSeleccionada.getFechaInicio();
-            Date fechafin = experienciaSeleccionada.getFechaFin();
             
-            BigInteger usuario = sesion.usuario.getId();
-            
-            Experiencia e = experienciafacade.findByFechasYUsuario(fechainicio, fechafin, usuario);
+            Date fechainicio = estudioSeleccionado.getFechaInicio();
+            Date fechafin = estudioSeleccionado.getFechaFin();
             
             // Crear estudio
-            if (e == null) {
+            if (sesion.seleccionado == null) {
                 if (fechasCorrectas(fechainicio, fechafin)) {
-                    experienciaSeleccionada.setUsuario(sesion.usuario);
-                    experienciafacade.create(experienciaSeleccionada);
+                    estudioSeleccionado.setUsuario(sesion.usuario);
+                    estudiosfacade.create(estudioSeleccionado);
                     init();
-                    next="experienciasLista";
+                    next="estudiosLista";
                 } else {
                     error = 15;
                 }
 
             } 
+            
             //Editar estudio
             else {
                 if (fechasCorrectas(fechainicio, fechafin)) {
-                    experienciaSeleccionada.setId(e.getId());
-                    experienciaSeleccionada.setUsuario(sesion.usuario);
-                    experienciafacade.edit(experienciaSeleccionada);
-                    
-                    sesion.usuario.getExperiencia().remove(e);
-                    sesion.usuario.getExperiencia().add(experienciaSeleccionada);
+                    estudiosfacade.edit(estudioSeleccionado);
                     usuariofacade.edit(sesion.usuario);
-                    
                     init();
-                    next="experienciasLista";
+                    next="estudiosLista";
                 } else {
                     error = 15;
                 }
@@ -164,7 +135,7 @@ public class ExperienciasCrudBean {
             case 17:
             case 18:
             case 19:
-            case 20: str="Error: los campos fechas y empresa son obligatorios"; break;
+            case 20: str="Error: los campos fechas y descripcion son obligatorios"; break;
             default: str="";
         }
         
@@ -180,7 +151,7 @@ public class ExperienciasCrudBean {
     }
     
     protected void reset() {
-        experienciaSeleccionada = new Experiencia();
+        estudioSeleccionado = new Estudios();
         String inicio = "01/01/0001 01:00:00";
         String fin = "01/01/0001 01:00:00";
         
@@ -196,16 +167,15 @@ public class ExperienciasCrudBean {
        }
         
         
-        experienciaSeleccionada.setFechaInicio(ini);
-        experienciaSeleccionada.setFechaFin(fini);
-        experienciaSeleccionada.setEmpresa("");
-        experienciaSeleccionada.setPuesto("");
-        experienciaSeleccionada.setWebempresa("");
+        estudioSeleccionado.setFechaInicio(ini);
+        estudioSeleccionado.setFechaFin(fini);
+        estudioSeleccionado.setDescripcion("");
+        estudioSeleccionado.setUbicacion("");
     }
 
     public String doNuevo() {
         reset();
-        return "experiencia";
+        return "estudio";
     }
 
     private boolean fechasCorrectas(Date fechainicio, Date fechafin) {
@@ -217,4 +187,5 @@ public class ExperienciasCrudBean {
         
         return res;
     }
+    
 }

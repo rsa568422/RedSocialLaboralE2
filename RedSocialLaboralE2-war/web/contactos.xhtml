@@ -114,13 +114,14 @@
                                                 <h:outputLabel value="Nombre" />  
                                                 </f:facet>
                                                 #{amig.nombre} #{amig.apellidos}
+                                                
                                             </h:column>
                                         
                                             <h:column>
                                                 <f:facet name="header">
                                                     <h:outputLabel value="Eliminar amistad" />
                                                 </f:facet>
-                                                <h:commandLink action="#" value="Eliminar"/>
+                                                <h:commandLink action="#{contactoBean}" value="Eliminar"/>
                                             </h:column>
                                         </h:dataTable>
 

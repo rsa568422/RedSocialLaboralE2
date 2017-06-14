@@ -5,6 +5,7 @@
  */
 package redsociallaborale2.bean;
 
+import java.math.BigInteger;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,75 +14,81 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.SolicitudFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
+import redsociallaborale2.jpa.Solicitud;
 import redsociallaborale2.jpa.Usuario;
 
 /**
  *
  * @author Inma
  */
-@Named(value = "contactoBean")
+@Named(value = "solicitudesBean")
 @RequestScoped
-public class ContactoBean {
-
-    @EJB
-    private UsuarioFacade usuarioFacade;
+public class SolicitudesBean 
+{
 
     @EJB
     private SolicitudFacade solicitudFacade;
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
     
+    private Usuario usu;
+    private List <Solicitud> listaSolicitudes;
     @Inject
     private UsuarioBean sesion;
     
-    private List<Usuario> listaAmigos;
-    private Usuario usu;
-    
+
     /**
-     * Creates a new instance of ContactoBean
+     * Creates a new instance of Solicitudes
      */
-    public ContactoBean() {
+    public SolicitudesBean() 
+    {
+        
     }
     
     @PostConstruct
-    public void init() 
+    void init()
     {
-        listaAmigos = sesion.usuario.getAmigos();
+        listaSolicitudes = sesion.getUsuario().getSolicitudesRecibidas();
+       // listaSolicitudes = solicitudFacade.findByReceptor(BigInteger.ZERO);
     }
     
-    public String goContactos ()
-    {
-        return "contactos.xhtml?faces-redirect=true";
-    }
-    
-   /* public List<Usuario> muestraAmigos()
-    {
-        //Buscamos la lista de amigos
-        //listaAmigos = sesion.usuario.getAmigos();
 
-        return listaAmigos;
-    }
-    
-    public String doBorrar(Usuario usu)
+     /*  public String doAceptar()
     {
-        
-        
     }
-*/
+     */
+
+    public Usuario getUsu() {
+        return usu;
+    }
+
+    public void setUsu(Usuario usu) {
+        this.usu = usu;
+    }
+
     public UsuarioBean getSesion() {
         return sesion;
     }
 
+   
     public void setSesion(UsuarioBean sesion) {
         this.sesion = sesion;
     }
 
-    public List<Usuario> getListaAmigos() {
-        return listaAmigos;
+    public List<Solicitud> getListaSolicitudes() 
+    {
+        
+        
+        return listaSolicitudes;
     }
 
-    public void setListaAmigos(List<Usuario> listaAmigos) {
-        this.listaAmigos = listaAmigos;
+    public void setListaSolicitudes(List<Solicitud> listaSolicitudes) {
+        this.listaSolicitudes = listaSolicitudes;
     }
+    
+    
+    
     
     
     

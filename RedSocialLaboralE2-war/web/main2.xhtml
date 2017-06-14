@@ -162,12 +162,50 @@
                                     <h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
                                 </div> 
                             </div>
+                            <!-- FIN TABLA MENSAJES -->
+                            
+                            <!-- INICIO TABLA SOLICITUDES -->
+                            
+                            <div class="col-sm-12">
+                                <div class="well">
+                                    <h2><p align="center"><strong>Solicitudes pendientes</strong></p></h2>
+                             <!--       <h3><p><h:outputLabel value="No tiene solicitudes pendientes." rendered="#solicitudesBean.listaSolicitudes().size()==0}"/><br/></p></h3>
 
+                                    <h:dataTable class="table" value="#solicitudesBean.listaSolicitudes}" var="solicitud" rendered="#solicitudesBean.listaSolicitudes.size()>0}">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputLabel value="Emisor" />  
+                                            </f:facet>
+                                            #solicitud.emisor.nombre}  
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputLabel value="" />  
+                                            </f:facet>
+                                            #solicitud.emisor.apellidos} 
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputLabel value="" />
+                                            </f:facet>
+                                            <h:commandLink action="#" value="Aceptar"/>
+                                        </h:column>
+                                        
+                                    </h:dataTable>
+                                    -->
+                                    
+                                </div>
+                            </div>
+                            
+                            <!-- FIN TABLA SOLICITUDES -->
+                            
+                            
+                            
                         </div>
                     </h:form>
                     
                 </div>
-                <!-- FIN TABLA MENSAJES -->
+                
 
 
 
@@ -178,16 +216,18 @@
                         <div class="well">
                             <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
                             <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
-                            <!-- <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
-                                 <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
-                                 <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
-                                 <f:selectItems itemLabel="email" value="3"></f:selectItems>
-                                 <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
-                                 <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
-                                 <f:selectItems itemLabel="web" value="6"></f:selectItems>
-                             </h:selectManyCheckbox> 
-                            -->
-                            <p><h:commandButton value="Buscar" action="#" class="btn btn-primary"></h:commandButton></p>
+                            
+                                 <!--   <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
+                                        <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
+                                        <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
+                                        <f:selectItems itemLabel="email" value="3"></f:selectItems>
+                                        <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
+                                        <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
+                                        <f:selectItems itemLabel="web" value="6"></f:selectItems>
+                                    </h:selectManyCheckbox> 
+                                 -->
+                            
+                            <p><h:commandButton value="Buscar" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p>
                         </div>
                     </h:form>
                 </div>

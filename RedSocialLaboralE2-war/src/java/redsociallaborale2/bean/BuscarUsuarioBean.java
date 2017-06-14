@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import redsociallaborale2.ejb.SolicitudFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
@@ -22,7 +22,7 @@ import redsociallaborale2.jpa.Usuario;
  * @author Inma
  */
 @Named(value = "buscarUsuarioBean")
-@SessionScoped
+@RequestScoped
 public class BuscarUsuarioBean implements Serializable
 {
 
@@ -69,29 +69,43 @@ public class BuscarUsuarioBean implements Serializable
     
     
     
-    public List<Usuario> usuariosEncontrados ()
+    public String usuariosEncontrados ()
     {
-        //Recojo los amigos del usuario logueado
-        listaUsuAm = (List<Usuario>)usu.getAmigoDe();
+        //Creo una lista con todos los amigos del usuario logueado
+        listaUsuAm = usu.getAmigos();
         
-        //Busco los usuarios por el dato introducido
-        listaUsu = usuarioFacade.busquedaEspecifica(nomUs, selecc);
+        if (nomUs != null)
+        {
+            //Busco usuarios por las letras que se han introducido en el campo
+            listaUsu = usuarioFacade.busquedaEspecifica(nomUs, selecc);
+            
+        }
         
+        if (listaUsu.size()>0)
+        { 
+            //Comprobamos que en la lista de usuarios encontrados no salgan los amigos del usuario logueado
+            for (Usuario us: listaUsu)
+            {
+                for (Usuario usuA: listaUsuAm)
+                {
+                    if (us.getId().equals(usuA.getId()))
+                    {
+                        listaUsu.remove(us);
+                        break;
+                    }
+                }
+            }
+        }
+       
+        if (listaUsu.size()>0)
+        {
+            return "mostrarUsuarios.xhtml?faces-redirect=true";
+        }
+        else
+        {
+            return "main2.xhtml?faces-redirect=true";
+        }
         
-        for (Usuario us: listaUsu)
-         {
-             for (Usuario usua: listaUsuAm)
-             {
-                 if (us.getId().equals(usua.getId()))
-                 {
-                     
-                     listaUsu.remove(us);
-                     break;
-                 }
-                 
-             }
-         }   
-        return listaUsu;
     }
 
     public String doAmigo(List<Usuario> usuEnc)

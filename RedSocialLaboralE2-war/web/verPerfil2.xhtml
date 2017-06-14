@@ -88,6 +88,15 @@
                             </h:column>
                         </h:dataTable>
                     </div>
+                    
+                    <div class="well">
+                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                    </div>
+                        
+                    <div class="well">
+                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                    </div>
+                    
                 </h:form>
                 </div>
                 
@@ -234,14 +243,7 @@
                         </div>
                     </div>   
                 </div>
-                    <h:form>
-                        <table>
-                            <tr>
-                                <td><h:commandButton value="Ver Estudios" action="#{estudiosCrudBean.goListaEstudios()}"/></td>
-                                <td><h:commandButton value="Experiencia profesional" action="#{experienciasCrudBean.goListaExperiencias()}"/></td>      
-                            </tr>
-                        </table>
-                    </h:form>
+                    
          </h:form> 
         <!-- FIN COLUMNA CENTRAL -->
         

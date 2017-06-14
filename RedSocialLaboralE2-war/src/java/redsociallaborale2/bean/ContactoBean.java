@@ -42,16 +42,47 @@ public class ContactoBean {
     public ContactoBean() {
     }
     
+    @PostConstruct
+    public void init() 
+    {
+        listaAmigos = sesion.usuario.getAmigos();
+    }
+    
     public String goContactos ()
     {
         return "contactos.xhtml?faces-redirect=true";
     }
     
-    public List<Usuario> muestraAmigos()
+   /* public List<Usuario> muestraAmigos()
     {
         //Buscamos la lista de amigos
-        listaAmigos = (List<Usuario>) sesion.usuario.getAmigos();
+        //listaAmigos = sesion.usuario.getAmigos();
 
         return listaAmigos;
     }
+    
+  /*  public String doBorrar(Usuario usu)
+    {
+        
+        
+    }*/
+
+    public UsuarioBean getSesion() {
+        return sesion;
+    }
+
+    public void setSesion(UsuarioBean sesion) {
+        this.sesion = sesion;
+    }
+
+    public List<Usuario> getListaAmigos() {
+        return listaAmigos;
+    }
+
+    public void setListaAmigos(List<Usuario> listaAmigos) {
+        this.listaAmigos = listaAmigos;
+    }
+    
+    
+    
 }

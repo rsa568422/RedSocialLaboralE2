@@ -96,10 +96,10 @@
                             <div class="col-sm-12">
                                 <div class="well">
                                     <h2><p align="center"><strong>Listado de amigos</strong></p></h2>
-                                    <h3><p><h:outputLabel value="No tiene amigos" rendered="#{mensajesBean.mensajesNoLeidos.size()==0}"/><br/></p></h3>
+                                    <h3><p><h:outputLabel value="No tiene amigos" rendered="#{contactoBean.listaAmigos.size()==0}"/></p></h3>
 
 
-                                    <h:dataTable class="table" value="#{contactoBean.muestraAmigos}" var="amig" rendered="#{contactoBean.muestraAmigos().size()==0}">
+                                    <h:dataTable class="table" value="#{contactoBean.listaAmigos}" var="amig" rendered="#{contactoBean.listaAmigos.size()!=0}">
                                             <h:column>
                                                 <f:facet name="header">
                                                 <h:outputLabel value="Nombre" />  
@@ -111,7 +111,7 @@
                                                 <f:facet name="header">
                                                     <h:outputLabel value="Eliminar amistad" />
                                                 </f:facet>
-                                                <h:commandLink action="#{mensajesBean.doBorrar(mensaje)}" value="Eliminar"/>
+                                                <h:commandLink action="#" value="Eliminar"/>
                                             </h:column>
                                         </h:dataTable>
 

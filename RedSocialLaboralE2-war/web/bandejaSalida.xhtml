@@ -6,42 +6,113 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
-        <title>Bandeja de Salida</title>
+        <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+
+        <meta charset="UTF-8"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>    
+            /* Set black background color, white text and some padding */
+            footer {
+                background-color: #555;
+                color: white;
+                padding: 15px;
+            }
+        </style>
     </h:head>
     <h:body>
-        <div>
-            <h:form>
-                <table>
-                    <tr>
-                        <td>
-                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
-                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
-                            </h:commandLink>
-                        </td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
-                                </tr>
-                            </table>
-                            <table>
-                                <tr>
-                                    <td><h:commandButton value="Home" action="#{usuarioBean.doMain()}"/></td>
-                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </h:form>
-        </div>
-        <h1>Bandeja Salida</h1>
-        <div>
-            <h:outputLabel value="No tienes mensajes en la bandeja de salida." rendered="#{mensajesBean.mensajesEnviados.size()==0}"/><br/>
-            <h:form>
-                <h:dataTable value="#{mensajesBean.mensajesEnviados}" var="mensaje" rendered="#{mensajesBean.mensajesEnviados.size()>0}">
+
+        <!-- NAVBAR -->
+        <h:form>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>                        
+                        </button>
+                        <a class="navbar-brand">Red Social Laboral</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><h:commandLink value="Inicio" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                            <li><h:commandLink value="Contactos" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                            <li><h:commandLink value="Mensajes" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                            <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
+                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> Mi perfil</h:commandLink></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </h:form>
+
+        <!-- FIN NAVBAR -->
+
+
+        <div class="container text-center">
+
+            <div class="row">
+
+                <!-- TABLA USUARIO LOGUEADO -->
+                <div class="col-sm-2 well">
+                    <h:form>    
+                        <div class="well">
+                        <p align="center"><strong>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</strong></p>
+                        <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                        </div>
+
+                        <div class="well">
+                            <p><a href="#">Aficiones</a></p>
+                            <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
+                                <h:column>
+                                    <p align="center">
+                                        <span class="label label-success">
+                                            #{af.aficionPK.nombre}
+                                        </span>
+                                    </p>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                        
+                        <div class="well">
+                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                        </div>
+                        
+                        <div class="well">
+                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                        </div>
+                        
+                        
+                    </h:form>
+                </div>
+
+                <!-- FIN TABLA USUARIO LOGUEADO -->
+            
+            
+<!-- INICIO TABLA MENSAJES -->     
+            
+       <div class="col-sm-7">
+                    <h:form>   
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="well">
+                                    <h2><p align="center"><strong>Bandeja de salida</strong></p></h2>
+                                    
+            <h3><p><h:outputLabel value="No tienes mensajes en la bandeja de salida." rendered="#{mensajesBean.mensajesEnviados.size()==0}"/><br/></p></h3>
+            
+                <h:dataTable class="table" value="#{mensajesBean.mensajesEnviados}" var="mensaje" rendered="#{mensajesBean.mensajesEnviados.size()>0}">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Mensaje" />  
@@ -83,10 +154,44 @@
                     </h:column>
                 </h:dataTable>
                 <br/>
-                <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Bandeja Entrada"/>
-                <h:commandButton action="#{enviarMensajeBean.goEnviarMensaje()}" value="Enviar Mensaje"/>
-            </h:form>
+                
+               
+                <h:commandButton action="#{mensajesBean.goBandejaEntrada()}" value="Bandeja Entrada" styleClass="btn btn-primary btn-lg btn-block"/>
+                <h:commandButton action="#{enviarMensajeBean.goEnviarMensaje()}" value="Enviar Mensaje" styleClass="btn btn-primary btn-lg btn-block"/>
+            </div> 
+                            </div>
+                            <!-- FIN TABLA MENSAJES -->
+                                    
+                          </div>
+                    </h:form>
+                    
+                </div>
+
+                <!-- INICIO TABLA BUSQUEDAS -->
+                <div class="col-sm-3 well">
+                    <h:form>
+                        <div class="well">
+                            <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
+                            <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
+                            
+                                 <!--   <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
+                                        <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
+                                        <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
+                                        <f:selectItems itemLabel="email" value="3"></f:selectItems>
+                                        <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
+                                        <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
+                                        <f:selectItems itemLabel="web" value="6"></f:selectItems>
+                                    </h:selectManyCheckbox> 
+                                 -->
+                            
+                            <p><h:commandButton value="Buscar" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p>
+                        </div>
+                    </h:form>
+                </div>
+
+                <!-- FIN TABLA BUSQUEDAS -->
+            </div>
         </div>
+
     </h:body>
 </html>
-

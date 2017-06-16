@@ -91,6 +91,7 @@ public class UsuarioBean implements Serializable {
     public String doVerPerfil() {
         seleccionado = usuario;
         return usuario != null ? "verPerfil2.xhtml" : "error.xhtml";
+        //return "verPerfil2.xhtml";
     }
     
     public String doEditarPerfil() {

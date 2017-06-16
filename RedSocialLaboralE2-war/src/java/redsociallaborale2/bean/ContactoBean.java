@@ -17,7 +17,7 @@ import redsociallaborale2.jpa.Usuario;
 
 /**
  *
- * @author Inma
+ * @author Inmaculada Sánchez
  */
 @Named(value = "contactoBean")
 @RequestScoped
@@ -28,6 +28,8 @@ public class ContactoBean {
 
     @EJB
     private SolicitudFacade solicitudFacade;
+    
+    
 
     
     @Inject
@@ -35,6 +37,7 @@ public class ContactoBean {
     
     private List<Usuario> listaAmigos;
     private Usuario usu;
+    protected Usuario seleccionado;
     
     /**
      * Creates a new instance of ContactoBean
@@ -46,6 +49,7 @@ public class ContactoBean {
     public void init() 
     {
         listaAmigos = sesion.usuario.getAmigos();
+        seleccionado = null;
     }
     
     public String goContactos ()
@@ -60,13 +64,25 @@ public class ContactoBean {
 
         return listaAmigos;
     }
-    
+  */  
     public String doBorrar(Usuario usu)
     {
         
+        listaAmigos.remove(usu);
+        
+        init();
+        return "contactos.xhtml?faces-redirect=true";
         
     }
-*/
+    
+    
+    public String doVerPerfil(Usuario usu) 
+    {
+        seleccionado = usu;
+        
+        return "verPerfil2.xhtml?faces-redirect=true";
+    }
+
     public UsuarioBean getSesion() {
         return sesion;
     }
@@ -82,6 +98,16 @@ public class ContactoBean {
     public void setListaAmigos(List<Usuario> listaAmigos) {
         this.listaAmigos = listaAmigos;
     }
+
+    public Usuario getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(Usuario seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+
+    
     
     
     

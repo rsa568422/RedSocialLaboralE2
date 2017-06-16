@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
-    Document   : contactos.xhtml
-    Author     : Inmaculada Sanchez 
+    Document   : verPerfilContacto.xhtml
+    Author     : Inma Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -47,7 +48,7 @@
                     <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
                   </ul>
                   
-                  <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right">
                         <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
                         <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> Mi perfil</h:commandLink></li>
                   </ul>
@@ -59,11 +60,15 @@
             
         <!-- FIN NAVBAR -->
         
+        
+        
+        
         <div class="container text-center">
         
             <div class="row">
-                
-            <!-- TABLA USUARIO LOGUEADO -->
+        
+        
+                <!-- TABLA USUARIO LOGUEADO -->
                 <div class="col-sm-2 well">
                 <h:form>    
                     <div class="well">
@@ -96,44 +101,148 @@
                 </div>
                 
                 <!-- FIN TABLA USUARIO LOGUEADO -->
-    
-                
-                <!-- INICIO TABLA AMIGOS -->
-                    <div class="col-sm-7">
-                        <h:form id="formajax">   
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="well">
-                                    <h2><p align="center"><strong>Listado de amigos</strong></p></h2>
-                                    <h3><p><h:outputLabel value="No tiene amigos" rendered="#{contactoBean.listaAmigos.size()==0}"/></p></h3>
-
-
-                                    <h:dataTable class="table" value="#{contactoBean.listaAmigos}" var="amig" rendered="#{contactoBean.listaAmigos.size()!=0}">
-                                            <h:column>
-                                                <f:facet name="header">
-                                                <h:outputLabel value="Nombre" />  
-                                                </f:facet>
-                                                <h:commandLink action="#{contactoBean.doVerPerfil(amig)}">#{amig.nombre} #{amig.apellidos}</h:commandLink>
-                                            </h:column>
-                                        
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputLabel value="Eliminar amistad" />
-                                                </f:facet>
-                                                <h:commandLink action="#{contactoBean.doBorrar(amig)}" value="Eliminar">
-                                                    <f:ajax execute="@form" render="formajax"></f:ajax>
-                                                </h:commandLink>
-                                            </h:column>
-                                        </h:dataTable>    
-                                </div> 
+        
+            
+                <!-- INICIO COLUMNA CENTRAL -->
+                <h:form>
+                <div class="col-sm-7">
+                    
+                    <!-- EMAIL -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well">
+                                <p>
+                                    Email 
+                                </p>
                             </div>
-                           
                         </div>
-                        </h:form>
+                        <div class="col-sm-9">
+                             <div class="well">   
+                              <!--  <p>
+
+                                </p> -->
+                              <p>
+                                  <h:outputText value="#{contactoBean.seleccionado}"></h:outputText></p>
+                             </div>
+                        </div>
                     </div>
-                        <!-- FIN TABLA AMIGOS -->
-                
-                <!-- INICIO TABLA BUSQUEDAS -->
+
+                    <!-- PASS -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well">
+                                <p>
+                                    Password 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                             <div class="well">   
+                                <p>
+                                    #{usuarioBean.seleccionado.pass}
+                                </p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- NOMBRE -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well">
+                                <p>
+                                    Nombre 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                             <div class="well">   
+                                <p>
+                                    #{usuarioBean.seleccionado.nombre}
+                                </p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- APELLIDOS -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well">
+                                <p>
+                                    Apellidos 
+                                </p>
+                            </div>
+                        </div>
+                      <div class="col-sm-9">
+                             <div class="well">   
+                                <p>
+                                   #{usuarioBean.seleccionado.apellidos}
+                                </p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- TWITTER -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well">
+                                <p>
+                                    Twitter 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                             <div class="well">   
+                                <p>
+                                    #{usuarioBean.seleccionado.twitter}
+                                </p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- INSTAGRAM -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well">
+                                <p>
+                                    Instagram 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                             <div class="well">   
+                                <p>
+                                    #{usuarioBean.seleccionado.instagram}
+                                </p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- WEB -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well">
+                                <p>
+                                    Web 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                             <div class="well">   
+                                <p>
+                                    #{usuarioBean.seleccionado.web}
+                                </p>
+                             </div>
+                        </div>
+                    </div>   
+                </div>
+                    
+         </h:form> 
+        <!-- FIN COLUMNA CENTRAL -->
+        
+        
+        
+        
+        <!-- INICIO TABLA BUSQUEDAS -->
                         <div class="col-sm-3 well">
                             <h:form>
                             <div class="well">
@@ -153,13 +262,15 @@
                             </h:form>
                         </div>
                     
-                <!-- FIN TABLA BUSQUEDAS -->
-                
-                
+                    <!-- FIN TABLA BUSQUEDAS -->
+        
+        
             </div>
-            
         </div>
-
-       
+        
+        
+        
+        
     </h:body>
 </html>
+

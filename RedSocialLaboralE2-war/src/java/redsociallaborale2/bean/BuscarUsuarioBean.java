@@ -19,7 +19,7 @@ import redsociallaborale2.jpa.Usuario;
 
 /**
  *
- * @author Inma
+ * @author Inmaculada Sánchez
  */
 @Named(value = "buscarUsuarioBean")
 @RequestScoped

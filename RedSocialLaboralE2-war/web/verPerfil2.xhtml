@@ -109,13 +109,13 @@
                     <div class="col-sm-12">
                         
                         <div class="well">
-                            <!--<button type="button" class="btn btn-primary btn-lg btn-block">Editar perfil</button>-->
+                          <!--  <button type="button" class="btn btn-primary btn-lg btn-block">Editar perfil</button>-->
 
                             <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{usuarioBean.doEditarPerfil()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.seleccionado)}" value="Editar perfil"></h:commandButton>
 
                         </div>
                     </div>
-                    <!-- EMAIL -->
+                   <!--  EMAIL -->
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="well">
@@ -134,7 +134,7 @@
                              </div>
                         </div>
                     </div>
-
+                              
                     <!-- PASS -->
                     <div class="row">
                         <div class="col-sm-3">
@@ -147,7 +147,7 @@
                         <div class="col-sm-9">
                              <div class="well">   
                                 <p>
-                                    #{usuarioBean.seleccionado.pass}
+                                   #{usuarioBean.seleccionado.pass}
                                 </p>
                              </div>
                         </div>

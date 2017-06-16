@@ -118,33 +118,13 @@
                         </div>
                         <div class="col-sm-9">
                              <div class="well">   
-                              <!--  <p>
-
-                                </p> -->
+                              
                               <p>
-                                  <h:outputText value="#{contactoBean.seleccionado}"></h:outputText></p>
+                                  #{contactoBean.seleccionado.email}
+                              </p>
                              </div>
                         </div>
                     </div>
-
-                    <!-- PASS -->
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="well">
-                                <p>
-                                    Password 
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                             <div class="well">   
-                                <p>
-                                    #{usuarioBean.seleccionado.pass}
-                                </p>
-                             </div>
-                        </div>
-                    </div>
-
                     <!-- NOMBRE -->
                     <div class="row">
                         <div class="col-sm-3">
@@ -157,7 +137,7 @@
                         <div class="col-sm-9">
                              <div class="well">   
                                 <p>
-                                    #{usuarioBean.seleccionado.nombre}
+                                    #{contactoBean.seleccionado.nombre}
                                 </p>
                              </div>
                         </div>
@@ -175,7 +155,7 @@
                       <div class="col-sm-9">
                              <div class="well">   
                                 <p>
-                                   #{usuarioBean.seleccionado.apellidos}
+                                   #{contactoBean.seleccionado.apellidos}
                                 </p>
                              </div>
                         </div>
@@ -193,7 +173,7 @@
                         <div class="col-sm-9">
                              <div class="well">   
                                 <p>
-                                    #{usuarioBean.seleccionado.twitter}
+                                    #{contactoBean.seleccionado.twitter}
                                 </p>
                              </div>
                         </div>
@@ -211,7 +191,7 @@
                         <div class="col-sm-9">
                              <div class="well">   
                                 <p>
-                                    #{usuarioBean.seleccionado.instagram}
+                                    #{contactoBean.seleccionado.instagram}
                                 </p>
                              </div>
                         </div>
@@ -229,7 +209,7 @@
                         <div class="col-sm-9">
                              <div class="well">   
                                 <p>
-                                    #{usuarioBean.seleccionado.web}
+                                    #{contactoBean.seleccionado.web}
                                 </p>
                              </div>
                         </div>

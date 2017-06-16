@@ -36,7 +36,7 @@ public class ContactoBean {
     private UsuarioBean sesion;
     
     private List<Usuario> listaAmigos;
-    private Usuario usu;
+    protected Usuario usu;
     protected Usuario seleccionado;
     
     /**
@@ -80,7 +80,7 @@ public class ContactoBean {
     {
         seleccionado = usu;
         
-        return "verPerfil2.xhtml?faces-redirect=true";
+        return "verPerfilContacto.xhtml";
     }
 
     public UsuarioBean getSesion() {
@@ -105,6 +105,14 @@ public class ContactoBean {
 
     public void setSeleccionado(Usuario seleccionado) {
         this.seleccionado = seleccionado;
+    }
+
+    public Usuario getUsu() {
+        return usu;
+    }
+
+    public void setUsu(Usuario usu) {
+        this.usu = usu;
     }
 
     

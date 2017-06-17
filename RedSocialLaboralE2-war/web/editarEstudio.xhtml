@@ -7,59 +7,200 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
+        <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+        
         <meta charset="UTF-8"/>
-        <title> #{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>    
+          /* Set black background color, white text and some padding */
+          footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+          }
+        </style>
     </h:head>
     <h:body>
-        <div>
-            <h:form>
-                <table>
-                    <tr>
-                        <td>
-                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
-                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
-                            </h:commandLink>
-                        </td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
-                                </tr>
-                            </table>
-                            <table>
-                                <tr>
-                                    <td><h:commandButton value="Volver" action="#{estudiosBean.goListaEstudios()}"/></td>
-                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </h:form>
+        
+        <!-- NAVBAR -->
+        <h:form>
+            <nav class="navbar navbar-inverse">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                  </button>
+                  <a class="navbar-brand">Red Social Laboral</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav">
+                    <li><h:commandLink value="Inicio" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                    <li><h:commandLink value="Contactos" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                    <li><h:commandLink value="Mensajes" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                    <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                  </ul>
+                  
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
+                        <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> Mi perfil</h:commandLink></li>
+                  </ul>
+               
+                </div>
+              </div>
+            </nav>
+        </h:form>
+            
+        <!-- FIN NAVBAR -->
+        
+        <div class="container text-center">
+        
+            <div class="row">
+                
+            <!-- TABLA USUARIO LOGUEADO -->
+                <div class="col-sm-2 well">
+                <h:form>    
+                    <div class="well">
+                        <p align="center"><strong>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</strong></p>
+                        <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                    </div>
+                    
+                    <div class="well">
+                        <p><a href="#">Aficiones</a></p>
+                        <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
+                            <h:column>
+                                <p align="center">
+                                <span class="label label-success">
+                                    #{af.aficionPK.nombre}
+                                </span>
+                            </p>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    
+                    <div class="well">
+                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                        </div>
+                        
+                    <div class="well">
+                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                    </div>
+                    
+                    
+                </h:form>
+                </div>
+                
+                <!-- FIN TABLA USUARIO LOGUEADO -->
+            
+            
+                <!-- INICIO COLUMNA CENTRAL -->
+                    <h:form>
+                    <div class="col-sm-7">
+                        <div class="col-sm-12">
+                            <div class="well">
+                                <p><h2>Editar estudios</h2></p>
+                            </div>
+                        </div>
+                        
+                        <!-- DESCRIPCION -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        Descripción:
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                  <p>
+                                    <h:inputText value="#{editarEstudioBean.descripcion}" />
+                                    
+                                  </p>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                        <!-- UBICACION -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        Ubicación:
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                  <p>
+                                    <h:inputText value="#{editarEstudioBean.ubicacion}" />
+                                    
+                                  </p>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class="col-sm-12">
+
+                            <div class="well">
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{editarEstudioBean.doSave()}" value="Enviar"></h:commandButton>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+
+                            <div class="well">
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{estudiosBean.goListaEstudios()}" value="Cancelar"></h:commandButton>
+                            </div>
+                        </div>
+                        
+                             
+                    </div>
+                </h:form> 
+                <!-- FIN COLUMNA CENTRAL -->
+                
+                
+                
+         
+                <!-- INICIO TABLA BUSQUEDAS -->
+                        <div class="col-sm-3 well">
+                            <h:form>
+                            <div class="well">
+                                <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
+                                <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
+                                   <!-- <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
+                                        <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
+                                        <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
+                                        <f:selectItems itemLabel="email" value="3"></f:selectItems>
+                                        <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
+                                        <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
+                                        <f:selectItems itemLabel="web" value="6"></f:selectItems>
+                                    </h:selectManyCheckbox> 
+                                   -->
+                                   <p><h:commandButton value="Buscar" action="#" class="btn btn-primary"></h:commandButton></p>
+                            </div>
+                            </h:form>
+                        </div>
+                    
+                <!-- FIN TABLA BUSQUEDAS -->
+                
+                
+                
+                
+            </div>
+            
         </div>
-        <h1>editarEstudio.xhtml</h1>
-        <div>
-            <h:form>
-                <table>
-                    <tr>
-                        <td><h:outputText value="Descripción:"/></td>
-                        <td><h:inputText value="#{editarEstudioBean.descripcion}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputText value="Ubicación:"/></td>
-                        <td><h:inputText value="#{editarEstudioBean.ubicacion}"/></td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td><h:commandButton value="Enviar" action="#{editarEstudioBean.doSave()}"/></td>
-                        <td><h:commandLink value="Cancelar" action="#{estudiosBean.goListaEstudios()}"/></td>
-                    </tr>
-                </table>
-            </h:form>
-        </div>
+
+       
     </h:body>
 </html>
-

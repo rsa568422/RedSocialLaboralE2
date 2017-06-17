@@ -34,8 +34,10 @@ public class SolicitudesBean
     
     private Usuario usu;
     private List <Solicitud> listaSolicitudes;
+    private Solicitud solicitud;
     @Inject
     private UsuarioBean sesion;
+    
     
 
     /**
@@ -49,15 +51,24 @@ public class SolicitudesBean
     @PostConstruct
     void init()
     {
-        listaSolicitudes = sesion.getUsuario().getSolicitudesRecibidas();
-       // listaSolicitudes = solicitudFacade.findByReceptor(BigInteger.ZERO);
+       // listaSolicitudes = sesion.getUsuario().getSolicitudesRecibidas();
+       // listaSolicitudes = solicitudFacade.findByReceptor(sesion.usuario.getId());
+        usu = sesion.usuario;
+        listaSolicitudes = (List<Solicitud>)usu.getSolicitudesRecibidas();
+        solicitud = null;
+        
     }
     
 
-     /*  public String doAceptar()
+ /*   public String doAceptar(Solicitud solicitud)
     {
+        
+        listaSolicitudes.remove(solicitud);
+        
+        
+        return "main2.xhtml?faces-redirect=true";
     }
-     */
+   */ 
 
     public Usuario getUsu() {
         return usu;
@@ -77,14 +88,23 @@ public class SolicitudesBean
     }
 
     public List<Solicitud> getListaSolicitudes() 
-    {
+    {   
         
+       // listaSolicitudes = solicitudFacade.findByReceptor(usu.getId());
         
         return listaSolicitudes;
     }
 
     public void setListaSolicitudes(List<Solicitud> listaSolicitudes) {
         this.listaSolicitudes = listaSolicitudes;
+    }
+
+    public Solicitud getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(Solicitud solicitud) {
+        this.solicitud = solicitud;
     }
     
     

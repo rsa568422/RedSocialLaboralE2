@@ -56,15 +56,7 @@ public class ContactoBean {
     {
         return "contactos.xhtml?faces-redirect=true";
     }
-    
-   /* public List<Usuario> muestraAmigos()
-    {
-        //Buscamos la lista de amigos
-        //listaAmigos = sesion.usuario.getAmigos();
-
-        return listaAmigos;
-    }
-  */  
+ 
     public String doBorrar(Usuario usu)
     {
         

@@ -108,8 +108,9 @@
 
                 <!-- INICIO TABLA MENSAJES -->
                 <div class="col-sm-7">
-                    <h:form>   
+                       
                         <div class="row">
+                            <h:form>
                             <div class="col-sm-12">
                                 <div class="well">
                                     <h2><p align="center"><strong>Mensajes pendientes</strong></p></h2>
@@ -162,10 +163,12 @@
                                     <h:commandButton value="Bandeja Entrada" action="#{mensajesBean.goBandejaEntrada()}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
                                 </div> 
                             </div>
+                            </h:form>
                             <!-- FIN TABLA MENSAJES -->
                             
                             <!-- INICIO TABLA SOLICITUDES -->
                             <div class="col-sm-12">
+                                <h:form id="formajax">
                                 <div class="well">
                                     <h2><p align="center"><strong>Solicitudes pendientes</strong></p></h2>
                                     <h3><p><h:outputLabel value="No tiene solicitudes pendientes." rendered="#{solicitudesBean.listaSolicitudes.size()==0}"/><br/></p></h3>
@@ -181,15 +184,20 @@
                                             <f:facet name="header">
                                                 <h:outputLabel value="Aceptar solicitud" />
                                             </f:facet>
-                                            <p align="left"> <h:commandLink action="#{solicitudesBean.doAceptar()}" value="Aceptar"/></p>
+                                            <p align="left">
+                                                <h:commandLink action="#{solicitudesBean.doAceptar(solicitud)}" value="Aceptar">
+                                                    <f:ajax execute="@form" render="formajax"></f:ajax>
+                                                </h:commandLink>
+                                            </p>
                                         </h:column>
                                         
                                     </h:dataTable>    
                                 </div>
+                                </h:form>
                             </div>
                             <!-- FIN TABLA SOLICITUDES -->
                         </div>
-                    </h:form>
+                    
                 </div>
                 
 

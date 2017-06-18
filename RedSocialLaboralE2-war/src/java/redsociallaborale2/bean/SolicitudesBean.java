@@ -6,6 +6,7 @@
 package redsociallaborale2.bean;
 
 
+
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -33,6 +34,7 @@ public class SolicitudesBean
     private UsuarioFacade usuarioFacade;
     
     private Usuario usu;
+    private Usuario usu2;
     private List <Solicitud> lista;
     private Solicitud solicitud;
     @Inject
@@ -51,24 +53,34 @@ public class SolicitudesBean
     @PostConstruct
     void init()
     {
-       // listaSolicitudes = sesion.getUsuario().getSolicitudesRecibidas();
-       // listaSolicitudes = solicitudFacade.findByReceptor(sesion.usuario.getId());
         usu = sesion.usuario;
-        //lista = usu.getSolicitudesRecibidas();
-        solicitud = null;
-        
+        solicitud = null;   
     }
     
 
- /*   public String doAceptar(Solicitud solicitud)
+    public String doAceptar(Solicitud solicitud)
     {
+        //Busco el usuario EMISOR de la solicitud
+        usu2 = (Usuario) solicitudFacade.findByEmisor(solicitud.getEmisor().getId());
         
-        listaSolicitudes.remove(solicitud);
+        //Añado los usuarios a la coleccion
+        usu.getAmigoDe().add(usu2);
+        usu2.getAmigoDe().add(usu);
         
+        //Actualizo usuarios
+        usuarioFacade.edit(usu);
+        usuarioFacade.edit(usu2);
         
-        return "main2.xhtml?faces-redirect=true";
+        //Busco la solicitud para eliminarla
+        Solicitud solElimina = new Solicitud();
+        solElimina = solicitudFacade.findByEmisorAndReceptor(usu.getId(), usu2.getId());
+        
+        //Elimino la solicitud
+        solicitudFacade.remove(solicitud);
+        
+        return "main2";
     }
-   */ 
+    
 
     public Usuario getUsu() {
         return usu;
@@ -89,9 +101,15 @@ public class SolicitudesBean
 
     public List<Solicitud> getListaSolicitudes() 
     {   
-        lista = usu.getSolicitudesRecibidas();
-       // listaSolicitudes = solicitudFacade.findByReceptor(usu.getId());
-        
+        lista = usu.getSolicitudesRecibidas(); 
+    
+        for (int i=0;i<lista.size();i++)
+        {
+            if (lista.get(i).getVisto()!='F')
+            {
+                lista.remove(i);
+            }
+        }
         return lista;
     }
 

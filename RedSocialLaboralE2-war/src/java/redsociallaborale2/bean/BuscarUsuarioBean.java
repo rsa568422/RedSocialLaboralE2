@@ -38,11 +38,9 @@ public class BuscarUsuarioBean implements Serializable
     
     private Usuario usu;
     protected List<Usuario> listaUsu;
-    private List<Usuario> listaUsuAm;
     private String nomUs;
     private int [] selecc;
-    private List<Usuario> usuEnc;
-    private List<Solicitud> listaSol;
+
     
     
     
@@ -64,7 +62,7 @@ public class BuscarUsuarioBean implements Serializable
     
     public String goMostrarUsuarios()
     {
-        return "mostrarUsuarios.xhtml?faces-redirect=true";
+        return "mostrarUsuarios";
     }
     
     
@@ -72,7 +70,7 @@ public class BuscarUsuarioBean implements Serializable
     public String usuariosEncontrados ()
     {
         //Creo una lista con todos los amigos del usuario logueado
-        listaUsuAm = usu.getAmigos();
+        //listaUsuAm = usu.getAmigos();
         
         if (nomUs != null)
         {
@@ -80,30 +78,14 @@ public class BuscarUsuarioBean implements Serializable
             listaUsu = usuarioFacade.busquedaEspecifica(nomUs, selecc);
             
         }
-        
-        if (listaUsu.size()>0)
-        { 
-            //Comprobamos que en la lista de usuarios encontrados no salgan los amigos del usuario logueado
-            for (Usuario us: listaUsu)
-            {
-                for (Usuario usuA: listaUsuAm)
-                {
-                    if (us.getId().equals(usuA.getId()))
-                    {
-                        listaUsu.remove(us);
-                        break;
-                    }
-                }
-            }
-        }
-       
+
         if (listaUsu.size()>0)
         {
-            return "mostrarUsuarios.xhtml?faces-redirect=true";
+            return "mostrarUsuarios";
         }
         else
         {
-            return "main2.xhtml?faces-redirect=true";
+            return "main2";
         }
         
     }
@@ -153,15 +135,7 @@ public class BuscarUsuarioBean implements Serializable
     public void setListaUsu(List<Usuario> listaUsu) {
         this.listaUsu = listaUsu;
     }
-
-    public List<Usuario> getListaUsuAm() {
-        return listaUsuAm;
-    }
-
-    public void setListaUsuAm(List<Usuario> listaUsuAm) {
-        this.listaUsuAm = listaUsuAm;
-    }
-
+    
     public String getNomUs() {
         return nomUs;
     }
@@ -177,8 +151,5 @@ public class BuscarUsuarioBean implements Serializable
     public void setSelecc(int[] selecc) {
         this.selecc = selecc;
     }
-    
-    
-    
-    
+   
 }

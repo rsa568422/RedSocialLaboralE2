@@ -167,8 +167,9 @@
                             <!-- FIN TABLA MENSAJES -->
                             
                             <!-- INICIO TABLA SOLICITUDES -->
+                            <h:form id="formajax">
                             <div class="col-sm-12">
-                                <h:form id="formajax">
+                                
                                 <div class="well">
                                     <h2><p align="center"><strong>Solicitudes pendientes</strong></p></h2>
                                     <h3><p><h:outputLabel value="No tiene solicitudes pendientes." rendered="#{solicitudesBean.listaSolicitudes.size()==0}"/><br/></p></h3>
@@ -186,15 +187,16 @@
                                             </f:facet>
                                             <p align="left">
                                                 <h:commandLink action="#{solicitudesBean.doAceptar(solicitud)}" value="Aceptar">
-                                                    <f:ajax execute="@form" render="formajax"></f:ajax>
+                                                    <!--<f:ajax execute="@form" render="formajax"></f:ajax> -->
                                                 </h:commandLink>
                                             </p>
                                         </h:column>
                                         
                                     </h:dataTable>    
                                 </div>
-                                </h:form>
+                                
                             </div>
+                            </h:form>
                             <!-- FIN TABLA SOLICITUDES -->
                         </div>
                     

@@ -36,7 +36,6 @@ public class SolicitudesBean
     private Usuario usu;
     private Usuario usu2;
     private List <Solicitud> lista;
-    private Solicitud solicitud;
     @Inject
     private UsuarioBean sesion;
     
@@ -54,18 +53,19 @@ public class SolicitudesBean
     void init()
     {
         usu = sesion.usuario;
-        solicitud = null;   
+        usu2 = null;
+       // lista = usu.getSolicitudesRecibidas(); 
     }
     
 
     public String doAceptar(Solicitud solicitud)
     {
         //Busco el usuario EMISOR de la solicitud
-        usu2 = (Usuario) solicitudFacade.findByEmisor(solicitud.getEmisor().getId());
+        usu2 = usuarioFacade.find(solicitud.getEmisor().getId());
         
         //Añado los usuarios a la coleccion
-        usu.getAmigoDe().add(usu2);
-        usu2.getAmigoDe().add(usu);
+        usu.getAmigos().add(usu2);
+        usu2.getAmigos().add(usu);
         
         //Actualizo usuarios
         usuarioFacade.edit(usu);
@@ -73,12 +73,13 @@ public class SolicitudesBean
         
         //Busco la solicitud para eliminarla
         Solicitud solElimina = new Solicitud();
-        solElimina = solicitudFacade.findByEmisorAndReceptor(usu.getId(), usu2.getId());
+        solElimina = solicitudFacade.findByEmisorAndReceptor(usu2.getId(), usu.getId());
         
         //Elimino la solicitud
         solicitudFacade.remove(solicitud);
         
         return "main2";
+       
     }
     
 
@@ -112,18 +113,5 @@ public class SolicitudesBean
         }
         return lista;
     }
-
-    public Solicitud getSolicitud() {
-        return solicitud;
-    }
-
-    public void setSolicitud(Solicitud solicitud) {
-        this.solicitud = solicitud;
-    }
-    
-    
-    
-    
-    
-    
+        
 }

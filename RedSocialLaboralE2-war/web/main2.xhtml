@@ -169,9 +169,9 @@
                             <div class="col-sm-12">
                                 <div class="well">
                                     <h2><p align="center"><strong>Solicitudes pendientes</strong></p></h2>
-                                    <h3><p><h:outputLabel value="No tiene solicitudes pendientes." rendered="#{solicitudesBean.listaSolicitudes().size()==0}"/><br/></p></h3>
+                                <!--    <h3><p><h:outputLabel value="No tiene solicitudes pendientes." rendered="#solicitudesBean.listaSolicitudes().size()==0}"/><br/></p></h3>
 
-                                    <h:dataTable class="table" value="#{solicitudesBean.listaSolicitudes}" var="solicitud" rendered="#{solicitudesBean.listaSolicitudes.size()>0}">
+                                    <h:dataTable class="table" value="#solicitudesBean.listaSolicitudes}" var="solicitud" rendered="#solicitudesBean.listaSolicitudes.size()>0}">
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputLabel value="Emisor" />  
@@ -188,19 +188,20 @@
                                             <f:facet name="header">
                                                 <h:outputLabel value="" />
                                             </f:facet>
-                                            <h:commandLink action="#{solicitudesBean.doAceptar()}" value="Aceptar"/>
+                                            <h:commandLink action="#solicitudesBean.doAceptar()}" value="Aceptar"/>
                                         </h:column>
                                         
                                     </h:dataTable>
                                    
                                     
-                                </div>
+                                </div> -->
                             </div>
                             
                             <!-- FIN TABLA SOLICITUDES -->
                             
                             
                             
+                        </div>
                         </div>
                     </h:form>
                     

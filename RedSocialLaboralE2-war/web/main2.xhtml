@@ -121,7 +121,7 @@
                                             <f:facet name="header">
                                                 <h:outputLabel value="Mensaje" />  
                                             </f:facet>
-                                            #{mensajesBean.longitudMensaje(mensaje.mensaje)}
+                                            #{mensajesBean.longitudMensaje(mensaje.mensaje)} 
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
@@ -165,46 +165,31 @@
                             <!-- FIN TABLA MENSAJES -->
                             
                             <!-- INICIO TABLA SOLICITUDES -->
-                            
                             <div class="col-sm-12">
                                 <div class="well">
                                     <h2><p align="center"><strong>Solicitudes pendientes</strong></p></h2>
-                                <!--    <h3><p><h:outputLabel value="No tiene solicitudes pendientes." rendered="#solicitudesBean.listaSolicitudes().size()==0}"/><br/></p></h3>
+                                    <h3><p><h:outputLabel value="No tiene solicitudes pendientes." rendered="#{solicitudesBean.listaSolicitudes.size()==0}"/><br/></p></h3>
 
-                                    <h:dataTable class="table" value="#solicitudesBean.listaSolicitudes}" var="solicitud" rendered="#solicitudesBean.listaSolicitudes.size()>0}">
+                                    <h:dataTable class="table" value="#{solicitudesBean.listaSolicitudes}" var="solicitud" rendered="#{solicitudesBean.listaSolicitudes.size()>0}">
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="Emisor" />  
+                                                <h:outputLabel value="Emisor"/>
                                             </f:facet>
-                                            #solicitud.emisor.nombre}  
+                                            <p align="left">#{solicitud.emisor.nombre} #{solicitud.emisor.apellidos}</p>
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="" />  
+                                                <h:outputLabel value="Aceptar solicitud" />
                                             </f:facet>
-                                            #solicitud.emisor.apellidos} 
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputLabel value="" />
-                                            </f:facet>
-                                            <h:commandLink action="#solicitudesBean.doAceptar()}" value="Aceptar"/>
+                                            <p align="left"> <h:commandLink action="#{solicitudesBean.doAceptar()}" value="Aceptar"/></p>
                                         </h:column>
                                         
-                                    </h:dataTable>
-                                   
-                                    
-                                </div> -->
+                                    </h:dataTable>    
+                                </div>
                             </div>
-                            
                             <!-- FIN TABLA SOLICITUDES -->
-                            
-                            
-                            
-                        </div>
                         </div>
                     </h:form>
-                    
                 </div>
                 
 

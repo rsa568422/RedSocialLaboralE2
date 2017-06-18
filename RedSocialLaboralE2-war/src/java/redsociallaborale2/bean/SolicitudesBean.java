@@ -5,7 +5,7 @@
  */
 package redsociallaborale2.bean;
 
-import java.math.BigInteger;
+
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -33,7 +33,7 @@ public class SolicitudesBean
     private UsuarioFacade usuarioFacade;
     
     private Usuario usu;
-    private List <Solicitud> listaSolicitudes;
+    private List <Solicitud> lista;
     private Solicitud solicitud;
     @Inject
     private UsuarioBean sesion;
@@ -54,7 +54,7 @@ public class SolicitudesBean
        // listaSolicitudes = sesion.getUsuario().getSolicitudesRecibidas();
        // listaSolicitudes = solicitudFacade.findByReceptor(sesion.usuario.getId());
         usu = sesion.usuario;
-        listaSolicitudes = (List<Solicitud>)usu.getSolicitudesRecibidas();
+        //lista = usu.getSolicitudesRecibidas();
         solicitud = null;
         
     }
@@ -89,14 +89,10 @@ public class SolicitudesBean
 
     public List<Solicitud> getListaSolicitudes() 
     {   
-        
+        lista = usu.getSolicitudesRecibidas();
        // listaSolicitudes = solicitudFacade.findByReceptor(usu.getId());
         
-        return listaSolicitudes;
-    }
-
-    public void setListaSolicitudes(List<Solicitud> listaSolicitudes) {
-        this.listaSolicitudes = listaSolicitudes;
+        return lista;
     }
 
     public Solicitud getSolicitud() {

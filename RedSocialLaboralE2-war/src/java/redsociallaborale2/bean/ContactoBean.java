@@ -48,22 +48,32 @@ public class ContactoBean {
     @PostConstruct
     public void init() 
     {
-        listaAmigos = sesion.usuario.getAmigos();
+        usu = sesion.getUsuario();
+        listaAmigos = usu.getAmigos();
         seleccionado = null;
     }
     
     public String goContactos ()
     {
-        return "contactos.xhtml?faces-redirect=true";
+        return "contactos";
     }
  
     public String doBorrar(Usuario usu2)
     {
         //this.usuarioFacade.remove(usu2);
+        usu.getAmigos().remove(usu2);
+        usu2.getAmigos().remove(usu);
+        
+        //Actualizo
+        usuarioFacade.edit(usu);
+        usuarioFacade.edit(usu2);
+        
+        //Elimino de la lista de amigos
         listaAmigos.remove(usu2);
         
+
         init();
-        return "contactos.xhtml?faces-redirect=true";
+        return "contactos";
         
     }
     

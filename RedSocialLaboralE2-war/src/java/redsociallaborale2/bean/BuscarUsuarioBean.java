@@ -102,7 +102,7 @@ public class BuscarUsuarioBean implements Serializable
         
         
         
-        return "main2.xhtml?faces-redirect=true";
+        return "main2";
     }
     
     

@@ -54,7 +54,7 @@ public class SolicitudesBean
     {
         usu = sesion.usuario;
         usu2 = null;
-       // lista = usu.getSolicitudesRecibidas(); 
+        lista = usu.getSolicitudesRecibidas(); 
     }
     
 
@@ -74,10 +74,17 @@ public class SolicitudesBean
         //Busco la solicitud para eliminarla
         Solicitud solElimina = new Solicitud();
         solElimina = solicitudFacade.findByEmisorAndReceptor(usu2.getId(), usu.getId());
-        
+       
+        usu.getSolicitudesRecibidas().remove(solicitud);
         //Elimino la solicitud
         solicitudFacade.remove(solicitud);
         
+        
+        
+        
+        init();
+        
+       
         return "main2";
        
     }
@@ -102,7 +109,7 @@ public class SolicitudesBean
 
     public List<Solicitud> getListaSolicitudes() 
     {   
-        lista = usu.getSolicitudesRecibidas(); 
+       // lista = usu.getSolicitudesRecibidas(); 
     
         for (int i=0;i<lista.size();i++)
         {

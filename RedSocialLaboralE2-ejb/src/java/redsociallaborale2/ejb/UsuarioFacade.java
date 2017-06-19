@@ -48,13 +48,37 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
     
     // Autor: Roberto Benitez
-    public List<Usuario> busquedaEspecifica(String nombre, int [] marcados) {
+    public List<Usuario> busquedaEspecifica(String nombre, List<Integer> marcados) {
         
         List<Usuario> usu;
         Query q;
         String consulta="SELECT u from Usuario u WHERE";
         
-        if(marcados[0]==1){
+        
+        for (Integer i: marcados)
+        {
+            if(i==1)
+            {
+                consulta+= " u.nombre LIKE :nombre OR";
+            }
+            if (i==2)
+            {
+                consulta+= " u.apellidos LIKE :nombre OR"; 
+            }
+            if (i==3)
+            {
+                consulta+= " u.email LIKE :nombre OR";
+            }
+            if (i==4)
+            {
+                consulta+= " u.twitter LIKE :nombre OR";
+            }
+            if (i==5)
+            {
+                consulta+= " u.web LIKE :nombre OR";
+            }
+        }
+        /*if(marcados[0]==1){
             consulta+= " u.nombre LIKE :nombre OR";
         }
         if(marcados[1]==1){
@@ -72,6 +96,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         if(marcados[5]==1){
            consulta+= " u.web LIKE :nombre OR"; 
         }
+*/
         
         //Acortar la consulta los ultimos 3 caracteres
         int cantidad= 3;       

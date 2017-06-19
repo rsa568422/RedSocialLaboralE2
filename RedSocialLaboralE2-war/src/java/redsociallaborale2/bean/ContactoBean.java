@@ -57,10 +57,10 @@ public class ContactoBean {
         return "contactos.xhtml?faces-redirect=true";
     }
  
-    public String doBorrar(Usuario usu)
+    public String doBorrar(Usuario usu2)
     {
-        
-        listaAmigos.remove(usu);
+        //this.usuarioFacade.remove(usu2);
+        listaAmigos.remove(usu2);
         
         init();
         return "contactos.xhtml?faces-redirect=true";

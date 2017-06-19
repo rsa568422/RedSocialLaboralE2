@@ -6,6 +6,7 @@
 package redsociallaborale2.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -39,7 +40,7 @@ public class BuscarUsuarioBean implements Serializable
     private Usuario usu;
     protected List<Usuario> listaUsu;
     private String nomUs;
-    private int [] selecc;
+    private List<Integer>selecc;
 
     
     
@@ -56,7 +57,9 @@ public class BuscarUsuarioBean implements Serializable
     @PostConstruct
     void init()
     {
-        usu = sesion.usuario;       
+        usu = sesion.usuario; 
+        nomUs = "";
+      //  selecc = new ArrayList<Integer>();
     }
     
     
@@ -72,11 +75,12 @@ public class BuscarUsuarioBean implements Serializable
         //Creo una lista con todos los amigos del usuario logueado
         //listaUsuAm = usu.getAmigos();
         
-        if (nomUs != null)
+        if ("".equals(nomUs))
         {
+            
+        } else {
             //Busco usuarios por las letras que se han introducido en el campo
             listaUsu = usuarioFacade.busquedaEspecifica(nomUs, selecc);
-            
         }
 
         if (listaUsu.size()>0)
@@ -144,12 +148,14 @@ public class BuscarUsuarioBean implements Serializable
         this.nomUs = nomUs;
     }
 
-    public int[] getSelecc() {
+    public List<Integer> getSelecc() {
         return selecc;
     }
 
-    public void setSelecc(int[] selecc) {
+    public void setSelecc(List<Integer> selecc) {
         this.selecc = selecc;
     }
+
+
    
 }

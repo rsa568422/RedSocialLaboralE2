@@ -187,7 +187,7 @@
                                             </f:facet>
                                             <p align="left">
                                                 <h:commandLink action="#{solicitudesBean.doAceptar(solicitud)}" value="Aceptar">
-                                                    <!--<f:ajax execute="@form" render="formajax"></f:ajax> -->
+                                                    <f:ajax execute="@form" render="formajax"></f:ajax>
                                                 </h:commandLink>
                                             </p>
                                         </h:column>
@@ -213,7 +213,7 @@
                             <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
                             <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
                             
-                                 <!--   <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
+                                 <!--   <h:selectManyCheckbox id="seleccionado" value="#{buscarUsuarioBean.selecc}">
                                         <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
                                         <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
                                         <f:selectItems itemLabel="email" value="3"></f:selectItems>

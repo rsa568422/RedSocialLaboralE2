@@ -40,7 +40,7 @@ public class BuscarUsuarioBean implements Serializable
     private Usuario usu;
     protected List<Usuario> listaUsu;
     private String nomUs;
-    private List<Integer>selecc;
+    protected Integer[] selecc;
 
     
     
@@ -58,8 +58,8 @@ public class BuscarUsuarioBean implements Serializable
     void init()
     {
         usu = sesion.usuario; 
-        nomUs = "";
-      //  selecc = new ArrayList<Integer>();
+        
+      
     }
     
     
@@ -75,11 +75,10 @@ public class BuscarUsuarioBean implements Serializable
         //Creo una lista con todos los amigos del usuario logueado
         //listaUsuAm = usu.getAmigos();
         
-        if ("".equals(nomUs))
+        if (nomUs != null)
         {
-            
-        } else {
             //Busco usuarios por las letras que se han introducido en el campo
+            
             listaUsu = usuarioFacade.busquedaEspecifica(nomUs, selecc);
         }
 
@@ -148,14 +147,15 @@ public class BuscarUsuarioBean implements Serializable
         this.nomUs = nomUs;
     }
 
-    public List<Integer> getSelecc() {
+    public Integer[] getSelecc() {
         return selecc;
     }
 
-    public void setSelecc(List<Integer> selecc) {
+    public void setSelecc(Integer[] selecc) {
         this.selecc = selecc;
     }
 
+   
 
    
 }

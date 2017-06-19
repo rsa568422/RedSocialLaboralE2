@@ -213,17 +213,21 @@
                             <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
                             <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
                             
-                                 <!--   <h:selectManyCheckbox id="seleccionado" value="#{buscarUsuarioBean.selecc}">
-                                        <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
-                                        <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
-                                        <f:selectItems itemLabel="email" value="3"></f:selectItems>
-                                        <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
-                                        <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
-                                        <f:selectItems itemLabel="web" value="6"></f:selectItems>
-                                    </h:selectManyCheckbox> 
-                                 -->
-                            
-                            <p><h:commandButton value="Buscar" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p>
+                            <h:selectManyCheckbox value="#{buscarUsuarioBean.selecc}">
+                                <f:selectItem itemLabel="nombre" itemValue="1" ></f:selectItem>
+                                
+                                <f:selectItem itemLabel="apellidos" itemValue="2"></f:selectItem>
+                               
+                                <f:selectItem itemLabel="email" itemValue="3"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="twitter" itemValue="4"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="instagram" itemValue="5"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="web" itemValue="6"></f:selectItem>
+                            </h:selectManyCheckbox>
+  
+                            <p><h:commandButton value="Buscar" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p> 
                         </div>
                     </h:form>
                 </div>

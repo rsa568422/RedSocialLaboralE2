@@ -5,6 +5,7 @@
  */
 package redsociallaborale2.ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -48,7 +49,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
     
     // Autor: Roberto Benitez
-    public List<Usuario> busquedaEspecifica(String nombre, List<Integer> marcados) {
+    public List<Usuario> busquedaEspecifica(String nombre, Integer[] marcados) {
         
         List<Usuario> usu;
         Query q;
@@ -103,9 +104,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         consulta = consulta.substring(0, consulta.length() - cantidad);
         
         q= em.createQuery(consulta)
-                .setParameter("nombre",nombre);
+                .setParameter("nombre","%" + nombre + "%");
         
         usu = (List<Usuario>) q.getResultList();
         return usu;
+        
+        
+        
     }
 }

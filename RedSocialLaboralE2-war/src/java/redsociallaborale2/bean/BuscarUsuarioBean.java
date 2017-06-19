@@ -6,7 +6,9 @@
 package redsociallaborale2.bean;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -16,6 +18,7 @@ import javax.inject.Inject;
 import redsociallaborale2.ejb.SolicitudFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Solicitud;
+import redsociallaborale2.jpa.SolicitudPK;
 import redsociallaborale2.jpa.Usuario;
 
 /**
@@ -29,6 +32,7 @@ public class BuscarUsuarioBean implements Serializable
 
     @EJB
     private SolicitudFacade solicitudFacade;
+
 
     @EJB
     private UsuarioFacade usuarioFacade;
@@ -59,14 +63,14 @@ public class BuscarUsuarioBean implements Serializable
     {
         usu = sesion.usuario; 
         
-      
     }
     
     
-    public String goMostrarUsuarios()
+   /* public String goMostrarUsuarios()
     {
         return "mostrarUsuarios";
     }
+*/
     
     
     
@@ -84,6 +88,7 @@ public class BuscarUsuarioBean implements Serializable
 
         if (listaUsu.size()>0)
         {
+            sesion.seleccionado = listaUsu;
             return "mostrarUsuarios";
         }
         else
@@ -93,17 +98,43 @@ public class BuscarUsuarioBean implements Serializable
         
     }
 
-    public String doAmigo(List<Usuario> usuEnc)
+    public String doSolicitud(Usuario usuEnc)
     {
-        //Lista para coger para
-        
-        //listaSol = (List<Solicitud>) solicitudFacade.
-        
+        //Creo una nueva solicitud
+        Solicitud solNueva = new Solicitud(new SolicitudPK(usu.getId(), usuEnc.getId()));
         
         
-        return "main2";
+        solNueva.setEmisor(usu);
+        solNueva.setReceptor(usuEnc);
+        solNueva.setFecha(new Date());
+        solNueva.setVisto('F');
+        
+        solicitudFacade.create(solNueva);
+        
+        usu.getSolicitudesEmitidas().add(solNueva);
+        usuEnc.getSolicitudesRecibidas().add(solNueva);
+        
+        usuarioFacade.edit(usu);
+        usuarioFacade.edit(usuEnc);
+        
+        return "mostrarUsuarios";
+        
     }
     
+    public boolean verAmigos (Usuario usuEnc)
+    {
+       List<Usuario> listaU = new ArrayList<>();
+        
+         for (Solicitud s :usu.getSolicitudesEmitidas())
+         {
+             //Lista de personas a las que envio solicitud
+             listaU.add(s.getReceptor());
+         }
+        
+        return !usu.getAmigos().contains(usuEnc) && !listaU.contains(usuEnc);
+        
+        
+    }
     
     
     

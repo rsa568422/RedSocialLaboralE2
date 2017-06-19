@@ -2,99 +2,169 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
-        
-        <meta charset="utf-8"/>
+
+        <meta charset="UTF-8"/>
+
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>    
-          /* Set black background color, white text and some padding */
-          footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-          }
+            /* Set black background color, white text and some padding */
+            footer {
+                background-color: #555;
+                color: white;
+                padding: 15px;
+            }
         </style>
     </h:head>
     <h:body>
-        
+
         <!-- NAVBAR -->
-        
-            <nav class="navbar navbar-inverse">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                        
-                  </button>
-                  <a class="navbar-brand" href="#">Red Social Laboral</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                  <ul class="nav navbar-nav">
-                    <li><h:link value="Home" outcome="#{usuarioBean.doMain()}"></h:link></li>
-                    <li><h:link value="Contactos" outcome="#{contactoBean.goContactos()}"></h:link></li>
-                    <li><h:link value="Log Out" outcome="#{usuarioBean.doLogOut()}"></h:link></li>
-                    <li><h:link value="Sing Out" outcome="#{usuarioBean.doSignOut()}"></h:link></li>
-                    <li><a href="#">Mensajes</a></li>
-                  </ul>
-                  
-                    <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-            
-        <!-- FIN NAVBAR -->
-        
         <h:form>
-        <div class="col-sm-7">
-            <div class="col-sm-12">
-                <div class="well">
-                    <title>Usuario logueado: #{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>                        
+                        </button>
+                        <a class="navbar-brand">Red Social Laboral</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><h:commandLink value="Inicio" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                            <li><h:commandLink value="Contactos" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                            <li><h:commandLink value="Mensajes" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                            <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
+                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> Mi perfil</h:commandLink></li>
+                        </ul>
+
+                    </div>
                 </div>
-            </div> 
-            
-            <div class="row">
-                <div class="well">
-                    <h:dataTable value="#{buscarUsuarioBean.listaUsu}" var="usuEnc">
-                        <h:column>
-                            <f:facet name="header">
-                            Nombre  
-                            </f:facet>
-                            #{usuEnc.nombre} #{usuEnc.apellidos}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                            Enviar solicitud
-                            </f:facet>
-                          <!--  <h:selectManyCheckbox action="#">
-                            </h:selectManyCheckbox> -->
-                        </h:column>
-                        
-                    </h:dataTable>
-                    
-                    <div class="well">
-                        <h:commandButton value="Solicitar amistad" action="#{buscarUsuarioBean.doAmigo(usuEnc)}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
-                </div>
-                    
-                </div>
-                
-            </div>
-            
-            
-        </div>
+            </nav>
         </h:form>
-        
-        
-        
-        
-        
+
+        <!-- FIN NAVBAR -->
+
+
+        <div class="container text-center">
+
+            <div class="row">
+
+                <!-- TABLA USUARIO LOGUEADO -->
+                <div class="col-sm-2 well">
+                    <h:form>    
+                        <div class="well">
+                        <p align="center"><strong>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</strong></p>
+                        <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                        </div>
+
+                        <div class="well">
+                            <p><a href="#">Aficiones</a></p>
+                            <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
+                                <h:column>
+                                    <p align="center">
+                                        <span class="label label-success">
+                                            #{af.aficionPK.nombre}
+                                        </span>
+                                    </p>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                        
+                        <div class="well">
+                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                        </div>
+                        
+                        <div class="well">
+                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                        </div>
+                        
+                        
+                    </h:form>
+                </div>
+
+                <!-- FIN TABLA USUARIO LOGUEADO -->
+                
+                <!-- INICIO TABLA MOSTRAR USUARIOS -->     
+            
+       <div class="col-sm-7">
+           <h:form id="formajax">   
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="well">
+                                    <h2><p align="center"><strong>Usuarios encontrado</strong></p></h2>
+                                    
+                                    <h:dataTable class="table" value="#{usuarioBean.seleccionado}" var="usuEnc">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputLabel value="Nombre"/>  
+                                            </f:facet>
+                                            #{usuEnc.nombre} #{usuEnc.apellidos}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputLabel value="Solicitar amistad" />
+                                            </f:facet>
+                                            
+                                            <p align="left">
+                                                <h:commandLink action="#{buscarUsuarioBean.doSolicitud(usuEnc)}" rendered="#{buscarUsuarioBean.verAmigos(usuEnc)}" value="Solicitar">
+                                                    <f:ajax execute="@form" render="formajax"></f:ajax>
+                                                </h:commandLink>
+                                            </p>
+                                            
+                                        </h:column>
+                                        
+                                    </h:dataTable>
+
+
+                                    <!--<h:commandButton value="Solicitar" action="#" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton> -->
+                                </div> 
+                            </div>
+                            <!-- FIN TABLA MOSTRAR USUARIOS -->      
+                          </div>
+                    </h:form>
+                </div>
+
+                <!-- INICIO TABLA BUSQUEDAS -->
+                <div class="col-sm-3 well">
+                    <h:form>
+                        <div class="well">
+                            <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
+                            <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
+                            
+                            <h:selectManyCheckbox value="#{buscarUsuarioBean.selecc}">
+                                <f:selectItem itemLabel="nombre" itemValue="1" ></f:selectItem>
+                                
+                                <f:selectItem itemLabel="apellidos" itemValue="2"></f:selectItem>
+                               
+                                <f:selectItem itemLabel="email" itemValue="3"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="twitter" itemValue="4"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="instagram" itemValue="5"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="web" itemValue="6"></f:selectItem>
+                            </h:selectManyCheckbox>
+  
+                            <p><h:commandButton value="Buscar" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p> 
+                        </div>
+                    </h:form>
+                </div>
+
+                <!-- FIN TABLA BUSQUEDAS -->
+            </div>
+        </div>
+
     </h:body>
 </html>
-

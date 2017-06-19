@@ -79,12 +79,7 @@ public class SolicitudesBean
         //Elimino la solicitud
         solicitudFacade.remove(solicitud);
         
-        
-        
-        
-        init();
-        
-       
+        init(); 
         return "main2";
        
     }

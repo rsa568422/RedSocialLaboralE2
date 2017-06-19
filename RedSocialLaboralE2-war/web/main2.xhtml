@@ -42,10 +42,10 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <li><h:commandLink value="Inicio" action="#{usuarioBean.doMain()}"></h:commandLink></li>
-                            <li><h:commandLink value="Contactos" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
-                            <li><h:commandLink value="Mensajes" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
-                            <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.inicio}" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.contactos}" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.mensajes}" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.salir}" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
@@ -100,12 +100,7 @@
 
                 <!-- FIN TABLA USUARIO LOGUEADO -->
 
-
-
-
-
-
-
+                
                 <!-- INICIO TABLA MENSAJES -->
                 <div class="col-sm-7">
                        
@@ -214,9 +209,9 @@
                             <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
                             
                             <h:selectManyCheckbox value="#{buscarUsuarioBean.selecc}">
-                                <f:selectItem itemLabel="nombre" itemValue="1" ></f:selectItem>
+                                <p> <f:selectItem itemLabel="nombre" itemValue="1" ></f:selectItem></p>
                                 
-                                <f:selectItem itemLabel="apellidos" itemValue="2"></f:selectItem>
+                                <p><f:selectItem itemLabel="apellidos" itemValue="2"></f:selectItem></p>
                                
                                 <f:selectItem itemLabel="email" itemValue="3"></f:selectItem>
                                 

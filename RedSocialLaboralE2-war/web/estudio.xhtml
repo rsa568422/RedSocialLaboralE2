@@ -10,93 +10,94 @@ and open the template in the editor.
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
-        
+
         <meta charset="UTF-8"/>
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>    
-          /* Set black background color, white text and some padding */
-          footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-          }
+            /* Set black background color, white text and some padding */
+            footer {
+                background-color: #555;
+                color: white;
+                padding: 15px;
+            }
         </style>
     </h:head>
     <h:body>
-        
+
         <!-- NAVBAR -->
         <h:form>
             <nav class="navbar navbar-inverse">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                        
-                  </button>
-                  <a class="navbar-brand">Red Social Laboral</a>
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>                        
+                        </button>
+                        <a class="navbar-brand">Red Social Laboral</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><h:commandLink value="#{msg.inicio}" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.contactos}" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.mensajes}" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.salir}" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
+                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> #{msg.miperfil}</h:commandLink></li>
+                        </ul>
+
+                    </div>
                 </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                  <ul class="nav navbar-nav">
-                    <li><h:commandLink value="Inicio" action="#{usuarioBean.doMain()}"></h:commandLink></li>
-                    <li><h:commandLink value="Contactos" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
-                    <li><h:commandLink value="Mensajes" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
-                    <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
-                  </ul>
-                  
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
-                        <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> Mi perfil</h:commandLink></li>
-                  </ul>
-               
-                </div>
-              </div>
             </nav>
         </h:form>
-            
+
         <!-- FIN NAVBAR -->
-        
+
+
         <div class="container text-center">
-        
+
             <div class="row">
-                
-            <!-- TABLA USUARIO LOGUEADO -->
+
+                <!-- TABLA USUARIO LOGUEADO -->
                 <div class="col-sm-2 well">
-                <h:form>    
-                    <div class="well">
+                    <h:form>    
+                        <div class="well">
                         <p align="center"><strong>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</strong></p>
                         <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
-                    </div>
-                    
-                    <div class="well">
-                        <p><a href="#">Aficiones</a></p>
-                        <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
-                            <h:column>
-                                <p align="center">
-                                <span class="label label-success">
-                                    #{af.aficionPK.nombre}
-                                </span>
-                            </p>
-                            </h:column>
-                        </h:dataTable>
-                    </div>
-                    
-                    <div class="well">
-                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                        </div>
+
+                        <div class="well">
+                            <p><a href="#">#{msg.aficiones}</a></p>
+                            <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
+                                <h:column>
+                                    <p align="center">
+                                        <span class="label label-success">
+                                            #{af.aficionPK.nombre}
+                                        </span>
+                                    </p>
+                                </h:column>
+                            </h:dataTable>
                         </div>
                         
-                    <div class="well">
-                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
-                    </div>
-                    
-                    
-                </h:form>
+                        <div class="well">
+                            <h:commandButton value="#{msg.experiencia}" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                        </div>
+                        
+                        <div class="well">
+                            <h:commandButton value="#{msg.estudios}" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                        </div>
+                        
+                        
+                    </h:form>
                 </div>
-                
+
                 <!-- FIN TABLA USUARIO LOGUEADO -->
                 
                 
@@ -106,7 +107,7 @@ and open the template in the editor.
                     <div class="col-sm-7">
                         <div class="col-sm-12">
                             <div class="well">
-                                <p><h2>Editar estudios</h2></p>
+                                <p><h2>#{msg.editarEstudios}</h2></p>
                             </div>
                         </div>
                         
@@ -115,7 +116,7 @@ and open the template in the editor.
                             <div class="col-sm-3">
                                 <div class="well">
                                     <p>
-                                        Fecha de inicio:
+                                        #{msg.fechaInicio}
                                     </p>
                                 </div>
                             </div>
@@ -136,7 +137,7 @@ and open the template in the editor.
                             <div class="col-sm-3">
                                 <div class="well">
                                     <p>
-                                        Fecha de fin:
+                                        #{msg.fechaFin}
                                     </p>
                                 </div>
                             </div>
@@ -158,14 +159,14 @@ and open the template in the editor.
                             <div class="col-sm-3">
                                 <div class="well">
                                     <p>
-                                        Descripcion:
+                                        #{msg.descripcion}
                                     </p>
                                 </div>
                             </div>
                             <div class="col-sm-9">
                                  <div class="well">   
                                   <p>
-                                    <h:inputText id="descripcion" value="#{estudiosCrudModificarBean.estudioSeleccionado.descripcion}" title="Descripcion">
+                                    <h:inputText id="descripcion" value="#{estudiosCrudModificarBean.estudioSeleccionado.descripcion}" title="#{msg.descripcion}">
                                         
                                     </h:inputText>
                                     <h:outputLabel value="*" rendered="#{estudiosCrudModificarBean.doShowErrorCampos()}"/>  
@@ -181,14 +182,14 @@ and open the template in the editor.
                             <div class="col-sm-3">
                                 <div class="well">
                                     <p>
-                                        Ubicación:
+                                        #{msg.ubicacion}
                                     </p>
                                 </div>
                             </div>
                             <div class="col-sm-9">
                                  <div class="well">   
                                   <p>
-                                    <h:inputText id="ubicacion" value="#{estudiosCrudModificarBean.estudioSeleccionado.ubicacion}" title="Ubicacion">
+                                    <h:inputText id="ubicacion" value="#{estudiosCrudModificarBean.estudioSeleccionado.ubicacion}" title="#{msg.ubicacion}">
                                         
                                     </h:inputText>
                                     <h:outputLabel value="*" rendered="#{estudiosCrudModificarBean.doShowErrorCampos()}"/>  
@@ -202,7 +203,7 @@ and open the template in the editor.
                         <div class="col-sm-12">
 
                             <div class="well">
-                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{estudiosCrudModificarBean.doGuardar()}" value="Guardar"></h:commandButton>
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{estudiosCrudModificarBean.doGuardar()}" value="#{msg.aceptar}"></h:commandButton>
                             </div>
                             
                             
@@ -211,7 +212,7 @@ and open the template in the editor.
                         <div class="col-sm-12">
 
                             <div class="well">
-                                <h:commandButton class="btn btn-primary btn-lg btn-block" value="Cancelar" action="#{estudiosCrudBean.goListaEstudios()}"></h:commandButton>
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" value="#{msg.cancelar}" action="#{estudiosCrudBean.goListaEstudios()}"></h:commandButton>
                             </div>
                         </div>
                         <h:outputText value="#{estudiosCrudModificarBean.doShowErrorMsg()}"/>
@@ -227,39 +228,40 @@ and open the template in the editor.
                 
                 
          
-                <!-- INICIO TABLA BUSQUEDAS -->
-                        <div class="col-sm-3 well">
-                            <h:form>
-                            <div class="well">
-                                <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
-                                <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
-                                   <!-- <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
-                                        <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
-                                        <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
-                                        <f:selectItems itemLabel="email" value="3"></f:selectItems>
-                                        <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
-                                        <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
-                                        <f:selectItems itemLabel="web" value="6"></f:selectItems>
-                                    </h:selectManyCheckbox> 
-                                   -->
-                                   <p><h:commandButton value="Buscar" action="#" class="btn btn-primary"></h:commandButton></p>
-                            </div>
-                            </h:form>
+               <!-- INICIO TABLA BUSQUEDAS -->
+                <div class="col-sm-3 well">
+                    <h:form>
+                        <div class="well">
+                            <p><h:outputLabel value="#{msg.busquedaAvanzada}"></h:outputLabel></p>
+                            <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
+                            
+                            
+                            <h:selectManyCheckbox layout="pageDirection" value="#{buscarUsuarioBean.selecc}">
+
+                                <p align="left"><f:selectItem itemLabel="#{msg.nombre}" itemValue="1"></f:selectItem></p>
+                                
+                                <p align="left"><f:selectItem itemLabel="#{msg.apellidos}" itemValue="2"></f:selectItem></p>
+                                
+                                <f:selectItem itemLabel="#{msg.email}" itemValue="3"></f:selectItem>
+                                       
+                                <f:selectItem itemLabel="#{msg.twitter}" itemValue="4"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.instagram}" itemValue="5"></f:selectItem>
+                              
+                                <f:selectItem itemLabel="#{msg.web}" itemValue="6"></f:selectItem>
+                                      
+                                  
+                            </h:selectManyCheckbox>
+                           
+                            
+                            <p><h:commandButton value="#{msg.buscar}" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p> 
                         </div>
-                    
+                    </h:form>
+                </div>
+
                 <!-- FIN TABLA BUSQUEDAS -->
-                
-                
-                
-                
             </div>
-            
         </div>
 
-       
     </h:body>
 </html>
-         
-                
-                
-       

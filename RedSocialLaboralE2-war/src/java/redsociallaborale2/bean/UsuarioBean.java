@@ -11,10 +11,14 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import redsociallaborale2.ejb.UsuarioFacade;
 import redsociallaborale2.jpa.Usuario;
 
@@ -31,9 +35,10 @@ public class UsuarioBean implements Serializable {
     
     protected Usuario usuario;
     protected Object seleccionado;
+    protected String localizacion;
+    protected static Map<String, Object> listaIdiomas;
     protected int error;
     
-
     /**
      * Creates a new instance of UsuarioBean
      */
@@ -44,6 +49,7 @@ public class UsuarioBean implements Serializable {
     void init() {
         usuario = new Usuario();
         seleccionado = null;
+        localizacion = FacesContext.getCurrentInstance().getViewRoot().getLocale().toString();
         error = 0;
     }
 
@@ -61,6 +67,22 @@ public class UsuarioBean implements Serializable {
 
     public void setSeleccionado(Object seleccionado) {
         this.seleccionado = seleccionado;
+    }
+
+    public String getLocalizacion() {
+        return localizacion;
+    }
+
+    public void setLocalizacion(String localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public Map<String, Object> getListaIdiomas() {
+        return listaIdiomas;
+    }
+
+    public static void setListaIdiomas(Map<String, Object> listaIdiomas) {
+        UsuarioBean.listaIdiomas = listaIdiomas;
     }
 
     public int getError() {
@@ -367,5 +389,21 @@ public class UsuarioBean implements Serializable {
             default: str = "";
         }
         return str;
+    }
+    
+    static {
+        listaIdiomas = new LinkedHashMap<>();
+        listaIdiomas.put("English", Locale.ENGLISH);
+        Locale catellano = new Locale("ES");
+        listaIdiomas.put("Castellano", catellano);
+    }
+    
+    public void localeChanged(ValueChangeEvent e) {
+        String nueva = e.getNewValue().toString();
+        for (Map.Entry<String, Object> entry : listaIdiomas.entrySet()) {
+            if (entry.getValue().toString().equals(nueva)) {
+                FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale) entry.getValue());
+            }
+        }
     }
 }

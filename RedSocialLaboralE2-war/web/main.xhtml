@@ -27,6 +27,16 @@
         </style>
     </h:head>
     <h:body>
+        
+        <!-- IDIOMA -->
+        <h:form>
+            <h:selectOneMenu value="#{usuarioBean.localizacion}"
+                             onchange="submit()"
+                             valueChangeListener="#{usuarioBean.localeChanged}">
+                <f:selectItems value="#{usuarioBean.listaIdiomas}"/>
+            </h:selectOneMenu>
+        </h:form>
+        <!-- FIN IDIOMA -->
 
         <!-- NAVBAR -->
         <h:form>

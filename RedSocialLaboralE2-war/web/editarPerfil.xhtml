@@ -2,110 +2,351 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
     Document   : editarPerfil.xhtml
-    Author     : Roberto Sanchez
+    Author     : Roberto Sanchez e Inma Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
-        <meta charset="UTF-8"/>
         <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+        
+        <meta charset="UTF-8"/>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>    
+          /* Set black background color, white text and some padding */
+          footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+          }
+        </style>
     </h:head>
     <h:body>
-        <div>
-            <h:form>
-                <table>
-                    <tr>
-                        <td>
-                            <h:commandLink action="#{usuarioBean.doVerPerfil()}">
-                                <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
-                            </h:commandLink>
-                        </td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td><h:outputLabel value="#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}"/></td>
-                                </tr>
-                            </table>
-                            <table>
-                                <tr>
-                                    <td><h:commandButton value="Volver" action="#{usuarioBean.doVerPerfil()}"/></td>
-                                    <td><h:commandLink value="Log Out" action="#{usuarioBean.doLogOut()}"/></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </h:form>
-        </div>
-        <h1>editarPerfil.xhtml</h1>
-        <div>
-            <h:form>
-                <table border="0">
-                    <tr><td colspan="2"><b><h:outputText value="Información del usuario"/></b></td></tr>
-                    <tr>
-                        <td><h:outputLabel value="Email"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.email}" maxlength="50" p:placeholder="Introduzca email"/></td>
-                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorEmail()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputText value="Pass"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.pass}" maxlength="20" p:placeholder="Introduzca pass"/></td>
-                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputText value="Pass"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.rePass}" maxlength="20" p:placeholder="Confirme pass"/></td>
-                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="Nombre"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.nombre}" maxlength="50" p:placeholder="Introduzca nombre"/></td>
-                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorNombre()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="Apellidos"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.apellidos}" maxlength="50" p:placeholder="Introduzca apellidos"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="Twitter"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.twitter}" maxlength="50" p:placeholder="Introduzca identificador de Twitter"/></td>
-                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorTwitter()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="Instagram"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.instagram}" maxlength="50" p:placeholder="Introduzca identificador de Instagram"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="Web"/></td>
-                        <td><h:inputText value="#{editarUsuarioBean.web}" maxlength="50" p:placeholder="Introduzca URL de su web personal"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="Foto"/></td>
-                        <td>
-                            <img src="#{usuarioBean.doShowFoto(usuarioBean.seleccionado)}" class="img-circle" height="65" width="65" alt="Avatar"/><br/>
-                            <h:inputText value="#{editarUsuarioBean.foto}" maxlength="100" p:placeholder="Introduzca ruta de su foto"/>
-                        </td>
-                        <td><h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorFoto()}"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <h:dataTable value="#{editarUsuarioBean.doShowErrorMsg()}" var="mensaje">
+        
+        <!-- NAVBAR -->
+        <h:form>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>                        
+                        </button>
+                        <a class="navbar-brand">Red Social Laboral</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><h:commandLink value="#{msg.inicio}" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.contactos}" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.mensajes}" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.salir}" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
+                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> #{msg.miperfil}</h:commandLink></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </h:form>
+
+        <!-- FIN NAVBAR -->
+        
+        <div class="container text-center">
+        
+            <div class="row">
+                
+            <!-- TABLA USUARIO LOGUEADO -->
+                <div class="col-sm-2 well">
+                    <h:form>    
+                        <div class="well">
+                        <p align="center"><strong>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</strong></p>
+                        <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                        </div>
+
+                        <div class="well">
+                            <p><a href="#">#{msg.aficiones}</a></p>
+                            <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
                                 <h:column>
-                                    <h:outputText value="#{mensaje}"/>
+                                    <p align="center">
+                                        <span class="label label-success">
+                                            #{af.aficionPK.nombre}
+                                        </span>
+                                    </p>
                                 </h:column>
                             </h:dataTable>
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td><h:commandButton value="Enviar" action="#{editarUsuarioBean.doSave()}"/></td>
-                        <td><h:commandLink value="Cancelar" action="#{usuarioBean.doVerPerfil()}"/></td>
-                    </tr>
-                </table>
-            </h:form>
+                        </div>
+                        
+                        <div class="well">
+                            <h:commandButton value="#{msg.experiencia}" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                        </div>
+                        
+                        <div class="well">
+                            <h:commandButton value="#{msg.estudios}" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                        </div>
+                        
+                        
+                    </h:form>
+                </div>
+
+                <!-- FIN TABLA USUARIO LOGUEADO -->
+                
+                
+                
+                <!-- INICIO COLUMNA CENTRAL -->
+                    <h:form>
+                    <div class="col-sm-7">
+                        <div class="col-sm-12">
+                            <div class="well">
+                                <p><h2><h:outputLabel value="#{msg.informacionDelUsuario}"/></h2></p>
+                            </div>
+                        </div>
+                        
+                        <!-- EMAIL -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.email}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                  <p>
+                                    <h:inputText value="#{editarUsuarioBean.email}" maxlength="50" p:placeholder="Introduzca email"/>
+                                    <h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorEmail()}"/>
+                                  </p>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- PASS -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.password}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <h:inputText value="#{editarUsuarioBean.pass}" maxlength="20" p:placeholder="Introduzca pass"/>
+                                        <h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/> 
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                        <!-- CONFIRMA PASS -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.password}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <h:inputText value="#{editarUsuarioBean.rePass}" maxlength="20" p:placeholder="Confirme pass"/>
+                                        <h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorPass()}"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                        
+
+                        <!-- NOMBRE -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.nombre}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <h:inputText value="#{editarUsuarioBean.nombre}" maxlength="50" p:placeholder="Introduzca nombre"/>
+                                        <h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorNombre()}"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- APELLIDOS -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.apellidos}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                          <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                       <h:inputText value="#{editarUsuarioBean.apellidos}" maxlength="50" p:placeholder="Introduzca apellidos"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- TWITTER -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.twitter}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <h:inputText value="#{editarUsuarioBean.twitter}" maxlength="50" p:placeholder="Introduzca identificador de Twitter"/>
+                                        <h:outputLabel value="*" rendered="#{editarUsuarioBean.doShowErrorTwitter()}"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- INSTAGRAM -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.instagram}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <h:inputText value="#{editarUsuarioBean.instagram}" maxlength="50" p:placeholder="Introduzca identificador de Instagram"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- WEB -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.web}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <h:inputText value="#{editarUsuarioBean.web}" maxlength="50" p:placeholder="Introduzca URL de su web personal"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FOTO -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.foto}"/> 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <img src="#{usuarioBean.doShowFoto(usuarioBean.seleccionado)}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                                        <h:inputText value="#{editarUsuarioBean.foto}" maxlength="100" p:placeholder="Introduzca ruta de su foto"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div class="col-sm-12">
+
+                            <div class="well">
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{editarUsuarioBean.doSave()}" value="#{msg.editar}"></h:commandButton>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+
+                            <div class="well">
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{usuarioBean.doVerPerfil()}" value="#{msg.cancelar}"></h:commandButton>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </h:form> 
+                <!-- FIN COLUMNA CENTRAL -->
+                
+              
+                
+                <!-- INICIO TABLA BUSQUEDAS -->
+                <div class="col-sm-3 well">
+                    <h:form>
+                        <div class="well">
+                            <p><h:outputLabel value="#{msg.busquedaAvanzada}"></h:outputLabel></p>
+                            <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
+                            
+                            
+                            <h:selectManyCheckbox layout="pageDirection" value="#{buscarUsuarioBean.selecc}">
+
+                                <f:selectItem itemLabel="#{msg.nombre}" itemValue="1"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.apellidos}" itemValue="2"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.email}" itemValue="3"></f:selectItem>
+                                       
+                                <f:selectItem itemLabel="#{msg.twitter}" itemValue="4"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.instagram}" itemValue="5"></f:selectItem>
+                              
+                                <f:selectItem itemLabel="#{msg.web}" itemValue="6"></f:selectItem>
+                                      
+                                  
+                            </h:selectManyCheckbox>
+                           
+                            
+                            <p><h:commandButton value="#{msg.buscar}" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p> 
+                        </div>
+                    </h:form>
+                </div>
+
+                <!-- FIN TABLA BUSQUEDAS -->
+                
+                
+                
+                
+            </div>
+            
         </div>
+
+       
     </h:body>
 </html>
-

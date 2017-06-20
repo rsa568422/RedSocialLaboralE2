@@ -42,15 +42,15 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <li><h:commandLink value="Inicio" action="#{usuarioBean.doMain()}"></h:commandLink></li>
-                            <li><h:commandLink value="Contactos" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
-                            <li><h:commandLink value="Mensajes" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
-                            <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.inicio}" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.contactos}" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.mensajes}" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.salir}" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
                             <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
-                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> Mi perfil</h:commandLink></li>
+                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> #{msg.miperfil}</h:commandLink></li>
                         </ul>
 
                     </div>
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="well">
-                            <p><a href="#">Aficiones</a></p>
+                            <p><a href="#">#{msg.aficiones}</a></p>
                             <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
                                 <h:column>
                                     <p align="center">
@@ -87,11 +87,11 @@
                         </div>
                         
                         <div class="well">
-                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                            <h:commandButton value="#{msg.experiencia}" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
                         </div>
                         
                         <div class="well">
-                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                            <h:commandButton value="#{msg.estudios}" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
                         </div>
                         
                         
@@ -107,33 +107,33 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="well">
-                                    <h2><p align="center"><strong>Mensajes pendientes</strong></p></h2>
-                                    <h3><p><h:outputLabel value="No tienes mensajes en la bandeja de entrada." rendered="#{mensajesBean.mensajesRecibidos.size()==0}"/><br/></p></h3>
+                                    <h2><p align="center"><strong>#{msg.mensajesPendientes}</strong></p></h2>
+                                    <h3><p><h:outputLabel value="#{msg.noTienesMensajesEnBandeja}" rendered="#{mensajesBean.mensajesRecibidos.size()==0}"/><br/></p></h3>
 
  
                                     
                                     <h:dataTable class="table" value="#{mensajesBean.mensajesRecibidos}" var="mensaje" rendered="#{mensajesBean.mensajesRecibidos.size()>0}">
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="Mensaje"/>  
+                                                <h:outputLabel value="#{msg.mensaje}"/>  
                                             </f:facet>
                                             #{mensajesBean.longitudMensaje(mensaje.mensaje)}
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="De" />
+                                                <h:outputLabel value="#{msg.de}" />
                                             </f:facet>
                                             #{mensaje.emisor.nombre} #{mensaje.emisor.apellidos}
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="Fecha" />
+                                                <h:outputLabel value="#{msg.fecha}" />
                                             </f:facet>
                                             #{usuarioBean.formatoFecha(mensaje.fecha)}
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="Estado" />
+                                                <h:outputLabel value="#{msg.estado}" />
                                             </f:facet>
                                             <h:outputLabel rendered="#{mensaje.visto=='F'}">
                                                 <strong>#{mensajesBean.establecerEstado(mensaje.visto)}</strong></h:outputLabel>
@@ -142,20 +142,20 @@
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="Leer..." />
+                                                <h:outputLabel value="#{msg.leer}" />
                                             </f:facet>
-                                            <h:commandLink action="#{leerMensajeBean.doLeerMensaje(mensaje)}" value="Leer"/>
+                                            <h:commandLink action="#{leerMensajeBean.doLeerMensaje(mensaje)}" value="#{msg.leer}"/>
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
-                                                <h:outputLabel value="Borrar..." />
+                                                <h:outputLabel value="#{msg.borrar}" />
                                             </f:facet>
-                                            <h:commandLink action="#{mensajesBean.doBorrar(mensaje)}" value="Borrar"/>
+                                            <h:commandLink action="#{mensajesBean.doBorrar(mensaje)}" value="#{msg.borrar}"/>
                                         </h:column>
                                     </h:dataTable>
 
 
-                                    <h:commandButton value="Bandeja Salida" action="#{mensajesBean.goBandejaSalida()}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
+                                    <h:commandButton value="#{msg.bandejaSalida}" action="#{mensajesBean.goBandejaSalida()}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
                                 </div> 
                             </div>
                             <!-- FIN TABLA MENSAJES -->
@@ -169,20 +169,29 @@
                 <div class="col-sm-3 well">
                     <h:form>
                         <div class="well">
-                            <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
+                            <p><h:outputLabel value="#{msg.busquedaAvanzada}"></h:outputLabel></p>
                             <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
                             
-                                 <!--   <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
-                                        <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
-                                        <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
-                                        <f:selectItems itemLabel="email" value="3"></f:selectItems>
-                                        <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
-                                        <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
-                                        <f:selectItems itemLabel="web" value="6"></f:selectItems>
-                                    </h:selectManyCheckbox> 
-                                 -->
                             
-                            <p><h:commandButton value="Buscar" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p>
+                            <h:selectManyCheckbox value="#{buscarUsuarioBean.selecc}">
+
+                                <f:selectItem itemLabel="#{msg.nombre}" itemValue="1"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.apellidos}" itemValue="2"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.email}" itemValue="3"></f:selectItem>
+                                       
+                                <f:selectItem itemLabel="#{msg.twitter}" itemValue="4"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.instagram}" itemValue="5"></f:selectItem>
+                              
+                                <f:selectItem itemLabel="#{msg.web}" itemValue="6"></f:selectItem>
+                                      
+                                  
+                            </h:selectManyCheckbox>
+                           
+                            
+                            <p><h:commandButton value="#{msg.buscar}" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p> 
                         </div>
                     </h:form>
                 </div>
@@ -193,3 +202,4 @@
 
     </h:body>
 </html>
+

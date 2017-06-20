@@ -62,7 +62,7 @@ public class BuscarUsuarioBean implements Serializable
     void init()
     {
         usu = sesion.usuario; 
-        
+        selecc = new Integer[] {1};
     }
     
     

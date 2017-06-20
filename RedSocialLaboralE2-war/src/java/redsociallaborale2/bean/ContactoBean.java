@@ -26,9 +26,7 @@ public class ContactoBean {
     @EJB
     private UsuarioFacade usuarioFacade;
 
-    @EJB
-    private SolicitudFacade solicitudFacade;
-    
+
     
 
     

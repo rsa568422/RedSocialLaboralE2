@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import redsociallaborale2.ejb.UsuarioFacade;
-import redsociallaborale2.jpa.Estudios;
 import redsociallaborale2.jpa.Usuario;
 
 /**
@@ -90,18 +89,18 @@ public class UsuarioBean implements Serializable {
     
     public String doVerPerfil() {
         seleccionado = usuario;
-        return usuario != null ? "verPerfil2.xhtml" : "error.xhtml";
+        return usuario != null ? "verPerfil.xhtml" : "error.xhtml";
         //return "verPerfil2.xhtml";
     }
     
     public String doEditarPerfil() {
         seleccionado = usuario;
-        return usuario != null ? "editarPerfil2.xhtml" : "error.xhtml";
+        return usuario != null ? "editarPerfil.xhtml" : "error.xhtml";
     }
     
     public String doMain() {
         seleccionado = null;
-        return usuario != null ? "main2.xhtml" : "error.xhtml";
+        return usuario != null ? "main.xhtml" : "error.xhtml";
 }
     
     protected static int errorNombreFichero(String fichero) {

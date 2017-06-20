@@ -6,7 +6,6 @@
 package redsociallaborale2.bean;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,7 +92,7 @@ public class BuscarUsuarioBean implements Serializable
         }
         else
         {
-            return "main2";
+            return "main";
         }
         
     }

@@ -160,7 +160,7 @@ public class EditarUsuarioBean {
                 u.setFoto(foto);
                 sesion.usuario = u;
                 usuarioFacade.edit(sesion.usuario);
-                next = "verPerfil2.xhtml";
+                next = "verPerfil.xhtml";
             } else {
                 pass = "";
                 rePass = "";

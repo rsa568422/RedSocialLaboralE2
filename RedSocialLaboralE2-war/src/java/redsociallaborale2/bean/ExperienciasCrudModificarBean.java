@@ -5,7 +5,7 @@
  */
 package redsociallaborale2.bean;
 
-import java.math.BigInteger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,10 +14,8 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import redsociallaborale2.ejb.EstudiosFacade;
 import redsociallaborale2.ejb.ExperienciaFacade;
 import redsociallaborale2.ejb.UsuarioFacade;
-import redsociallaborale2.jpa.Estudios;
 import redsociallaborale2.jpa.Experiencia;
 
 /**

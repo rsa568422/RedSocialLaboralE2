@@ -80,7 +80,7 @@ public class SolicitudesBean
         solicitudFacade.remove(solicitud);
         
         init(); 
-        return "main2";
+        return "main";
        
     }
     

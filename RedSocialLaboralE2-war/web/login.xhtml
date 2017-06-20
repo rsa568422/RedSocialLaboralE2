@@ -17,13 +17,13 @@
             <h:form>
                 <table>
                     <tr>
-                        <td><h:outputText value="USER"/></td>
-                        <td><h:inputText value="#{logInBean.email}" maxlength="50" p:placeholder="Introduzca email"/></td>
+                        <td><h:outputText value="#{msg.user}"/></td>
+                        <td><h:inputText value="#{logInBean.email}" maxlength="50" p:placeholder="#{msg.introduzcaEmail}"/></td>
                         <td><h:outputLabel value="*" rendered="#{usuarioBean.error != 0}"/></td>
                     </tr> 
                     <tr>
-                        <td><h:outputText value="PASS"/></td>
-                        <td><h:inputSecret value="#{logInBean.pass}" maxlength="20" p:placeholder="Introduzca pass"/></td>
+                        <td><h:outputText value="#{msg.pass}"/></td>
+                        <td><h:inputSecret value="#{logInBean.pass}" maxlength="20" p:placeholder="#{msg.introduzcaPass}"/></td>
                         <td><h:outputLabel value="*" rendered="#{usuarioBean.error != 0}"/></td>
                     </tr>
                     <tr>
@@ -33,8 +33,8 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <h:commandButton value="Log In" action="#{logInBean.doLogIn()}"/>
-                            <h:commandLink value="Sign In" action="#{logInBean.doSignIn()}"/>
+                            <h:commandButton value="#{msg.login}" action="#{logInBean.doLogIn()}"/>
+                            <h:commandLink value="#{msg.signin}" action="#{logInBean.doSignIn()}"/>
                         </td>
                     </tr>
                 </table> 

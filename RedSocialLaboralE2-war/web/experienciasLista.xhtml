@@ -4,7 +4,6 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -43,15 +42,15 @@ and open the template in the editor.
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <li><h:commandLink value="Inicio" action="#{usuarioBean.doMain()}"></h:commandLink></li>
-                            <li><h:commandLink value="Contactos" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
-                            <li><h:commandLink value="Mensajes" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
-                            <li><h:commandLink value="Salir" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.inicio}" action="#{usuarioBean.doMain()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.contactos}" action="#{contactoBean.goContactos()}"></h:commandLink>></li>
+                            <li><h:commandLink value="#{msg.mensajes}" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
+                            <li><h:commandLink value="#{msg.salir}" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
                             <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
-                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> Mi perfil</h:commandLink></li>
+                            <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> #{msg.miperfil}</h:commandLink></li>
                         </ul>
 
                     </div>
@@ -60,8 +59,9 @@ and open the template in the editor.
         </h:form>
 
         <!-- FIN NAVBAR -->
-        
-         <div class="container text-center">
+
+
+        <div class="container text-center">
 
             <div class="row">
 
@@ -74,7 +74,7 @@ and open the template in the editor.
                         </div>
 
                         <div class="well">
-                            <p><a href="#">Aficiones</a></p>
+                            <p><a href="#">#{msg.aficiones}</a></p>
                             <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
                                 <h:column>
                                     <p align="center">
@@ -87,11 +87,11 @@ and open the template in the editor.
                         </div>
                         
                         <div class="well">
-                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
+                            <h:commandButton value="#{msg.experiencia}" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
                         </div>
                         
                         <div class="well">
-                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                            <h:commandButton value="#{msg.estudios}" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
                         </div>
                         
                         
@@ -107,13 +107,13 @@ and open the template in the editor.
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="well">
-                                <h2><p align="center"><strong>Listado de experiencia</strong></p></h2>
+                                <h2><p align="center"><strong>#{msg.listadoExperiencia}</strong></p></h2>
 
         
                 <h:dataTable class="table" value="#{experienciasCrudBean.experienciaLista}" var="experiencia">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="FechaInicio"/>
+                            <h:outputText value="#{msg.fechaInicio}"/>
                         </f:facet>
                         <h:outputText value="#{experiencia.fechaInicio}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -121,7 +121,7 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="FechaFin"/>
+                            <h:outputText value="#{msg.fechaFin}"/>
                         </f:facet>
                         <h:outputText value="#{experiencia.fechaFin}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -129,40 +129,40 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Empresa"/>
+                            <h:outputText value="#{msg.empresa}"/>
                         </f:facet>
                         <h:outputText value="#{experiencia.empresa}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Puesto"/>
+                            <h:outputText value="#{msg.puesto}"/>
                         </f:facet>
                         <h:outputText value="#{experiencia.puesto}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Web"/>
+                            <h:outputText value="#{msg.web}"/>
                         </f:facet>
                         <h:outputText value="#{experiencia.webempresa}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            EDITAR
+                            #{msg.editar}
                         </f:facet>
-                        <h:commandLink action="#{experienciasCrudBean.doEditar(experiencia)}"  value="Editar" />
+                        <h:commandLink action="#{experienciasCrudBean.doEditar(experiencia)}"  value="#{msg.editar}" />
                     </h:column> 
                     <h:column>
                         <f:facet name="header">
-                            BORRAR
+                            #{msg.borrar}
                         </f:facet>
-                        <h:commandButton action="#{experienciasCrudBean.doBorrar(experiencia)}" styleClass="btn btn-danger" value="BORRAR" >
+                        <h:commandButton action="#{experienciasCrudBean.doBorrar(experiencia)}" styleClass="btn btn-danger" value="#{msg.borrar}" >
                             <f:ajax execute="@form" render="formajax"/>
                         </h:commandButton>
                     </h:column>
                 </h:dataTable>
                 <br/>
                     
-                <h:commandButton action="#{experienciasCrudModificarBean.doNuevo()}" styleClass="btn btn-primary btn-lg btn-block" value="Añadir Experiencia"/>
+                <h:commandButton action="#{experienciasCrudModificarBean.doNuevo()}" styleClass="btn btn-primary btn-lg btn-block" value="#{msg.añadirExperiencia}"/>
             
                             </div> 
                         </div>
@@ -174,23 +174,32 @@ and open the template in the editor.
         </div>
 
                 <!-- INICIO TABLA BUSQUEDAS -->
-<div class="col-sm-3 well">
+                <div class="col-sm-3 well">
                     <h:form>
                         <div class="well">
-                            <p><h:outputLabel value="Busqueda avanzada"></h:outputLabel></p>
+                            <p><h:outputLabel value="#{msg.busquedaAvanzada}"></h:outputLabel></p>
                             <p><h:inputText value="#{buscarUsuarioBean.nomUs}" p:placeholder="Introduzca ..." ></h:inputText></p>
                             
-                                 <!--   <h:selectManyCheckbox id="seleccionado" value="{buscarUsuarioBean.selecc}">
-                                        <f:selectItems itemLabel="nombre" value="1"></f:selectItems>
-                                        <f:selectItems itemLabel="apellidos" value="2"></f:selectItems>
-                                        <f:selectItems itemLabel="email" value="3"></f:selectItems>
-                                        <f:selectItems itemLabel="twitter" value="4"></f:selectItems>
-                                        <f:selectItems itemLabel="instagram" value="5"></f:selectItems>
-                                        <f:selectItems itemLabel="web" value="6"></f:selectItems>
-                                    </h:selectManyCheckbox> 
-                                 -->
                             
-                            <p><h:commandButton value="Buscar" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p>
+                            <h:selectManyCheckbox layout="pageDirection" value="#{buscarUsuarioBean.selecc}">
+
+                                <p align="left"><f:selectItem itemLabel="#{msg.nombre}" itemValue="1"></f:selectItem></p>
+                                
+                                <p align="left"><f:selectItem itemLabel="#{msg.apellidos}" itemValue="2"></f:selectItem></p>
+                                
+                                <f:selectItem itemLabel="#{msg.email}" itemValue="3"></f:selectItem>
+                                       
+                                <f:selectItem itemLabel="#{msg.twitter}" itemValue="4"></f:selectItem>
+                                
+                                <f:selectItem itemLabel="#{msg.instagram}" itemValue="5"></f:selectItem>
+                              
+                                <f:selectItem itemLabel="#{msg.web}" itemValue="6"></f:selectItem>
+                                      
+                                  
+                            </h:selectManyCheckbox>
+                           
+                            
+                            <p><h:commandButton value="#{msg.buscar}" action="#{buscarUsuarioBean.usuariosEncontrados()}" class="btn btn-primary"></h:commandButton></p> 
                         </div>
                     </h:form>
                 </div>

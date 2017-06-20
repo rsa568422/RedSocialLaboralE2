@@ -16,47 +16,47 @@
         <div>
             <h:form>
                 <table border="0">
-                    <tr><td colspan="2"><b><h:outputText value="Información del usuario"/></b></td></tr>
+                    <tr><td colspan="2"><b><h:outputText value="#{msg.informacionDelUsuario}"/></b></td></tr>
                     <tr>
-                        <td><h:outputLabel value="Email"/></td>
-                        <td><h:inputText value="#{signInBean.email}" maxlength="50" p:placeholder="Introduzca email"/></td>
+                        <td><h:outputLabel value="#{msg.email}"/></td>
+                        <td><h:inputText value="#{signInBean.email}" maxlength="50" p:placeholder="#{msg.introduzcaEmail}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorEmail()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="Pass"/></td>
-                        <td><h:inputSecret value="#{signInBean.pass}" maxlength="20" p:placeholder="Introduzca pass"/></td>
+                        <td><h:outputText value="#{msg.password}"/></td>
+                        <td><h:inputSecret value="#{signInBean.pass}" maxlength="20" p:placeholder="#{msg.introduzcaPass}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputText value="Pass"/></td>
-                        <td><h:inputSecret value="#{signInBean.rePass}" maxlength="20" p:placeholder="Confirme pass"/></td>
+                        <td><h:outputText value="#{msg.password}"/></td>
+                        <td><h:inputSecret value="#{signInBean.rePass}" maxlength="20" p:placeholder="#{msg.confirmePass}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel value="Nombre"/></td>
-                        <td><h:inputText value="#{signInBean.nombre}" maxlength="50" p:placeholder="Introduzca nombre"/></td>
+                        <td><h:outputLabel value="#{msg.nombre}"/></td>
+                        <td><h:inputText value="#{signInBean.nombre}" maxlength="50" p:placeholder="#{msg.introduzcaNombre}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorNombre()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel value="Apellidos"/></td>
-                        <td><h:inputText value="#{signInBean.apellidos}" maxlength="50" p:placeholder="Introduzca apellidos"/></td>
+                        <td><h:outputLabel value="#{msg.apellidos}"/></td>
+                        <td><h:inputText value="#{signInBean.apellidos}" maxlength="50" p:placeholder="#{msg.introduzcaApellidos}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel value="Twitter"/></td>
-                        <td><h:inputText value="#{signInBean.twitter}" maxlength="50" p:placeholder="Introduzca identificador de Twitter"/></td>
+                        <td><h:outputLabel value="#{msg.twitter}"/></td>
+                        <td><h:inputText value="#{signInBean.twitter}" maxlength="50" p:placeholder="#{msg.introduzcaTwitter}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorTwitter()}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel value="Instagram"/></td>
-                        <td><h:inputText value="#{signInBean.instagram}" maxlength="50" p:placeholder="Introduzca identificador de Instagram"/></td>
+                        <td><h:outputLabel value="#{msg.instagram}"/></td>
+                        <td><h:inputText value="#{signInBean.instagram}" maxlength="50" p:placeholder="#{msg.introduzcaInstagram}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel value="Web"/></td>
-                        <td><h:inputText value="#{signInBean.web}" maxlength="50" p:placeholder="Introduzca URL de su web personal"/></td>
+                        <td><h:outputLabel value="#{msg.web}"/></td>
+                        <td><h:inputText value="#{signInBean.web}" maxlength="50" p:placeholder="#{msg.introduzcaWeb}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel value="Foto"/></td>
-                        <td><h:inputText value="#{signInBean.foto}" maxlength="100" p:placeholder="Introduzca ruta de su foto"/></td>
+                        <td><h:outputLabel value="#{msg.foto}"/></td>
+                        <td><h:inputText value="#{signInBean.foto}" maxlength="100" p:placeholder="#{msg.introduzcaFoto}"/></td>
                         <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorFoto()}"/></td>
                     </tr>
                     <tr>
@@ -71,8 +71,8 @@
                 </table>
                 <table>
                     <tr>
-                        <td><h:commandButton value="Enviar" action="#{signInBean.doSave()}"/></td>
-                        <td><h:commandLink value="Cancelar" action="#{usuarioBean.doLogOut()}"/></td>
+                        <td><h:commandButton value="#{msg.enviar}" action="#{signInBean.doSave()}"/></td>
+                        <td><h:commandLink value="#{msg.cancelar}" action="#{usuarioBean.doLogOut()}"/></td>
                     </tr>
                 </table>
             </h:form>

@@ -11,7 +11,7 @@
         <h:form>
             <table>
                 <tr><td><h:outputText value="No deberíamos estar aqui..."/></td></tr>
-                <tr><td><h:commandLink value="Continuar" action="#{usuarioBean.doLogOut()}"/></td></tr>
+                <tr><td><h:commandLink value="#{msg.confirmar}" action="#{usuarioBean.doLogOut()}"/></td></tr>
             </table>
         </h:form>
     </h:body>

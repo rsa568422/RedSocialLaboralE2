@@ -6,76 +6,184 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
+        <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
+
         <meta charset="UTF-8"/>
-        <title>Sign In</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>    
+            /* Set black background color, white text and some padding */
+            footer {
+                background-color: #555;
+                color: white;
+                padding: 15px;
+            }
+        </style>
     </h:head>
     <h:body>
-        <h1>signin.xhtml</h1>
-        <div>
-            <h:form>
-                <table border="0">
-                    <tr><td colspan="2"><b><h:outputText value="#{msg.informacionDelUsuario}"/></b></td></tr>
-                    <tr>
-                        <td><h:outputLabel value="#{msg.email}"/></td>
-                        <td><h:inputText value="#{signInBean.email}" maxlength="50" p:placeholder="#{msg.introduzcaEmail}"/></td>
-                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorEmail()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputText value="#{msg.password}"/></td>
-                        <td><h:inputSecret value="#{signInBean.pass}" maxlength="20" p:placeholder="#{msg.introduzcaPass}"/></td>
-                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputText value="#{msg.password}"/></td>
-                        <td><h:inputSecret value="#{signInBean.rePass}" maxlength="20" p:placeholder="#{msg.confirmePass}"/></td>
-                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="#{msg.nombre}"/></td>
-                        <td><h:inputText value="#{signInBean.nombre}" maxlength="50" p:placeholder="#{msg.introduzcaNombre}"/></td>
-                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorNombre()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="#{msg.apellidos}"/></td>
-                        <td><h:inputText value="#{signInBean.apellidos}" maxlength="50" p:placeholder="#{msg.introduzcaApellidos}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="#{msg.twitter}"/></td>
-                        <td><h:inputText value="#{signInBean.twitter}" maxlength="50" p:placeholder="#{msg.introduzcaTwitter}"/></td>
-                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorTwitter()}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="#{msg.instagram}"/></td>
-                        <td><h:inputText value="#{signInBean.instagram}" maxlength="50" p:placeholder="#{msg.introduzcaInstagram}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="#{msg.web}"/></td>
-                        <td><h:inputText value="#{signInBean.web}" maxlength="50" p:placeholder="#{msg.introduzcaWeb}"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="#{msg.foto}"/></td>
-                        <td><h:inputText value="#{signInBean.foto}" maxlength="100" p:placeholder="#{msg.introduzcaFoto}"/></td>
-                        <td><h:outputLabel value="*" rendered="#{signInBean.doShowErrorFoto()}"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <h:dataTable value="#{signInBean.doShowErrorMsg()}" var="mensaje">
-                                <h:column>
-                                    <h:outputText value="#{mensaje}"/>
-                                </h:column>
-                            </h:dataTable>
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td><h:commandButton value="#{msg.enviar}" action="#{signInBean.doSave()}"/></td>
-                        <td><h:commandLink value="#{msg.cancelar}" action="#{usuarioBean.doLogOut()}"/></td>
-                    </tr>
-                </table>
-            </h:form>
+        
+        <!-- NAVBAR -->
+        <h:form>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>                        
+                        </button>
+                        <a class="navbar-brand">Red Social Laboral</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">   
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- IDIOMA -->
+                                <div style="margin-top: 10px; margin-right: 10px">
+                                    <h:form>
+                                        <h:selectOneMenu value="#{usuarioBean.localizacion}"
+                                                         onchange="submit()"
+                                                         valueChangeListener="#{usuarioBean.localeChanged}">
+                                            <f:selectItems value="#{usuarioBean.listaIdiomas}"/>
+                                        </h:selectOneMenu>
+                                    </h:form>
+                                </div>
+                        </ul> 
+                    </div>
+                </div>
+            </nav>
+        </h:form>
+
+        <!-- FIN NAVBAR -->
+        
+        
+        
+         <!-- COMIENZO CONTENEDOR CENTRAL -->
+        <div class="container text-center">
+
+            <div class="row">
+                
+              <!--   INICIO COLUMNA CENTRAL  -->
+                 <div class="col-sm-12">
+                       
+                     <div class="row"> 
+                         
+                        <h:form class="form-horizontal">
+                             <div class="col-sm-12">
+                                <div class="well"> 
+                                    <h2><p align="center"><strong>#{msg.registrarse}</strong></p></h2>
+                                    <br></br>
+                                    <h3><p align="center"><strong><h:outputText value="#{msg.informacionDelUsuario}"/></strong></p></h3>
+                                    <br></br>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.email}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputText value="#{signInBean.email}" maxlength="50" p:placeholder="#{msg.introduzcaEmail}"/>
+                                            <h:outputLabel value="*" rendered="#{signInBean.doShowErrorEmail()}"/>
+                                        </div>       
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.password}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputSecret value="#{signInBean.pass}" maxlength="20" p:placeholder="#{msg.introduzcaPass}"/>
+                                            <h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/>
+                                            
+                                        </div>       
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.password}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputSecret value="#{signInBean.rePass}" maxlength="20" p:placeholder="#{msg.confirmePass}"/>
+                                            <h:outputLabel value="*" rendered="#{signInBean.doShowErrorPass()}"/>
+                                            
+                                        </div>       
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.nombre}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputText value="#{signInBean.nombre}" maxlength="50" p:placeholder="#{msg.introduzcaNombre}"/>
+                                            <h:outputLabel value="*" rendered="#{signInBean.doShowErrorNombre()}"/>
+                                            
+                                        </div>       
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.apellidos}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputText value="#{signInBean.apellidos}" maxlength="50" p:placeholder="#{msg.introduzcaApellidos}"/>
+                                            
+                                            
+                                        </div>       
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.twitter}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputText value="#{signInBean.twitter}" maxlength="50" p:placeholder="#{msg.introduzcaTwitter}"/>
+                                            <h:outputLabel value="*" rendered="#{signInBean.doShowErrorTwitter()}"/>
+                                            
+                                        </div>       
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.instagram}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputText value="#{signInBean.instagram}" maxlength="50" p:placeholder="#{msg.introduzcaInstagram}"/>
+                                            
+                                        </div>       
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.web}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputText value="#{signInBean.web}" maxlength="50" p:placeholder="#{msg.introduzcaWeb}"/>
+                                            
+                                        </div>       
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel value="#{msg.foto}" class="control-label col-sm-2"/>
+                                        <div class="col-sm-10">
+                                            <h:inputText value="#{signInBean.foto}" maxlength="100" p:placeholder="#{msg.introduzcaFoto}"/>
+                                            <h:outputLabel value="*" rendered="#{signInBean.doShowErrorFoto()}"/>
+                                            
+                                        </div>       
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <h:dataTable value="#{signInBean.doShowErrorMsg()}" var="mensaje">
+                                            <h:column>
+                                                <h:outputText value="#{mensaje}"/>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </div>
+                                    
+                                    <div>
+                                        <h:commandButton value="#{msg.enviar}" action="#{signInBean.doSave()}" styleClass="btn btn-lg btn-success"/>
+                                        <h:commandLink value="#{msg.cancelar}" action="#{usuarioBean.doLogOut()}"/>
+                                    </div>
+        
+                                </div>
+                             </div>
+                        </h:form>
+                     </div>
+                 </div>
+            </div>
         </div>
     </h:body>
 </html>
+        
+        
+        
+        

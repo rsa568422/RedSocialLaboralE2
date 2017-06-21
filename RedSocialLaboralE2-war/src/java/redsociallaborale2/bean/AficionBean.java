@@ -34,6 +34,8 @@ public class AficionBean {
     @Inject
     protected UsuarioBean sesion;
     
+    protected boolean mostrarControles = false;
+    
     /**
      * Creates a new instance of AficionBean
      */
@@ -46,6 +48,14 @@ public class AficionBean {
 
     public void setSesion(UsuarioBean sesion) {
         this.sesion = sesion;
+    }
+
+    public boolean isMostrarControles() {
+        return mostrarControles;
+    }
+
+    public void setMostrarControles(boolean mostrarControles) {
+        this.mostrarControles = mostrarControles;
     }
     
     public String doInsertar() {
@@ -87,5 +97,10 @@ public class AficionBean {
             }
         }
         return sesion.doVerPerfil();
+    }
+    
+    public String doMostrarControles() {
+        mostrarControles = true;
+        return null;
     }
 }

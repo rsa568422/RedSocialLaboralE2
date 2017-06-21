@@ -97,7 +97,10 @@
                         </div>
 
                         <div class="well">
-                            <p><h:commandLink value="#{msg.aficiones}" action="#{aficionBean.doMostrarControles()}"/></p>
+                            <p>
+                                <h:commandLink value="#{msg.aficiones}" action="#{aficionBean.doMostrarControles()}" rendered="#{usuarioBean.usuario.equals(usuarioBean.seleccionado)}"/>
+                                <h:outputLabel value="#{msg.aficiones}" rendered="#{!usuarioBean.usuario.equals(usuarioBean.seleccionado)}"/>
+                            </p>
                             <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="aficion">
                                 <h:column>
                                     <p align="center">

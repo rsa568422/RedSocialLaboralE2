@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
-    Document   : bandejaEntrada.xhtml
-    Author     : Antonio Joaquin Luque
+    Document   : editarAficion.xhtml
+    Author     : Roberto Sanchez
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -10,24 +10,24 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</title>
-
+        
         <meta charset="UTF-8"/>
-
+        
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>    
-            /* Set black background color, white text and some padding */
-            footer {
-                background-color: #555;
-                color: white;
-                padding: 15px;
-            }
+          /* Set black background color, white text and some padding */
+          footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+          }
         </style>
     </h:head>
     <h:body>
-
+        
         <!-- NAVBAR -->
         <h:form>
             <nav class="navbar navbar-inverse">
@@ -79,111 +79,133 @@
         </h:form>
 
         <!-- FIN NAVBAR -->
-
-
+        
         <div class="container text-center">
-
+        
             <div class="row">
-
-                <!-- TABLA USUARIO LOGUEADO -->
+                
+            <!-- TABLA USUARIO LOGUEADO -->
                 <div class="col-sm-2 well">
-                    <h:form>    
-                        <div class="well">
+                <h:form>    
+                    <div class="well">
                         <p align="center"><strong>#{usuarioBean.usuario.nombre} #{usuarioBean.usuario.apellidos}</strong></p>
                         <img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="65" width="65" alt="Avatar"/>
-                        </div>
-
-                        <div class="well">
-                            <p><h:outputLabel value="#{msg.aficiones}"/></p>
-                            <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
-                                <h:column>
-                                    <p align="center">
-                                        <span class="label label-success">
-                                            #{af.aficionPK.nombre}
-                                        </span>
-                                    </p>
-                                </h:column>
-                            </h:dataTable>
-                        </div>
-                        
-                        <div class="well">
-                            <h:commandButton value="#{msg.experiencia}" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
-                        </div>
-                        
-                        <div class="well">
-                            <h:commandButton value="#{msg.estudios}" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                    </div>
+                    
+                    <div class="well">
+                        <p><h:outputLabel value="#{msg.aficiones}"/></p>
+                        <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
+                            <h:column>
+                                <p align="center">
+                                <span class="label label-success">
+                                    #{af.aficionPK.nombre}
+                                </span>
+                            </p>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    
+                    <div class="well">
+                            <h:commandButton value="Experiencia" action="#{experienciasCrudBean.goListaExperiencias()}" styleClass="btn btn-info"></h:commandButton>
                         </div>
                         
-                        
-                    </h:form>
+                    <div class="well">
+                            <h:commandButton value="Estudios" action="#{estudiosCrudBean.goListaEstudios()}" styleClass="btn btn-info"></h:commandButton>    
+                    </div>
+                    
+                    
+                </h:form>
                 </div>
-
+                
                 <!-- FIN TABLA USUARIO LOGUEADO -->
-            
-       <!-- INICIO TABLA MENSAJES -->     
-            
-       <div class="col-sm-7">
-                    <h:form>   
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="well">
-                                    <h2><p align="center"><strong>#{msg.mensajesPendientes}</strong></p></h2>
-                                    <h3><p><h:outputLabel value="#{msg.noTienesMensajesEnBandeja}" rendered="#{mensajesBean.mensajesRecibidos.size()==0}"/><br/></p></h3>
-
- 
-                                    
-                                    <h:dataTable class="table" value="#{mensajesBean.mensajesRecibidos}" var="mensaje" rendered="#{mensajesBean.mensajesRecibidos.size()>0}">
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputLabel value="#{msg.mensaje}"/>  
-                                            </f:facet>
-                                            #{mensajesBean.longitudMensaje(mensaje.mensaje)}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputLabel value="#{msg.de}" />
-                                            </f:facet>
-                                            #{mensaje.emisor.nombre} #{mensaje.emisor.apellidos}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputLabel value="#{msg.fecha}" />
-                                            </f:facet>
-                                            #{usuarioBean.formatoFecha(mensaje.fecha)}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputLabel value="#{msg.estado}" />
-                                            </f:facet>
-                                            <h:outputLabel rendered="#{mensaje.visto=='F'}">
-                                                <strong>#{mensajesBean.establecerEstado(mensaje.visto)}</strong></h:outputLabel>
-                                            <h:outputLabel rendered="#{mensaje.visto=='T'}">
-                                                #{mensajesBean.establecerEstado(mensaje.visto)}</h:outputLabel>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputLabel value="#{msg.leer}" />
-                                            </f:facet>
-                                            <h:commandLink action="#{leerMensajeBean.doLeerMensaje(mensaje)}" value="#{msg.leer}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputLabel value="#{msg.borrar}" />
-                                            </f:facet>
-                                            <h:commandLink action="#{mensajesBean.doBorrar(mensaje)}" value="#{msg.borrar}"/>
-                                        </h:column>
-                                    </h:dataTable>
-
-
-                                    <h:commandButton value="#{msg.bandejaSalida}" action="#{mensajesBean.goBandejaSalida()}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
-                                </div> 
+                
+                <!-- INICIO COLUMNA CENTRAL -->
+                    <h:form>
+                    <div class="col-sm-7">
+                        <div class="col-sm-12">
+                            <div class="well">
+                                <p><h2>#{msg.editarAficion}</h2></p>
                             </div>
-                            <!-- FIN TABLA MENSAJES -->
-                                    
-                          </div>
-                    </h:form>
+                        </div>
+                        
+                        <!-- NOMBRE ACTUAL -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.nombre}" rendered="#{!editarAficionBean.nueva}"/>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                  <p>
+                                    <h:outputLabel value="#{usuarioBean.seleccionado.aficionPK.nombre}" rendered="#{!editarAficionBean.nueva}"/>
+                                  </p>
+                                 </div>
+                            </div>
+                        </div>
+
+                        
+                        <!-- NUEVO NOMBRE -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <p>
+                                        <h:outputLabel value="#{msg.nuevoNombre}" rendered="#{!editarAficionBean.nueva}"/>
+                                        <h:outputLabel value="#{msg.nombre}" rendered="#{editarAficionBean.nueva}"/>
+                            
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                 <div class="well">   
+                                    <p>
+                                        <h:inputText value="#{editarAficionBean.nombre}" maxlength="50" p:placeholder="#{msg.nuevaAficion}"/>
+                                    </p>
+                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <h:outputLabel value="#{editarAficionBean.doShowErrorMsg()}"/>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        
+                        
+                        
+                        <div class="col-sm-12">
+
+                            <div class="well">
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{editarAficionBean.doSave()}" value="#{msg.aceptar}"></h:commandButton>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+
+                            <div class="well">
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" action="#{usuarioBean.doVerPerfil()}" value="#{msg.cancelar}"></h:commandButton>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </h:form> 
+                <!-- FIN COLUMNA CENTRAL -->
+                
+                </div>
                     
                 </div>
+                
+
+
+
 
                 <!-- INICIO TABLA BUSQUEDAS -->
                 <div class="col-sm-3 well">
@@ -195,9 +217,9 @@
                             
                             <h:selectManyCheckbox layout="pageDirection" value="#{buscarUsuarioBean.selecc}">
 
-                                <f:selectItem itemLabel="#{msg.nombre}" itemValue="1"></f:selectItem>
+                                <p align="left"><f:selectItem itemLabel="#{msg.nombre}" itemValue="1"></f:selectItem></p>
                                 
-                                <f:selectItem itemLabel="#{msg.apellidos}" itemValue="2"></f:selectItem>
+                                <p align="left"><f:selectItem itemLabel="#{msg.apellidos}" itemValue="2"></f:selectItem></p>
                                 
                                 <f:selectItem itemLabel="#{msg.email}" itemValue="3"></f:selectItem>
                                        
@@ -223,3 +245,7 @@
     </h:body>
 </html>
 
+                
+            
+            
+  

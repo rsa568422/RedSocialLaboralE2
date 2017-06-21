@@ -94,7 +94,7 @@ and open the template in the editor.
                         </div>
 
                         <div class="well">
-                            <p><a href="#">#{msg.aficiones}</a></p>
+                            <p><h:outputLabel value="#{msg.aficiones}"/></p>
                             <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
                                 <h:column>
                                     <p align="center">

@@ -97,15 +97,24 @@
                         </div>
 
                         <div class="well">
-                            <p><a href="#">#{msg.aficiones}</a></p>
-                            <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="af">
+                            <p><h:commandLink value="#{msg.aficiones}" action="#{aficionBean.doMostrarControles()}"/></p>
+                            <h:dataTable value="#{usuarioBean.usuario.aficiones}" var="aficion">
                                 <h:column>
                                     <p align="center">
                                         <span class="label label-success">
-                                            #{af.aficionPK.nombre}
+                                            <h:outputLabel value="#{aficion.aficionPK.nombre}"/>
                                         </span>
                                     </p>
                                 </h:column>
+                                <h:column>
+                                    <h:commandButton value="#{msg.editar}" action="#{aficionBean.doEditar(aficion)}" rendered="#{aficionBean.mostrarControles}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandLink value="#{msg.borrar}" action="#{aficionBean.doEliminar(aficion)}" rendered="#{aficionBean.mostrarControles}"/>
+                                </h:column>
+                                <f:facet name="footer">
+                                    <h:commandButton value="#{msg.nueva}" action="#{aficionBean.doInsertar()}" rendered="#{aficionBean.mostrarControles}"/>
+                                </f:facet>
                             </h:dataTable>
                         </div>
                         

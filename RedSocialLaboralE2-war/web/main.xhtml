@@ -109,8 +109,10 @@
                                 <h:column>
                                     <h:commandLink value="#{msg.borrar}" action="#{aficionBean.doEliminar(aficion)}" rendered="#{aficionBean.mostrarControles}"/>
                                 </h:column>
+                                <f:facet name="footer">
+                                    <h:commandButton value="#{msg.nueva}" action="#{aficionBean.doInsertar()}" rendered="#{aficionBean.mostrarControles}"/>
+                                </f:facet>
                             </h:dataTable>
-                            <h:commandButton value="#{msg.nueva}" action="#{aficionBean.doInsertar()}" rendered="#{aficionBean.mostrarControles}"/>
                         </div>
                         
                         <div class="well">

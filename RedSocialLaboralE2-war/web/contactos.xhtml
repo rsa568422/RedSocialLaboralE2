@@ -46,11 +46,31 @@
                             <li><h:commandLink value="#{msg.mensajes}" action="#{mensajesBean.goBandejaEntrada()}"></h:commandLink></li>
                             <li><h:commandLink value="#{msg.salir}" action="#{usuarioBean.doLogOut()}"></h:commandLink>></li>
                         </ul>
-
+                        
+                        <ul class="nav navbar-nav navbar-right" style="position: relative">
+                            <!-- IDIOMA -->
+                                <div style="margin-top: 10px; margin-right: 10px">
+                                    <h:form>
+                                        <h:selectOneMenu value="#{usuarioBean.localizacion}"
+                                                         onchange="submit()"
+                                                         valueChangeListener="#{usuarioBean.localeChanged}">
+                                            <f:selectItems value="#{usuarioBean.listaIdiomas}"/>
+                                        </h:selectOneMenu>
+                                    </h:form>
+                                </div>
+                        </ul> 
+                        
                         <ul class="nav navbar-nav navbar-right">
+                        
                             <li><img src="#{usuarioBean.doShowFoto(usuarioBean.usuario)}" class="img-circle" height="40" width="40" alt="Avatar"/></li>
                             <li><h:commandLink action="#{usuarioBean.doVerPerfil()}"><span class="glyphicon glyphicon-user"></span> #{msg.miperfil}</h:commandLink></li>
                         </ul>
+                        
+
+                  
+                            
+                        
+                       
 
                     </div>
                 </div>
